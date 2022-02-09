@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "asgs-postgres.fullname" . }}-postgres
+  labels:
+    {{- include "asgs-postgres.labels" . | nindent 4 }}
+    type: dbms
+spec:
+  serviceName: {{ include "asgs-postgres.fullname" . }}-postgres
+  selector:
+    matchLabels:
+      {{- include "asgs-postgres.selectorLabels" . | nindent 6 }}
+      type: dbms
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "asgs-postgres.selectorLabels" . | nindent 8 }}
+        type: dbms
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-postgres
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: POSTGRES_PASSWORD
+            value: {{ .Values.password }}
+          - name: POSTGRES_USER
+            value: {{ .Values.user }}
+          - name: POSTGRES_DB
+            value: {{ .Values.dbName }}
+          ports:
+            - name: postgres-port
+              containerPort: 5432
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: {{ include "asgs-postgres.fullname" . }}-postgres-data
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: dshm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 400Mi
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "asgs-postgres.fullname" . }}-postgres-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: {{ .Values.storage.size }}

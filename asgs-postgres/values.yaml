@@ -1,0 +1,62 @@
+# Default values for asgs-postgres.
+# This is a YAML-formatted file.
+replicaCount: 1
+
+image:
+  repository: postgres
+  tag: "9.6.23"
+  pullPolicy: IfNotPresent
+
+storage:
+    size: 20Gi
+user: changeme
+dbName: "changeme"
+password: "changeme"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 5432
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: ""
+      paths:
+        - path: /
+          pathType: ""
+  tls: []
+
+resources:
+  requests:
+    memory: 3Gi
+    cpu: 250m
+  limits:
+    memory: 5Gi
+    cpu: 2000m
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
