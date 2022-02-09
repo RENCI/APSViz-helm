@@ -1,0 +1,69 @@
+# Default values for apsviz.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: someimage
+  tag: someversion
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+  target_port: 8080
+
+ingress:
+  enabled: false
+  class: ""
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+  host: "somehostname"
+  pathType: "ImplementationSpecific"
+  tls:
+    enabled: false
+
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  limits:
+    memory: 8Gi
+    cpu: 2000m
+  requests:
+    memory: 4Gi
+    cpu: 1000m
+
+storageSize: 10Gi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
