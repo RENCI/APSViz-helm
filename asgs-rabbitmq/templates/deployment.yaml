@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "asgs-rabbitmq.fullname" . }}
+  labels:
+    {{- include "asgs-rabbitmq.labels" . | nindent 4 }}
+    type: queue
+spec:
+  serviceName: {{ include "asgs-rabbitmq.fullname" . }}
+  selector:
+    matchLabels:
+      {{- include "asgs-rabbitmq.selectorLabels" . | nindent 6 }}
+      type: queue
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "asgs-rabbitmq.selectorLabels" . | nindent 8 }}
+        type: queue
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-rbtmq-container
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "asgs-rabbitmq.fullname" . }}-configmap
+          ports:
+            - name: web-port
+              protocol: TCP
+              containerPort: {{ .Values.secrets.webPort }}
+            - name: amqp-port
+              protocol: TCP
+              containerPort: {{ .Values.secrets.amqpPort }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /data
+              name: {{ include "asgs-rabbitmq.fullname" . }}-rabbitmq-data
+              subPath: data
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "asgs-rabbitmq.fullname" . }}-rabbitmq-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: {{ .Values.storage.size }}
