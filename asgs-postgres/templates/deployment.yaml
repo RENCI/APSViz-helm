@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "asgs-postgres.fullname" . }}-postgres
+  name: {{ include "asgs-postgres.fullname" . }}
   labels:
     {{- include "asgs-postgres.labels" . | nindent 4 }}
     type: dbms
 spec:
-  serviceName: {{ include "asgs-postgres.fullname" . }}-postgres
+  serviceName: {{ include "asgs-postgres.fullname" . }}
   selector:
     matchLabels:
       {{- include "asgs-postgres.selectorLabels" . | nindent 6 }}
