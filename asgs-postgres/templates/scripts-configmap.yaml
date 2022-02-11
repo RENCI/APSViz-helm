@@ -10,6 +10,4 @@ data:
         echo "postgres not ready";
         sleep 10
     done
-    psql < $BCKP_FILE
-
-  
+    pg_restore -j 4 -d asgs_dashboard $BCKP_FILE
