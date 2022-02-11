@@ -28,7 +28,7 @@ spec:
         - /loaddb.sh
         env:
         - name: PGHOST
-          value: {{ include "asgs-postgres.fullname" . }}-postgres
+          value: {{ include "asgs-postgres.fullname" . }}
         - name: PGPORT
           value: "{{ .Values.service.port }}"
         - name: PGUSER
