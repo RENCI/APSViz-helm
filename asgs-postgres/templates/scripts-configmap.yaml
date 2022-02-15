@@ -10,4 +10,9 @@ data:
         echo "postgres not ready";
         sleep 10
     done
-    pg_restore -j 4 -d asgs_dashboard $BCKP_FILE
+
+    # note the backup should be created on the server using the following commanmd line:
+    # pg_dumpall > /projects/stars/var/data_services/asgs_pg_all.dump
+
+    psql -U {{ .Values.adminuser }} < /data/dump.sql
+
