@@ -11,6 +11,10 @@ image:
 storage:
     size: 20Gi
 
+adminuser: changeme
+adminpassword: "changeme"
+dataUrl: ""
+
 user: changeme
 dbName: "changeme"
 password: "changeme"
