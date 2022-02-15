@@ -28,15 +28,13 @@ spec:
         - /loaddb.sh
         env:
         - name: PGHOST
-          value: {{ include "asgs-postgres.fullname" . }}-postgres
+          value: {{ include "asgs-postgres.fullname" . }}
         - name: PGPORT
           value: "{{ .Values.service.port }}"
         - name: PGUSER
-          value: {{ .Values.user }}
+          value: {{ .Values.adminuser }}
         - name: PGPASSWORD
-          value: {{ .Values.password }}
-        - name: PGDATABASE
-          value: {{ .Values.dbName }}
+          value: {{ .Values.adminpassword }}
         volumeMounts:
         - mountPath:  loaddb.sh
           name: "loader-script"
