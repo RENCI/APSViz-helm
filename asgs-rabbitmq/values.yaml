@@ -51,13 +51,19 @@ service:
 
 ingress:
   enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths: []
-  tls: []
+  class: ""
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
+    nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive
+    nginx.ingress.kubernetes.io/send-timeout: "86400"
+    nginx.ingress.kubernetes.io/service-upstream: 'true'
+    nginx.ingress.kubernetes.io/upstream-keepalive-timeout: "86400"
+  host: somehost
+  pathType: "ImplementationSpecific"
+  tls:
+    enabled: false
+
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
