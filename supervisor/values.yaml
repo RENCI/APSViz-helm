@@ -23,10 +23,8 @@ serviceAccount:
   name:
 
 volumes:
-  create: false
   name: pvc-name
   claimname: pvc-claim-name
-  size: 1Gi
 
 podSecurityContext: {}
 
