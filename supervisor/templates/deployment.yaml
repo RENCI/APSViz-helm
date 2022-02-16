@@ -28,7 +28,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-          - name: log-path-pvc-vol
+          - name:  {{ .Values.volumes.name }}
             mountPath: "/data"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

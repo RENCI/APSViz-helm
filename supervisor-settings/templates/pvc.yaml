@@ -1,0 +1,17 @@
+{{ if .Values.volumes.create }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: eds-pvc
+  annotations:
+    # Allows users to uninstall the rsync-migrator helm chart afterwards
+    helm.sh/resource-policy: keep
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 250Gi
+
+{{ end }}
