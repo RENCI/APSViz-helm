@@ -43,10 +43,8 @@ spec:
               value: "{{ .Values.env.PG_PW }}"
             - name: "PG_DB"
               value: "{{ .Values.env.PG_DB }}"
-          command: [ "/bin/bash", "-c"]
-          # use the args below to have the pod come up and not start the queue handler
-          #args: [ "while true; do sleep 30; done;" ]
-          args: ["python receive_msg_service_pg.py &; python receive_cfg_msg_service_pg.py &"]
+          #command: [ "/bin/bash", "-c"]
+          #args: ["while true; do sleep 30; done;"]
           ports:
             - name: http
               containerPort: 80
