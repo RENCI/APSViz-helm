@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "asgs_message_handler.fullname" . }}
+  labels:
+    {{- include "asgs_message_handler.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "asgs_message_handler.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "asgs_message_handler.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "asgs_message_handler.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          env:
+            - name: "RABBITMQ_HOST"
+              value: "{{ .Values.env.RABBITMQ_HOST }}"
+            - name: "RABBITMQ_USER"
+              value: "{{ .Values.env.RABBITMQ_USER }}"
+            - name: "RABBITMQ_PW"
+              value: "{{ .Values.env.RABBITMQ_PW }}"
+            - name: "PG_HOST"
+              value: "{{ .Values.env.PG_HOST }}"
+            - name: "PG_USER"
+              value: "{{ .Values.env.PG_USER }}"
+            - name: "PG_PW"
+              value: "{{ .Values.env.PG_PW }}"
+            - name: "PG_DB"
+              value: "{{ .Values.env.PG_DB }}"
+          #command: [ "/bin/bash", "-c"]
+          #args: ["while true; do sleep 30; done;"]
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
