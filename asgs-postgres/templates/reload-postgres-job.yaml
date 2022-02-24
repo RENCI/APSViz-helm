@@ -15,7 +15,7 @@ spec:
             - 'wget'
           args:
             - '-O'
-            - '/data/dump.sql'
+            - '/data/{{ .Values.zipFileName }}'
             - '{{ .Values.dataUrl }}'
           volumeMounts:
           - name: data-dir

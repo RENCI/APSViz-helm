@@ -15,10 +15,6 @@ adminuser: changeme
 adminpassword: "changeme"
 dataUrl: ""
 
-user: changeme
-dbName: "changeme"
-password: "changeme"
-
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

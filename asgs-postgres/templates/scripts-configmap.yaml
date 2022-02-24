@@ -4,15 +4,37 @@ metadata:
   name: "{{- include "asgs-postgres.fullname" . }}-scripts"
 data:
   loaddb.sh: |-
-    #!/bin/bash    
-    BCKP_FILE=/data/dump.sql
+    #!/bin/bash
+    apt-get -yq update
+    apt-get -yq install zip
+
+    BCKP_FILE_1=/data/{{ .Values.sqlFile1 }}
+    BCKP_FILE_2=/data/{{ .Values.sqlFile2 }}
+
     until pg_isready ; do
         echo "postgres not ready";
         sleep 10
     done
 
-    # note the backup should be created on the server using the following commanmd line:
+    cd /data
+
+    # note the backup should be created on the server using the following command line:
     # pg_dumpall > /projects/stars/var/data_services/asgs_pg_all.dump
 
-    psql -U {{ .Values.adminuser }} < /data/dump.sql
+    unzip -P {{ .Values.zipPassword }} -j {{ .Values.zipFileName }}
 
+    #until false ; do
+    #    sleep 30
+    #done
+
+    # restore the roles without the postgres password. psql us used here because it is text format
+    psql -U {{ .Values.adminuser }} < $BCKP_FILE_1
+
+    # restore the database. pg_restore is used here because it is a compressed backup
+    pg_restore -d postgres --clean --create $BCKP_FILE_2
+
+    # this is truly a hack. pg_restore returns a count of warnings,
+    # in this case a warning stating that the "public schema already exists".
+    # this ends up creating issues in k8s. note in this case the public schema
+    # existing is due to the base postgres image used for postgis.
+    exit 0
