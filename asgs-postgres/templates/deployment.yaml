@@ -38,8 +38,6 @@ spec:
             value: {{ .Values.adminuser }}
           - name: POSTGRES_PASSWORD
             value: {{ .Values.adminpassword }}
-          - name: POSTGRES_DB
-            value: {{ .Values.dbName }}
           ports:
             - name: postgres-port
               containerPort: 5432
