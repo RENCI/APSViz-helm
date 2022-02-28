@@ -47,6 +47,8 @@ spec:
           volumeMounts:
           - mountPath: /var/lib/postgresql/data
             name: {{ include "asgs-postgres.fullname" . }}-postgres-data
+          - mountPath: /data/shm
+            name: dshm
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
