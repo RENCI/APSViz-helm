@@ -15,6 +15,7 @@ adminuser: changeme
 adminpassword: "changeme"
 dataUrl: ""
 isAWS: false
+mountSubPath: ""
 
 imagePullSecrets: []
 nameOverride: ""
