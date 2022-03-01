@@ -1,4 +1,4 @@
-# Default values for apsviz.
+# Default values for terria-map.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -9,11 +9,10 @@ image:
   tag: someversion
   pullPolicy: Always
 
+isAWS: false
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-
-isAWS: false
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -38,7 +37,7 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
-  target_port: 8080
+  target_port: 3001
 
 ingress:
   enabled: false
