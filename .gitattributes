@@ -1,1 +1,2 @@
 renci*.yaml filter=git-crypt diff=git-crypt
+aws*.yaml filter=git-crypt diff=git-crypt
