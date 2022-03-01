@@ -16,6 +16,8 @@ fullnameOverride: ""
 storage:
   size: 5Gi
 
+isAWS: false
+
 secrets:
   amqpPort: 1234
   webPort: 2345
