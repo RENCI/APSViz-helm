@@ -66,6 +66,9 @@ spec:
         name: {{ include "asgs-rabbitmq.fullname" . }}-rabbitmq-data
       spec:
         accessModes: [ "ReadWriteOnce" ]
+        {{ if .Values.isAWS }}
+        storageClassName: eds-sc
+        {{ end }}
         resources:
           requests:
             storage: {{ .Values.storage.size }}
