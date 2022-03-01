@@ -4,7 +4,10 @@ metadata:
   name: {{ include "apsviz-terriamap.name" . }}-pvc
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
+  {{ if .Values.isAWS }}
+  storageClassName: eds-sc
+  {{ end }}
   resources:
     requests:
       storage: {{ .Values.storageSize }}
