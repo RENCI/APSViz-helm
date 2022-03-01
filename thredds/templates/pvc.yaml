@@ -4,7 +4,10 @@ metadata:
   name: {{ include "apsviz-thredds.name" . }}-ncfs-pvc
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
+  {{ if .Values.isAWS }}
+  storageClassName: eds-sc
+  {{ end }}
   resources:
     requests:
       storage: {{ .Values.storageSize }}
@@ -15,7 +18,10 @@ metadata:
   name: {{ include "apsviz-thredds.name" . }}-reanalysis-pvc
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
+  {{ if .Values.isAWS }}
+  storageClassName: eds-sc
+  {{ end }}
   resources:
     requests:
       storage: {{ .Values.storageSize }}
