@@ -40,14 +40,12 @@ service:
 
 ingress:
   enabled: false
-  className: ""
+  class: ""
   annotations: {}
-  hosts:
-    - host: ""
-      paths:
-        - path: /
-          pathType: ""
-  tls: []
+  pathType: "ImplementationSpecific"
+  host: somehost
+  tls:
+    enabled: false
 
 resources:
   requests:
