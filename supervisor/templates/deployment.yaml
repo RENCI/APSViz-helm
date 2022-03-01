@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ include "apsviz-supervisor.fullname" . }}
   labels:
@@ -30,6 +30,9 @@ spec:
           volumeMounts:
           - name:  {{ .Values.volumes.name }}
             mountPath: "/data"
+          - mountPath: /repo/APSVIZ-Supervisor/supervisor/base_config.json
+            name: "base-config-script"
+            subPath: "base_config.json"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
@@ -107,6 +110,10 @@ spec:
         - name: {{ .Values.volumes.name }}
           persistentVolumeClaim:
             claimName: {{ .Values.volumes.claimname }}
+        - name: base-config-script
+          configMap:
+            name: "{{- include "apsviz-supervisor.fullname" . }}-scripts"
+            defaultMode: 0777
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
