@@ -46,6 +46,9 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
           - mountPath: /var/lib/postgresql/data
+          {{ if .Values.mountSubPath }}
+            subPath: postgresdata
+          {{ end }}
             name: {{ include "asgs-postgres.fullname" . }}-postgres-data
           - mountPath: /data/shm
             name: dshm
@@ -71,6 +74,9 @@ spec:
         name: {{ include "asgs-postgres.fullname" . }}-postgres-data
       spec:
         accessModes: [ "ReadWriteOnce" ]
+        {{ if .Values.isAWS }}
+        storageClassName: eds-sc
+        {{ end }}
         resources:
           requests:
             storage: {{ .Values.storage.size }}
