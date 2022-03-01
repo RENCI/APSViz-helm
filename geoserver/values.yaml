@@ -13,6 +13,8 @@ geoserverUser: someuser
 # It will be stored in secret later
 geoserverPassword: somepassword
 
+isAWS: false
+
 resources:
   limits:
     cpu: 250m
