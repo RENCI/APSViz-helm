@@ -4,7 +4,10 @@ metadata:
   name: "{{ include "asgs-postgres.fullname" . }}-backup-pvc"
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
+  {{ if .Values.isAWS }}
+  storageClassName: eds-sc
+  {{ end }}
   resources:
     requests:
       storage: {{ .Values.storage.size }}
