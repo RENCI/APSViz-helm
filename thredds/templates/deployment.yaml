@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "apsviz-thredds.fullname" . }}
+  labels:
+    {{- include "apsviz-thredds.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "apsviz-thredds.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "apsviz-thredds.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "apsviz-thredds.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - name: apsviz-thredds-ncfs-vol
+              mountPath: /usr/local/tomcat/content/thredds/public/ncfs
+            - name: apsviz-thredds-reanalysis-vol
+              mountPath: /usr/local/tomcat/content/thredds/public/reanalysis
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: apsviz-thredds-ncfs-vol
+          persistentVolumeClaim:
+            claimName: {{ include "apsviz-thredds.name" . }}-ncfs-pvc
+        - name: apsviz-thredds-reanalysis-vol
+          persistentVolumeClaim:
+            claimName: {{ include "apsviz-thredds.name" . }}-reanalysis-pvc
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
