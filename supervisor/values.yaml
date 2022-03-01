@@ -51,6 +51,13 @@ ingress:
           pathType: ""
   tls: []
 
+base_config:
+  cluster: "clustername"
+  namespace: "namespace"
+  pvc_claim: "pvc_claim"
+  secrets_claim: "secrets-claim"
+  create_sleep: 2
+
 resources:
   limits:
     cpu: 500m
