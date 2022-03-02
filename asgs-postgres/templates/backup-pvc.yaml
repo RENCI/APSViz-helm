@@ -6,8 +6,9 @@ spec:
   accessModes:
     - ReadWriteOnce
   {{ if .Values.isAWS }}
-  storageClassName: eds-sc
+  storageClassName: {{ .Values.storage.class }}
   {{ end }}
+
   resources:
     requests:
       storage: {{ .Values.storage.size }}

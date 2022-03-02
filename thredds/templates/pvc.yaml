@@ -6,11 +6,11 @@ spec:
   accessModes:
   - ReadWriteOnce
   {{ if .Values.isAWS }}
-  storageClassName: eds-sc
+  storageClassName: {{ .Values.storage.class }}
   {{ end }}
   resources:
     requests:
-      storage: {{ .Values.storageSize }}
+      storage: {{ .Values.storage.size }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -20,8 +20,8 @@ spec:
   accessModes:
   - ReadWriteOnce
   {{ if .Values.isAWS }}
-  storageClassName: eds-sc
+  storageClassName: {{ .Values.storage.class }}
   {{ end }}
   resources:
     requests:
-      storage: {{ .Values.storageSize }}
+      storage: {{ .Values.storage.size }}
