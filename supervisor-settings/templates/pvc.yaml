@@ -5,12 +5,14 @@ kind: PersistentVolumeClaim
 metadata:
   name: eds-pvc
   annotations:
-    # Allows users to uninstall the rsync-migrator helm chart afterwards
     helm.sh/resource-policy: keep
 spec:
   accessModes:
   - ReadWriteOnce
+  {{ if .Values.isAWS }}
+  storageClassName: {{ .Values.volumes.class }}
+  {{ end }}
   resources:
     requests:
-      storage: 250Gi
+      storage: {{ .Values.volumes.size }}
 {{ end }}
