@@ -50,12 +50,13 @@ ingress:
     enabled: false
 
 resources:
+  limits:
+    memory: 5Gi
+    cpu: 500m
   requests:
     memory: 3Gi
     cpu: 250m
-  limits:
-    memory: 5Gi
-    cpu: 2000m
+
 
 nodeSelector: {}
 

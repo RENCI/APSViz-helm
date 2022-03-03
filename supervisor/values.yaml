@@ -23,6 +23,7 @@ serviceAccount:
   name:
 
 volumes:
+  create: false
   name: pvc-name
   claimname: pvc-claim-name
 
@@ -60,12 +61,11 @@ base_config:
 
 resources:
   limits:
-    cpu: 500m
+    cpu: 250m
     memory: 256Mi
   requests:
-    cpu: 250m
+    cpu: 100m
     memory: 128Mi
-
 
 nodeSelector: {}
 
