@@ -26,6 +26,8 @@ volumes:
   create: false
   name: pvc-name
   claimname: pvc-claim-name
+  storageClass: "someclass"
+  size: 1Gi
 
 podSecurityContext: {}
 
