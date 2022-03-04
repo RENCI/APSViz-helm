@@ -40,7 +40,11 @@ spec:
           name: "loader-script"
           subPath: "loaddb.sh"
         - mountPath: /data
-          name: "data-dir"       
+          name: "data-dir"
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       restartPolicy: OnFailure
       volumes:
       - name: loader-script
@@ -50,4 +54,4 @@ spec:
       - name: data-dir
         persistentVolumeClaim:
           claimName: "{{ include "asgs-postgres.fullname" . }}-backup-pvc"
-  {{ end }}
+{{ end }}
