@@ -138,3 +138,5 @@ networkPolicy:
   ##   matchExpressions:
   ##    - {key: role, operator: In, values: [frontend]}
   explicitNamespacesSelector: {}
+
+nodeSelector: {}

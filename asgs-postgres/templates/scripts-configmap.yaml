@@ -18,9 +18,6 @@ data:
 
     cd /data
 
-    # note the backup should be created on the server using the following command line:
-    # pg_dumpall > /projects/stars/var/data_services/asgs_pg_all.dump
-
     unzip -P {{ .Values.zipPassword }} -j {{ .Values.zipFileName }}
 
     #until false ; do

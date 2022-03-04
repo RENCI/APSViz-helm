@@ -10,7 +10,7 @@ spec:
   accessModes:
   - ReadWriteOnce
   {{ if .Values.isAWS }}
-  storageClassName: {{ .Values.volumes.class }}
+  storageClassName: {{ .Values.volumes.storageClass }}
   {{ end }}
   resources:
     requests:

@@ -50,8 +50,6 @@ spec:
             subPath: postgresdata
           {{ end }}
             name: {{ include "asgs-postgres.fullname" . }}-postgres-data
-          - mountPath: /data/shm
-            name: dshm
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -64,11 +62,6 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      volumes:
-        - name: dshm
-          emptyDir:
-            medium: Memory
-            sizeLimit: 400Mi
   volumeClaimTemplates:
     - metadata:
         name: {{ include "asgs-postgres.fullname" . }}-postgres-data

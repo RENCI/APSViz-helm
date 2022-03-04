@@ -81,13 +81,13 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
       securityContext:
         runAsUser: 1000
-        runAsGroup: 3000
-        fsGroup: 2000
+        runAsGroup: 1000
+        fsGroup: 1000
       volumes:
         - name: {{ .Values.volumes.name }}
           persistentVolumeClaim:
             claimName: {{ .Values.volumes.claimname }}
-    {{- with .Values.nodeSelector }}
+    {{- with .Values.nodeSelector}}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
     {{- end }}

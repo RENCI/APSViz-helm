@@ -74,6 +74,11 @@ volumes:
   name: pvc-name
   claimname: pvc-claim-name
   create: false
+  accessMode: "ReadWriteOnce"
+  efsHanle: ""
+  storageClass: "storage class"
+  size: 1Gi
+  efsHandle: "the handle"
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
