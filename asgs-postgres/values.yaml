@@ -11,8 +11,8 @@ image:
 storage:
     size: 20Gi
 
-adminuser: changeme
-adminpassword: "changeme"
+adminuser:
+adminpassword: ""
 dataUrl: ""
 isAWS: false
 mountSubPath: ""
@@ -38,16 +38,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 5432
-
-ingress:
-  enabled: false
-  class: ""
-  annotations: {}
-  pathType: "ImplementationSpecific"
-  host: somehost
-  tls:
-    enabled: false
+  port: 1234
 
 resources:
   limits:
@@ -56,7 +47,6 @@ resources:
   requests:
     memory: 3Gi
     cpu: 250m
-
 
 nodeSelector: {}
 
