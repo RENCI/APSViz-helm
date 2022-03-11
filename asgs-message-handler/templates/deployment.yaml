@@ -42,7 +42,8 @@ spec:
               value: "{{ .Values.env.PG_PW }}"
             - name: "PG_DB"
               value: "{{ .Values.env.PG_DB }}"
-          #command: [ "/bin/bash", "-c"]
+          command: [ "/bin/bash", "-c"]
+          args: ["/message/startup.sh"]
           #args: ["while true; do sleep 30; done;"]
           ports:
             - name: http

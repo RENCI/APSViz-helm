@@ -37,12 +37,12 @@ spec:
             - configMapRef:
                 name: {{ include "asgs-rabbitmq.fullname" . }}-configmap
           ports:
-            - name: web-port
+            - name: mgt-port
               protocol: TCP
-              containerPort: {{ .Values.secrets.webPort }}
-            - name: amqp-port
+              containerPort: {{ .Values.secrets.mgtPort }}
+            - name: queue-port
               protocol: TCP
-              containerPort: {{ .Values.secrets.amqpPort }}
+              containerPort: {{ .Values.networking.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

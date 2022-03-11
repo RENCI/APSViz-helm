@@ -21,7 +21,7 @@ resources:
     memory: 1Gi
   requests:
     cpu: 100m
-    memory: 500m
+    memory: 500Mi
 
 # Use this if you have predefined secrets
 existingSecret: |

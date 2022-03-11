@@ -19,9 +19,9 @@ storage:
 isAWS: false
 
 secrets:
-  amqpPort: 1234
+  queuePort: 1234
   webPort: 2345
-  queueUser: "asgsnuser"
+  queueUser: "someuser"
   queuePassword: "somepassword"
   queueAdminPassword: "someadminpassword"
 
@@ -50,6 +50,7 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  queueport: 0
 
 ingress:
   enabled: false
@@ -66,16 +67,21 @@ ingress:
   tls:
     enabled: false
 
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+networking:
+  enabled: false
+  type: "sometype"
+  loadbalancerIP:
+  name: "somename"
+  port: 1234
+  protocol: "someprotocol"
+  host: "somehost"
 
 resources:
   limits:
     memory: 1Gi
     cpu: 250m
   requests:
-    memory: 500m
+    memory: 500Mi
     cpu: 100m
 
 

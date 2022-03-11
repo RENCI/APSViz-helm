@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: {{ include "asgs-rabbitmq.fullname" . }}-configmap
 data:
-  QUEUE_HOST: "{{ include "asgs-rabbitmq.fullname" . }}-rabbitmq"
-  QUEUE_MONITOR_PORT: "{{ .Values.secrets.webPort }}"
-  QUEUE_PORT: "{{ .Values.secrets.amqpPort }}"
+  QUEUE_HOST: "{{ .Values.networking.host }}"
+  QUEUE_MONITOR_PORT: "{{ .Values.secrets.mgtPort }}"
+  QUEUE_PORT: "{{ .Values.networking.port }}"
   QUEUE_USER: "{{ .Values.secrets.queueUser }}"
   QUEUE_PW: "{{ .Values.secrets.queuePassword }}"
   QUEUE_ADMIN_PW: "{{ .Values.secrets.queueAdminPassword }}"
