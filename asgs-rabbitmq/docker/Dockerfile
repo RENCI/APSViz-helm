@@ -14,14 +14,10 @@ EXPOSE 5672
 RUN chmod +x /init.sh
 
 # create a new non-root user
-RUN useradd -M -u 1000 nru
+RUN useradd -M -u 1001 nru
 
 # switch to the non-root user
 USER nru
 
 # Define default command
 CMD ["/init.sh", "/"]
-
-# docker run --rm=true --name aragorn_rbtmq_image -p 5672:5672 -p 15672:15672 -it \
-#--env QUEUE_ADMIN_PW="$QUEUE_ADMIN_PW" --env QUEUE_USER="$QUEUE_USER" --env QUEUE_PW="$QUEUE_PW" \
-#--hostname aragorn_rbtmq rabbitmq:3.9-management
