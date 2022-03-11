@@ -1,19 +1,49 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "asgs-rabbitmq.fullname" . }}
+  name: {{ include "asgs-rabbitmq.fullname" . }}-mgt
   labels:
     {{- include "asgs-rabbitmq.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.secrets.webPort }}
-      targetPort: {{ .Values.secrets.webPort }}
+    - port: {{ .Values.secrets.mgtPort }}
+      targetPort: {{ .Values.secrets.mgtPort }}
       protocol: TCP
       name: rbtmq-http-prt
-    - port: {{ .Values.secrets.amqpPort }}
-      targetPort: {{ .Values.secrets.amqpPort }}
-      protocol: TCP
-      name: rbtmq-amqp-prt
   selector:
     {{- include "asgs-rabbitmq.selectorLabels" . | nindent 4 }}
+
+{{ if .Values.networking.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "asgs-rabbitmq.fullname" . }}-queue
+  labels:
+  {{- include "asgs-rabbitmq.labels" . | nindent 4 }}
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.networking.host }}
+spec:
+  type: {{ .Values.networking.type }}
+  loadBalancerIP: {{ .Values.networking.loadbalancerIP }}
+  ports:
+  - name: {{ .Values.networking.name }}
+    port: {{ .Values.networking.port }}
+    protocol: TCP
+  selector:
+    {{- include "asgs-rabbitmq.selectorLabels" . | nindent 4 }}
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: loadbalancer-port-for-rabbitmq
+spec:
+  podSelector:
+    matchLabels:
+      type: queue
+  ingress:
+  - from: []
+    ports:
+      - port: {{ .Values.networking.port }}
+{{ end }}
