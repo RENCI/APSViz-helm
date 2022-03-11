@@ -51,6 +51,15 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+          - mountPath: /srv/django/ASGS_Web/messages/msg_settings.ini
+            name: settings-script
+            subPath: msg_settings.ini
+      volumes:
+      - name: settings-script
+        configMap:
+          name: "{{- include "asgs_message_handler.fullname" . }}-scripts"
+          defaultMode: 0777
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

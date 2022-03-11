@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{- include "asgs_message_handler.fullname" . }}-scripts"
+data:
+  msg_settings.ini: |-
+    [postgres]
+    host = {{ .Values.env.PG_HOST }}
+    port = 5432
+    database = {{ .Values.env.PG_DB }}
+    username = {{ .Values.env.PG_USER }}
+    password = {{ .Values.env.PG_PW }}
+
+    [pika]
+    host = {{ .Values.env.RABBITMQ_HOST }}
+    port = 5672
+    username = {{ .Values.env.RABBITMQ_USER }}
+    password = {{ .Values.env.RABBITMQ_PW }}
