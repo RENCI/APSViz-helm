@@ -41,6 +41,7 @@ ingress:
   enabled: true
   class: ""
   annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "86400"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
     nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive
