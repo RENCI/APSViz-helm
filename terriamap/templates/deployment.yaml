@@ -39,7 +39,7 @@ spec:
       volumes:
         - name: apsviz-terria-map-vol
           persistentVolumeClaim:
-            claimName: {{ include "apsviz-terriamap.name" . }}-pvc
+            claimName: {{ include "apsviz-terriamap.fullname" . }}-pvc
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
