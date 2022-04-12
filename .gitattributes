@@ -2,3 +2,4 @@ renci*.yaml filter=git-crypt diff=git-crypt
 aws*.yaml filter=git-crypt diff=git-crypt
 context.xml filter=git-crypt diff=git-crypt
 web.xml  filter=git-crypt diff=git-crypt
+./deploy filter=git-crypt diff=git-crypt
