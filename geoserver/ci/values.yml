@@ -16,6 +16,7 @@ persistence:
 ingress:
   enabled: true
   host: geoserver.test
+  pathType: "ImplementationSpecific"
   annotations:
     cert-manager.io/cluster-issuer: selfsigned-issuer
   tls:
