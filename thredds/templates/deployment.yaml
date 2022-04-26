@@ -32,19 +32,15 @@ spec:
               containerPort: 80
               protocol: TCP
           volumeMounts:
-            - name: apsviz-thredds-ncfs-vol
-              mountPath: /usr/local/tomcat/content/thredds/public/ncfs
-            - name: apsviz-thredds-reanalysis-vol
-              mountPath: /usr/local/tomcat/content/thredds/public/reanalysis
+            - name: apsviz-thredds-asgs-vol
+              mountPath: /usr/local/tomcat/content/thredds/public/
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-        - name: apsviz-thredds-ncfs-vol
+        - name: apsviz-thredds-asgs-vol
           persistentVolumeClaim:
-            claimName: {{ include "apsviz-thredds.name" . }}-ncfs-pvc
-        - name: apsviz-thredds-reanalysis-vol
-          persistentVolumeClaim:
-            claimName: {{ include "apsviz-thredds.name" . }}-reanalysis-pvc
+            claimName: {{ include "apsviz-thredds.fullname" . }}-pvc
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
