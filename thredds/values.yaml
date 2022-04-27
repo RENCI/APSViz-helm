@@ -40,6 +40,15 @@ service:
   port: 80
   target_port: 8080
 
+volumes:
+  name: pvc-name
+  claimname: pvc-claim-name
+  storageClass: "sc"
+  size: 1Gi
+  accessMode: "ReadWriteMany"
+  efsHandle: ""
+  mountPoint: /
+
 ingress:
   enabled: false
   class: ""
@@ -63,7 +72,7 @@ resources:
     cpu: 250m
 
 storage:
-  class: "eds-sc"
+  class: "eds-efs-sc"
   size: 10Gi
 
 nodeSelector: {}
