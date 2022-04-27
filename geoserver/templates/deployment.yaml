@@ -51,11 +51,11 @@ spec:
             {{- end }}
             {{- if .Values.geoserverDataDir }}
             - name: GEOSERVER_DATA_DIR
-              value: {{ .Values.geoserverDataDir | quote }}
+              value: {{ .Values.persistence.geoserverDataDir.mountPath | quote }}
             {{- end }}
             {{- if .Values.geowebcacheCacheDir }}
             - name: GEOWEBCACHE_CACHE_DIR
-              value: {{ .Values.geowebcacheCacheDir | quote }}
+              value: {{ .Values.persistence.geowebcacheCacheDir.mountPath | quote }}
             {{- end }}
             - name: GEOSERVER_ADMIN_USER
               valueFrom:
