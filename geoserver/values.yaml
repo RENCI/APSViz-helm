@@ -4,16 +4,18 @@ image:
   tag: "2.20.1"
   pullPolicy: IfNotPresent
 
-geoserverDataDir: /some/data_dir
-geowebcacheCacheDir: /some/data_dir/gwc
-
 geoserverUser: someuser
 
 # For prefilled password
 # It will be stored in secret later
 geoserverPassword: somepassword
 
-isAWS: false
+database:
+  db_name: somedb
+  db_host: somehost
+  db_port: 1234
+  db_username: someuser
+  db_password: somepassword
 
 resources:
   limits:
