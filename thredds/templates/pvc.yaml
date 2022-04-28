@@ -1,3 +1,23 @@
+{{ if .Values.volumes.create }}
+{{ if .Values.isAWS }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.volumes.name }}
+spec:
+  capacity:
+    storage: {{ .Values.volumes.size }}
+  volumeMode: Filesystem
+  accessModes:
+    - {{ .Values.volumes.accessMode }}
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ .Values.volumes.storageClass }}
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: {{ .Values.volumes.efsHandle }}
+{{ end }}
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -6,10 +26,11 @@ metadata:
     helm.sh/resource-policy: keep
 spec:
   accessModes:
-  - ReadWriteMany
+  - {{ .Values.volumes.accessMode }}
   {{ if .Values.isAWS }}
-  storageClassName: {{ .Values.storage.class }}
+  storageClassName: {{ .Values.volumes.storageClass }}
   {{ end }}
   resources:
     requests:
-      storage: {{ .Values.storage.size }}
+      storage: {{ .Values.volumes.size }}
+{{ end }}

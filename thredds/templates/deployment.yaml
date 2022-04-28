@@ -33,7 +33,7 @@ spec:
               protocol: TCP
           volumeMounts:
             - name: apsviz-thredds-asgs-vol
-              mountPath: /usr/local/tomcat/content/thredds/public/
+              mountPath: {{ .Values.volumes.mountPoint }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
