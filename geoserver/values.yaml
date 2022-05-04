@@ -19,11 +19,13 @@ database:
 
 resources:
   limits:
-    cpu: 250m
-    memory: 1Gi
+    cpu: 1000m
+    ephemeral-storage: 128Mi
+    memory: 10Gi
   requests:
-    cpu: 100m
-    memory: 500Mi
+    cpu: 500m
+    ephemeral-storage: 64Mi
+    memory: 5Gi
 
 # Use this if you have predefined secrets
 existingSecret: |
