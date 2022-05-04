@@ -66,9 +66,11 @@ base_config:
 resources:
   limits:
     cpu: 250m
-    memory: 160Mi
+    ephemeral-storage: 64Mi
+    memory: 256Mi
   requests:
     cpu: 100m
+    ephemeral-storage: 32Mi
     memory: 128Mi
 
 nodeSelector: {}
