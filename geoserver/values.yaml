@@ -25,7 +25,7 @@ resources:
   requests:
     cpu: 500m
     ephemeral-storage: 64Mi
-    memory: 5Gi
+    memory: 3Gi
 
 # Use this if you have predefined secrets
 existingSecret: |
