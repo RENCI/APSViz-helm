@@ -64,6 +64,7 @@ ingress:
 resources:
   limits:
     memory: 2Gi
+    ephemeral-storage: 128Mi
     cpu: 500m
   requests:
     memory: 1Gi
