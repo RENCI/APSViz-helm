@@ -65,12 +65,12 @@ ingress:
 
 resources:
   limits:
-    memory: 2Gi
-    ephemeral-storage: 384Mi
+    memory: 1Gi
+    ephemeral-storage: 64Mi
     cpu: 500m
   requests:
     memory: 500Mi
-    cpu: 250m
+    cpu: 100m
 
 storage:
   class: "eds-efs-sc"
