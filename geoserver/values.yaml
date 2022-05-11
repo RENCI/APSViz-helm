@@ -102,11 +102,12 @@ persistence:
     existingClaim: false
     mountPath: /some/data_dir
     subPath: "data_dir"
-    size: 50Gi
+    size: 10Gi
     # storageClass: "-"
     accessModes:
-      - ReadWriteMany
-    annotations: {}
+      - ReadWriteOnce
+    annotations:
+      helm.sh/resource-policy: keep
   geowebcacheCacheDir:
     enabled: true
     existingClaim: false
@@ -115,7 +116,7 @@ persistence:
     size: 10Gi
     # storageClass: "-"
     accessModes:
-      - ReadWriteMany
+      - ReadWriteOnce
     annotations: {}
 
 networkPolicy:
