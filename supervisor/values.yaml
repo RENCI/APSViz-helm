@@ -59,7 +59,8 @@ ingress:
 base_config:
   cluster: "clustername"
   namespace: "namespace"
-  pvc_claim: "pvc_claim"
+  data_pvc_claim: "data_pvc_claim"
+  filesvr_pvc_claim: "filesvr_pvc_claim"
   secrets_claim: "secrets-claim"
   create_sleep: 2
 
