@@ -110,7 +110,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: eds-keys
-                key: file-server-host-key
+                key: file-server-host
       volumes:
         - name: {{ .Values.volumes.name }}
           persistentVolumeClaim:
