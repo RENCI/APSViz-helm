@@ -29,7 +29,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             - name: apsviz-terria-map-vol
-              mountPath: /usr/src/app/data
+              mountPath: /home/nru/usr/src/app/data
+            - name: apsviz-fileserver-asgs-vol
+              mountPath: /fileserver
           ports:
             - name: http
               containerPort: 80
@@ -40,6 +42,11 @@ spec:
         - name: apsviz-terria-map-vol
           persistentVolumeClaim:
             claimName: {{ include "apsviz-terriamap.fullname" . }}-pvc
+
+        - name: apsviz-fileserver-asgs-vol
+          persistentVolumeClaim:
+            claimName: apsviz-fileserver-pvc
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
