@@ -83,28 +83,6 @@ spec:
             {{- tpl . $ | nindent 10 }}
             {{- end }}
           {{- else }}
-{{/*          startupProbe:*/}}
-{{/*            httpGet:*/}}
-{{/*              path: /geoserver*/}}
-{{/*              port: http-geoserver*/}}
-{{/*            failureThreshold: 60*/}}
-{{/*            periodSeconds: 5*/}}
-{{/*          livenessProbe:*/}}
-{{/*            httpGet:*/}}
-{{/*              path: /geoserver*/}}
-{{/*              port: http-geoserver*/}}
-{{/*              scheme: HTTP*/}}
-{{/*            failureThreshold: 3*/}}
-{{/*            successThreshold: 1*/}}
-{{/*            periodSeconds: 10*/}}
-{{/*          readinessProbe:*/}}
-{{/*            httpGet:*/}}
-{{/*              path: /geoserver*/}}
-{{/*              port: http-geoserver*/}}
-{{/*              scheme: HTTP*/}}
-{{/*            failureThreshold: 3*/}}
-{{/*            successThreshold: 1*/}}
-{{/*            periodSeconds: 10*/}}
           {{- end }}
           volumeMounts:
             - mountPath: /usr/local/tomcat/conf/context.xml
