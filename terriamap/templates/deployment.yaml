@@ -38,6 +38,11 @@ spec:
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.ingress.https_proxy }}
+          env:
+            - name: HTTP_PROXY
+              value: {{ .Values.ingress.https_proxy }}
+          {{ end }}
       volumes:
         - name: apsviz-terria-map-vol
           persistentVolumeClaim:
