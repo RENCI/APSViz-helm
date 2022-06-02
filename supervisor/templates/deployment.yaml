@@ -106,11 +106,11 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: slack-channel
-          - name: FILESERVER_HOST
+          - name: FILESERVER_HOST_URL
             valueFrom:
               secretKeyRef:
                 name: eds-keys
-                key: file-server-host
+                key: file-server-host-url
       volumes:
         - name: {{ .Values.volumes.name }}
           persistentVolumeClaim:
