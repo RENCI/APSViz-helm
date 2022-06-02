@@ -1,36 +1,75 @@
-{{ if .Values.volumes.create }}
+{{ if .Values.logVolumes.create }}
 {{ if .Values.isAWS }}
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Values.volumes.name }}
+  name: {{ .Values.logVolumes.name }}
 spec:
   capacity:
-    storage: {{ .Values.volumes.size }}
+    storage: {{ .Values.logVolumes.size }}
   volumeMode: Filesystem
   accessModes:
-    - {{ .Values.volumes.accessMode }}
+    - {{ .Values.logVolumes.accessMode }}
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: {{ .Values.volumes.storageClass }}
+  storageClassName: {{ .Values.logVolumes.storageClass }}
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: {{ .Values.volumes.efsHandle }}
+    volumeHandle: {{ .Values.logVolumes.efsHandle }}
+{{ end }}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "apsviz-thredds.fullname" . }}-logs-pvc
+{{/*  annotations:*/}}
+{{/*    helm.sh/resource-policy: keep*/}}
+spec:
+  accessModes:
+  - {{ .Values.logVolumes.accessMode }}
+  {{ if .Values.isAWS }}
+  storageClassName: {{ .Values.logVolumes.storageClass }}
+  {{ end }}
+  resources:
+    requests:
+      storage: {{ .Values.logVolumes.size }}
+{{ end }}
+
+{{ if .Values.dataVolumes.create }}
+{{ if .Values.isAWS }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.dataVolumes.name }}
+spec:
+  capacity:
+    storage: {{ .Values.dataVolumes.size }}
+  volumeMode: Filesystem
+  accessModes:
+    - {{ .Values.dataVolumes.accessMode }}
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ .Values.dataVolumes.storageClass }}
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: {{ .Values.dataVolumes.efsHandle }}
 {{ end }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "apsviz-thredds.fullname" . }}-pvc
-{{/*  annotations:*/}}
-{{/*    helm.sh/resource-policy: keep*/}}
+  name: {{ include "apsviz-thredds.fullname" . }}-data-pvc
+  annotations:
+    helm.sh/resource-policy: keep
 spec:
   accessModes:
-  - {{ .Values.volumes.accessMode }}
+  - {{ .Values.dataVolumes.accessMode }}
   {{ if .Values.isAWS }}
-  storageClassName: {{ .Values.volumes.storageClass }}
+  storageClassName: {{ .Values.dataVolumes.storageClass }}
   {{ end }}
   resources:
     requests:
-      storage: {{ .Values.volumes.size }}
+      storage: {{ .Values.dataVolumes.size }}
 {{ end }}
+

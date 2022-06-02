@@ -40,14 +40,24 @@ service:
   port: 80
   target_port: 8080
 
-volumes:
-  name: pvc-name
-  claimname: pvc-claim-name
+logVolumes:
+  name: pvc-log-name
+  claimName: pvc-claim-log-name
   storageClass: "sc"
   size: 1Gi
-  accessMode: "ReadWriteMany"
+  accessMode: "ReadWriteOnce"
   efsHandle: ""
   mountPoint: /
+
+dataVolumes:
+  create: true
+  name: pvc-data-name
+  claimName: pvc-claim-data-name
+  storageClass: "sc"
+  size: 100Gi
+  accessMode: "ReadWriteMany"
+  efsHandle: "fs"
+  mountPoint: /thredds-data
 
 ingress:
   enabled: false
