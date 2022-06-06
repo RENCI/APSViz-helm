@@ -30,7 +30,7 @@ spec:
           volumeMounts:
             - name: apsviz-terria-map-vol
               mountPath: /home/nru/usr/src/app/data
-            - name: apsviz-fileserver-asgs-vol
+            - name: apsviz-fileserver-vol
               mountPath: /fileserver
           ports:
             - name: http
@@ -48,9 +48,9 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "apsviz-terriamap.fullname" . }}-pvc
 
-        - name: apsviz-fileserver-asgs-vol
+        - name: apsviz-fileserver-vol
           persistentVolumeClaim:
-            claimName: apsviz-fileserver-pvc
+            claimName: {{ .Values.volumes.fileserverPvc }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
