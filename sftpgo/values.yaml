@@ -1,13 +1,12 @@
-# Default values for apsviz.
+# Default values for sftpgo.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: someimage
-  tag: someversion
-  pullPolicy: Always
+  repository: drakkan/sftpgo:v2.2.3
+  pullPolicy: IfNotPresent
 
 imagePullSecrets: []
 nameOverride: ""
@@ -27,64 +26,58 @@ serviceAccount:
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
 
 service:
   type: ClusterIP
   port: 80
   target_port: 8080
+  connectPort: 2022
 
-logVolumes:
-  name: pvc-log-name
-  claimName: pvc-claim-log-name
+volumes:
+  name: pvc-name
+  claimname: pvc-claim-name
   storageClass: "sc"
   size: 1Gi
-  accessMode: "ReadWriteOnce"
+  accessMode: "ReadWriteMany"
   efsHandle: ""
   mountPoint: /
-
-dataVolumes:
-  create: true
-  name: pvc-data-name
-  claimName: pvc-claim-data-name
-  storageClass: "sc"
-  size: 100Gi
-  accessMode: "ReadWriteMany"
-  efsHandle: "fs"
-  mountPoint: /thredds-data
 
 ingress:
   enabled: false
   class: ""
   annotations:
     nginx.ingress.kubernetes.io/enable-cors: "true"
-  hosts:
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
+    nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive
+    nginx.ingress.kubernetes.io/send-timeout: "86400"
+    nginx.ingress.kubernetes.io/service-upstream: 'true'
+    nginx.ingress.kubernetes.io/upstream-keepalive-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-body-size: 512m
+  host: somehost
   pathType: "ImplementationSpecific"
   tls:
     enabled: false
 
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+networking:
+  enabled: false
+  type: sometype
+  loadbalancerIP:
+  name: "somename"
+  port: 1234
+  protocol: "TCP"
+  host: somehost
 
 resources:
   limits:
-    memory: 2Gi
-    ephemeral-storage: 384Mi
     cpu: 500m
+    memory: 512Mi
   requests:
-    memory: 500Mi
-    cpu: 250m
-
-storage:
-  class: "eds-efs-sc"
-  size: 10Gi
+    cpu: 100m
+    memory: 128Mi
 
 nodeSelector: {}
 

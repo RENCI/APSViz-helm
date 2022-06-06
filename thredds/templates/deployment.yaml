@@ -32,14 +32,19 @@ spec:
               containerPort: 80
               protocol: TCP
           volumeMounts:
-            - name: apsviz-thredds-asgs-vol
-              mountPath: {{ .Values.volumes.mountPoint }}
+            - name: {{ .Values.logVolumes.claimName }}
+              mountPath: {{ .Values.logVolumes.mountPoint }}
+            - name: {{ .Values.dataVolumes.claimName }}
+              mountPath: {{ .Values.dataVolumes.mountPoint }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-        - name: apsviz-thredds-asgs-vol
+        - name: {{ .Values.logVolumes.claimName }}
           persistentVolumeClaim:
-            claimName: {{ include "apsviz-thredds.fullname" . }}-pvc
+            claimName: {{ include "apsviz-thredds.fullname" . }}-logs-pvc
+        - name: {{ .Values.dataVolumes.claimName }}
+          persistentVolumeClaim:
+            claimName: {{ include "apsviz-thredds.fullname" . }}-data-pvc
 
       {{- with .Values.nodeSelector }}
       nodeSelector:

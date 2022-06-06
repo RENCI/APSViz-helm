@@ -32,14 +32,14 @@ spec:
               containerPort: 80
               protocol: TCP
           volumeMounts:
-            - name: apsviz-fileserver-asgs-vol
+            - name: {{ .Values.volumes.name }}
               mountPath: {{ .Values.volumes.mountPoint }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-        - name: apsviz-fileserver-asgs-vol
+        - name: {{ .Values.volumes.name }}
           persistentVolumeClaim:
-            claimName: apsviz-fileserver-pvc
+            claimName: {{ .Values.volumes.claimName }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
