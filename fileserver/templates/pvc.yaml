@@ -21,7 +21,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: apsviz-fileserver-pvc
+  name: {{ .Values.volumes.claimName }}
   annotations:
     helm.sh/resource-policy: keep
 spec:
