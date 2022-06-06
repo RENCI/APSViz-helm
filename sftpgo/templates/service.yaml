@@ -33,7 +33,6 @@ spec:
     protocol: TCP
   selector:
     {{- include "sftpgo.selectorLabels" . | nindent 4 }}
-{{ end }}
 
 {{ if not .Values.isAWS }}
 ---
@@ -49,4 +48,5 @@ spec:
   - from: []
     ports:
       - port: {{ .Values.networking.port }}
+{{ end }}
 {{ end }}

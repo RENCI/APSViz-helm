@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         {{- include "sftpgo.selectorLabels" . | nindent 8 }}
+        type: sftp
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -34,15 +35,27 @@ spec:
             - name: sftp
               containerPort: {{ .Values.service.connectPort }}
               protocol: TCP
+          env:
+            - name: SFTPGO_DATA_PROVIDER__CREATE_DEFAULT_ADMIN
+              value: "1"
+            - name: SFTPGO_DEFAULT_ADMIN_USERNAME
+              value: {{ .Values.admin.username }}
+            - name: SFTPGO_DEFAULT_ADMIN_PASSWORD
+              value: {{ .Values.admin.password }}
           volumeMounts:
-            - name: {{ .Values.volumes.name }}
-              mountPath: {{ .Values.volumes.mountPoint }}
+            - name: {{ .Values.volumes.sftp.name }}
+              mountPath: {{ .Values.volumes.sftp.mountPoint }}
+            - name: {{ .Values.volumes.thredds.name }}
+              mountPath: {{ .Values.volumes.thredds.mountPoint }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-        - name: {{ .Values.volumes.name }}
+        - name: {{ .Values.volumes.sftp.name }}
           persistentVolumeClaim:
-            claimName: {{ .Values.volumes.claimName }}
+            claimName: {{ .Values.volumes.sftp.claimName }}
+        - name: {{ .Values.volumes.thredds.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.volumes.thredds.claimName }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
