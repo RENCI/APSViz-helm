@@ -100,7 +100,7 @@ data:
       </context-param>
 
       <context-param>
-        <param-name>GEOSERVER_CSRF_DISABLE</param-name>
+        <param-name>GEOSERVER_CSRF_DISABLED</param-name>
         <param-value>true</param-value>
       </context-param>
 
