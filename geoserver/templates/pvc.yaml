@@ -4,7 +4,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ template "geoserver.fullname" . }}-data-dir
+  name: apsviz-geoserver-pvc
 {{- with .Values.persistence.geoserverDataDir.annotations }}
   annotations:
   {{- range $key, $value := . }}
