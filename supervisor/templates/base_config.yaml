@@ -8,7 +8,6 @@ data:
       "CLUSTER": {{ .Values.base_config.cluster | quote }},
       "NAMESPACE": {{ .Values.base_config.namespace | quote }},
       "DATA_PVC_CLAIM": {{ .Values.base_config.data_pvc_claim | quote }},
-      "FILESVR_PVC_CLAIM": {{ .Values.base_config.filesvr_pvc_claim | quote }},
       "SECRETS_CLAIM": {{ .Values.base_config.secrets_claim | quote }},
       "CREATE_SLEEP": {{ .Values.base_config.create_sleep }}
     }
