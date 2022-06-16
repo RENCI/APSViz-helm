@@ -94,7 +94,7 @@ spec:
       volumes:
         - name: {{ .Values.volumes.name }}
           persistentVolumeClaim:
-            claimName: {{ .Values.volumes.claimname }}
+            claimName: {{ .Values.volumes.claimName }}
         - name: base-config-script
           configMap:
             name: "{{- include "apsviz-supervisor.fullname" . }}-scripts"
