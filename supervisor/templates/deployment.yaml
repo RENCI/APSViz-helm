@@ -41,21 +41,6 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: log-path
-          - name: SSH_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: ssh-username
-          - name: SSH_HOST
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: ssh-host
-          - name: ASGS_DB_DATABASE
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: asgs-database
           - name: ASGS_DB_HOST
             valueFrom:
               secretKeyRef:
@@ -66,6 +51,11 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: asgs-port
+          - name: ASGS_DB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: eds-keys
+                key: asgs-database
           - name: ASGS_DB_USERNAME
             valueFrom:
               secretKeyRef:
@@ -76,26 +66,21 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: asgs-password
-          - name: GEOSERVER_USER
+          - name: APSVIZ_DB_DATABASE
             valueFrom:
               secretKeyRef:
                 name: eds-keys
-                key: geo-username
-          - name: GEOSERVER_PASSWORD
+                key: apsviz-database
+          - name: APSVIZ_DB_USERNAME
             valueFrom:
               secretKeyRef:
                 name: eds-keys
-                key: geo-password
-          - name: GEOSERVER_URL
+                key: apsviz-username
+          - name: APSVIZ_DB_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: eds-keys
-                key: geo-host
-          - name: GEOSERVER_WORKSPACE
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: geo-workspace
+                key: apsviz-password
           - name: SLACK_ACCESS_TOKEN
             valueFrom:
               secretKeyRef:
@@ -106,11 +91,6 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: slack-channel
-          - name: FILESERVER_HOST_URL
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: file-server-host-url
       volumes:
         - name: {{ .Values.volumes.name }}
           persistentVolumeClaim:

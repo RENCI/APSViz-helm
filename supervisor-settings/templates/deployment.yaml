@@ -24,12 +24,6 @@ spec:
           image: "{{ .Values.image.repository }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-          - name: {{ .Values.database.db_name_index }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ $store_name }}
-                key: {{ .Values.database.db_name }}
-
           - name: {{ .Values.database.db_host_index }}
             valueFrom:
               secretKeyRef:
@@ -42,17 +36,41 @@ spec:
                 name: {{ $store_name }}
                 key: {{ .Values.database.db_port }}
 
-          - name: {{ .Values.database.db_username_index }}
+          - name: {{ .Values.database.asgs_db_name_index }}
             valueFrom:
               secretKeyRef:
                 name: {{ $store_name }}
-                key: {{ .Values.database.db_username }}
+                key: {{ .Values.database.asgs_db_name }}
 
-          - name: {{ .Values.database.db_password_index }}
+          - name: {{ .Values.database.asgs_db_username_index }}
             valueFrom:
               secretKeyRef:
                 name: {{ $store_name }}
-                key: {{ .Values.database.db_password }}
+                key: {{ .Values.database.asgs_db_username }}
+
+          - name: {{ .Values.database.asgs_db_password_index }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ $store_name }}
+                key: {{ .Values.database.asgs_db_password }}
+
+          - name: {{ .Values.database.apsviz_db_name_index }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ $store_name }}
+                key: {{ .Values.database.apsviz_db_name }}
+
+          - name: {{ .Values.database.apsviz_db_username_index }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ $store_name }}
+                key: {{ .Values.database.apsviz_db_username }}
+
+          - name: {{ .Values.database.apsviz_db_password_index }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ $store_name }}
+                key: {{ .Values.database.apsviz_db_password }}
 
           - name: LOG_PATH
             valueFrom:
