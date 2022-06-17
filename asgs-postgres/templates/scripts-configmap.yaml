@@ -11,6 +11,7 @@ data:
     BCKP_FILE_1=/data/{{ .Values.sqlFile1 }}
     BCKP_FILE_2=/data/{{ .Values.sqlFile2 }}
     BCKP_FILE_3=/data/{{ .Values.sqlFile3 }}
+    BCKP_FILE_4=/data/{{ .Values.sqlFile4 }}
 
     until pg_isready ; do
         echo "postgres not ready";
@@ -32,6 +33,8 @@ data:
     pg_restore -d postgres --clean --create $BCKP_FILE_2
 
     pg_restore -d postgres --clean --create $BCKP_FILE_3
+
+    pg_restore -d postgres --clean --create $BCKP_FILE_4
 
     # this is truly a hack. pg_restore returns a count of warnings,
     # in this case a warning stating that the "public schema already exists".
