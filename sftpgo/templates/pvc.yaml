@@ -1,4 +1,4 @@
-{{ if .Values.volumes.create }}
+{{ if .Values.volumes.sftp.create }}
 {{ if .Values.isAWS }}
 ---
 apiVersion: v1
@@ -21,7 +21,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.volumes.claimName }}
+  name: {{ .Values.volumes.sftp.claimName }}
   annotations:
     helm.sh/resource-policy: keep
 spec:
