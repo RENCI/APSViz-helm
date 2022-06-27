@@ -55,7 +55,7 @@ spec:
               value: {{ .Values.enableJSONP | quote }}
             {{- end }}
             - name: PROXY_BASE_URL
-              value: https://apsviz-geoserver-dev.apps.renci.org/geoserver
+              value: https://{{ .Values.ingress.host }}/geoserver
             {{- if .Values.geoserverDataDir }}
             - name: GEOSERVER_DATA_DIR
               value: {{ .Values.persistence.geoserverDataDir.mountPath | quote }}
