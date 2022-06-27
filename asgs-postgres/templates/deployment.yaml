@@ -45,9 +45,9 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-          - mountPath: /var/lib/postgresql/data
+          - mountPath: {{ .Values.dataMountPath }}
           {{ if .Values.mountSubPath }}
-            subPath: postgresdata
+            subPath: {{ .Values.dataMountSubPath }}
           {{ end }}
             name: {{ include "asgs-postgres.fullname" . }}-postgres-data
           {{- if .Values.shmSize }}
