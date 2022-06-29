@@ -1,22 +1,22 @@
 {{ if .Values.logVolumes.create }}
-{{ if .Values.isAWS }}
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: {{ .Values.logVolumes.name }}
-spec:
-  capacity:
-    storage: {{ .Values.logVolumes.size }}
-  volumeMode: Filesystem
-  accessModes:
-    - {{ .Values.logVolumes.accessMode }}
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: {{ .Values.logVolumes.storageClass }}
-  csi:
-    driver: efs.csi.aws.com
-    volumeHandle: {{ .Values.logVolumes.efsHandle }}
-{{ end }}
+{{/*{{ if .Values.isAWS }}*/}}
+{{/*---*/}}
+{{/*apiVersion: v1*/}}
+{{/*kind: PersistentVolume*/}}
+{{/*metadata:*/}}
+{{/*  name: {{ .Values.logVolumes.name }}*/}}
+{{/*spec:*/}}
+{{/*  capacity:*/}}
+{{/*    storage: {{ .Values.logVolumes.size }}*/}}
+{{/*  volumeMode: Filesystem*/}}
+{{/*  accessModes:*/}}
+{{/*    - {{ .Values.logVolumes.accessMode }}*/}}
+{{/*  persistentVolumeReclaimPolicy: Retain*/}}
+{{/*  storageClassName: {{ .Values.logVolumes.storageClass }}*/}}
+{{/*  csi:*/}}
+{{/*    driver: efs.csi.aws.com*/}}
+{{/*    volumeHandle: {{ .Values.logVolumes.efsHandle }}*/}}
+{{/*{{ end }}*/}}
 
 ---
 apiVersion: v1
