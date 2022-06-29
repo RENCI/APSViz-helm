@@ -27,13 +27,9 @@ serviceAccount:
 podSecurityContext:
   fsGroup: 1000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
 
 service:
   type: ClusterIP
@@ -42,7 +38,7 @@ service:
 
 volumes:
   name: pvc-name
-  claimname: pvc-claim-name
+  claimName: pvc-claim-name
   storageClass: "sc"
   size: 1Gi
   accessMode: "ReadWriteMany"
