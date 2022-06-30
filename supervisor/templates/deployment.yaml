@@ -91,6 +91,8 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: slack-channel
+          - name: SYSTEM
+            value: {{ .Values.system }}
       volumes:
         - name: {{ .Values.volumes.name }}
           persistentVolumeClaim:
