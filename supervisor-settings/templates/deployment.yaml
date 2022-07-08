@@ -29,55 +29,48 @@ spec:
               secretKeyRef:
                 name: {{ $store_name }}
                 key: {{ .Values.database.db_host }}
-
           - name: {{ .Values.database.db_port_index }}
             valueFrom:
               secretKeyRef:
                 name: {{ $store_name }}
                 key: {{ .Values.database.db_port }}
-
           - name: {{ .Values.database.asgs_db_name_index }}
             valueFrom:
               secretKeyRef:
                 name: {{ $store_name }}
                 key: {{ .Values.database.asgs_db_name }}
-
           - name: {{ .Values.database.asgs_db_username_index }}
             valueFrom:
               secretKeyRef:
                 name: {{ $store_name }}
                 key: {{ .Values.database.asgs_db_username }}
-
           - name: {{ .Values.database.asgs_db_password_index }}
             valueFrom:
               secretKeyRef:
                 name: {{ $store_name }}
                 key: {{ .Values.database.asgs_db_password }}
-
           - name: {{ .Values.database.apsviz_db_name_index }}
             valueFrom:
               secretKeyRef:
                 name: {{ $store_name }}
                 key: {{ .Values.database.apsviz_db_name }}
-
           - name: {{ .Values.database.apsviz_db_username_index }}
             valueFrom:
               secretKeyRef:
                 name: {{ $store_name }}
                 key: {{ .Values.database.apsviz_db_username }}
-
           - name: {{ .Values.database.apsviz_db_password_index }}
             valueFrom:
               secretKeyRef:
                 name: {{ $store_name }}
                 key: {{ .Values.database.apsviz_db_password }}
-
           - name: LOG_PATH
             valueFrom:
               secretKeyRef:
                 name: eds-keys
                 key: log-path
-
+          - name: SYSTEM
+            value: {{ .Values.system }}
           volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: "/data"
