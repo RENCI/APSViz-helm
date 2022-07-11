@@ -93,8 +93,6 @@ spec:
                 key: slack-channel
           - name: SYSTEM
             value: {{ .Values.system  | quote }}
-          - name: PAUSE
-            value: {{ .Values.pause | quote }}
       volumes:
         - name: {{ .Values.volumes.name }}
           persistentVolumeClaim:
