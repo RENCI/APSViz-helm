@@ -92,7 +92,9 @@ spec:
                 name: eds-keys
                 key: slack-channel
           - name: SYSTEM
-            value: {{ .Values.system }}
+            value: {{ .Values.system  | quote }}
+          - name: PAUSE
+            value: {{ .Values.pause | quote }}
       volumes:
         - name: {{ .Values.volumes.name }}
           persistentVolumeClaim:
