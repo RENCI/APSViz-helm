@@ -6,6 +6,4 @@ data:
   QUEUE_HOST: "{{ .Values.networking.host }}"
   QUEUE_MONITOR_PORT: "{{ .Values.secrets.mgtPort }}"
   QUEUE_PORT: "{{ .Values.networking.port }}"
-  QUEUE_USER: "{{ .Values.secrets.queueUser }}"
-  QUEUE_PW: "{{ .Values.secrets.queuePassword }}"
-  QUEUE_ADMIN_PW: "{{ .Values.secrets.queueAdminPassword }}"
+
