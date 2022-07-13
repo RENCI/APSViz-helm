@@ -3,7 +3,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-License-Identifier: LicenseRef-RENCI
 # SPDX-License-Identifier: MIT
- ---
+
+---
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "sftpgo.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}

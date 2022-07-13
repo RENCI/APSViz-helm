@@ -4,8 +4,8 @@
 # SPDX-License-Identifier: LicenseRef-RENCI
 # SPDX-License-Identifier: MIT
 
-{{- if and .Values.persistence.geoserverDataDir.enabled (not .Values.persistence.geoserverDataDir.existingClaim) }}
 ---
+{{- if and .Values.persistence.geoserverDataDir.enabled (not .Values.persistence.geoserverDataDir.existingClaim) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
