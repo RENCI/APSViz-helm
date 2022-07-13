@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-RENCI
 # SPDX-License-Identifier: MIT
 
+---
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "asgs-monitor-ui.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}

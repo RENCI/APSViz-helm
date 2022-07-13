@@ -4,9 +4,9 @@
 # SPDX-License-Identifier: LicenseRef-RENCI
 # SPDX-License-Identifier: MIT
 
+---
 {{ if .Values.volumes.create }}
 {{ if .Values.isAWS }}
----
 apiVersion: v1
 kind: PersistentVolume
 metadata:

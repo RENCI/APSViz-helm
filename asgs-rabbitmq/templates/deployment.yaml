@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-RENCI
 # SPDX-License-Identifier: MIT
 
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:

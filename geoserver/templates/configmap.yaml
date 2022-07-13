@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-RENCI
 # SPDX-License-Identifier: MIT
 
+---
 {{- if .Values.extraConfigMap -}}
 apiVersion: v1
 kind: ConfigMap

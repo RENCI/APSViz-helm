@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-RENCI
 # SPDX-License-Identifier: MIT
 
+---
 {{ if .Values.dataUrl }}
 apiVersion: batch/v1
 kind: Job
