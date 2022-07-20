@@ -30,7 +30,7 @@ resources:
     memory: 10Gi
   requests:
     cpu: 500m
-    ephemeral-storage: 64Mi
+    ephemeral-storage: 50Mi
     memory: 3Gi
 
 # Use this if you have predefined secrets

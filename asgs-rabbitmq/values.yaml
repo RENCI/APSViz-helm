@@ -85,24 +85,13 @@ networking:
 
 resources:
   limits:
-    memory: 1000Mi
-    ephemeral-storage: 128Mi
+    memory: 512Mi
+    ephemeral-storage: 64Mi
     cpu: 500m
   requests:
     memory: 256Mi
+    ephemeral-storage: 50Mi
     cpu: 200m
-
-
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
 
 nodeSelector: {}
 
