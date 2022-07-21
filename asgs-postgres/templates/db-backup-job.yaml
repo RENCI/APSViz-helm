@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: LicenseRef-RENCI
+# SPDX-License-Identifier: MIT
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "asgs-postgres.fullname" . }}-backup-job
+  labels:
+    {{- include "asgs-postgres.labels" . | nindent 4 }}
+spec:
+  schedule: "0 5 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            {{- toYaml .Values.podBackupSecurityContext | nindent 12 }}
+          containers:
+          - name: {{ .Chart.Name }}-backup-job
+            securityContext:
+              {{- toYaml .Values.securityContext | nindent 16 }}
+            image: "{{ .Values.backupImage.repository }}:{{ .Values.backupImage.tag }}"
+            imagePullPolicy: {{ .Values.backupImage.pullPolicy }}
+            volumeMounts:
+            - name:  {{ .Values.volumes.name }}
+              mountPath: "/data"
+            - mountPath: dumpDatabase.sh
+              name: "backup-script"
+              subPath: "dumpDatabase.sh"
+            command: ['bash', './dumpDatabase.sh']
+            env:
+            - name: LOG_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: log-path
+            - name: ASGS_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: asgs-host
+            - name: ASGS_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: asgs-port
+            - name: PGUSER
+              value: {{ .Values.adminuser }}
+            - name: PGPASSWORD
+              value: {{ .Values.adminpassword }}
+          restartPolicy: Never
+          volumes:
+            - name: {{ .Values.volumes.name }}
+              persistentVolumeClaim:
+                claimName: {{ .Values.volumes.claimName }}
+            - name: backup-script
+              configMap:
+                name: "{{- include "asgs-postgres.fullname" . }}-scripts"
+                defaultMode: 0777
