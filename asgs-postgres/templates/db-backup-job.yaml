@@ -12,9 +12,10 @@ metadata:
   labels:
     {{- include "asgs-postgres.labels" . | nindent 4 }}
 spec:
-  schedule: "0 5 * * *"
+  schedule: "{{ .Values.backup.crontab }}"
   jobTemplate:
     spec:
+      ttlSecondsAfterFinished: 3
       template:
         spec:
           securityContext:
