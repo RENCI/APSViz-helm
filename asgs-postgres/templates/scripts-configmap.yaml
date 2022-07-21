@@ -85,3 +85,5 @@ data:
         pg_dump -h $ASGS_DB_HOST -d $i -Fc -f $DUMPS_DIR/$i.dump.1
         date >> $LOG_PATH/export.log
     done
+
+    exit 0
