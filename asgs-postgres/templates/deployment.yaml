@@ -42,9 +42,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
           - name: POSTGRES_USER
-            value: {{ .Values.adminuser }}
+            value: {{ .Values.adminUser }}
           - name: POSTGRES_PASSWORD
-            value: {{ .Values.adminpassword }}
+            value: {{ .Values.adminPassword }}
           ports:
             - name: postgres-port
               containerPort: 5432

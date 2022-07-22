@@ -33,6 +33,7 @@ spec:
               name: "backup-script"
               subPath: "dumpDatabase.sh"
             command: ['bash', './dumpDatabase.sh']
+
             env:
             - name: LOG_PATH
               valueFrom:
@@ -50,9 +51,9 @@ spec:
                   name: eds-keys
                   key: asgs-port
             - name: PGUSER
-              value: {{ .Values.adminuser }}
+              value: {{ .Values.adminUser }}
             - name: PGPASSWORD
-              value: {{ .Values.adminpassword }}
+              value: {{ .Values.adminPassword }}
           restartPolicy: Never
           volumes:
             - name: {{ .Values.volumes.name }}

@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: MIT
 
 ---
-{{ if .Values.dataUrl }}
+{{ if .Values.restoreDB }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -15,18 +15,6 @@ spec:
     metadata:
       name: "{{- include "asgs-postgres.fullname" . }}-postgres-job"
     spec:
-      initContainers:
-        - name: download-bckp
-          image: busybox
-          command:
-            - 'wget'
-          args:
-            - '-O'
-            - '/data/{{ .Values.zipFileName }}'
-            - '{{ .Values.dataUrl }}'
-          volumeMounts:
-          - name: data-dir
-            mountPath: '/data/'
       containers:
       - name: loader-container
         image: "{{ .Values.image.repository}}:{{ .Values.image.tag }}"
@@ -36,29 +24,28 @@ spec:
         env:
         - name: PGHOST
           value: {{ include "asgs-postgres.fullname" . }}
-        - name: PGPORT
-          value: "{{ .Values.service.port }}"
         - name: PGUSER
-          value: {{ .Values.adminuser }}
+          value: {{ .Values.adminUser }}
         - name: PGPASSWORD
-          value: {{ .Values.adminpassword }}
+          value: {{ .Values.adminPassword }}
         volumeMounts:
+        - mountPath: /data
+          name: {{ .Values.volumes.name }}
         - mountPath:  loaddb.sh
           name: "loader-script"
           subPath: "loaddb.sh"
-        - mountPath: /data
-          name: "data-dir"
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       restartPolicy: OnFailure
       volumes:
+      - name: {{ .Values.volumes.name }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.volumes.claimName }}
       - name: loader-script
         configMap:
           name: "{{- include "asgs-postgres.fullname" . }}-scripts"
           defaultMode: 0777
-      - name: data-dir
-        persistentVolumeClaim:
-          claimName: "{{ include "asgs-postgres.fullname" . }}-backup-pvc"
 {{ end }}

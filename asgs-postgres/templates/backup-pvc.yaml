@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: MIT
 
 ---
-{{ if .Values.dataUrl }}
+{{ if .Values.restoreDB }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

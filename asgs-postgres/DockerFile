@@ -2,3 +2,4 @@ FROM debian:stable-slim
 
 RUN apt-get update && apt-get upgrade
 RUN apt -y install postgresql
+RUN apt -y install nano
