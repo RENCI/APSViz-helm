@@ -17,10 +17,14 @@ image:
 storage:
     size: 10Gi
 
-adminuser:
-adminpassword: ""
-dataUrl: ""
+# will invoke a DB restore when set
+restoreDB: false
+
+# declares what cluster this is running on
 isAWS: false
+
+adminUser:
+adminPassword: ""
 mountSubPath: ""
 
 imagePullSecrets: []
