@@ -18,6 +18,6 @@ data:
       "SECRETS_CLAIM": {{ .Values.base_config.secrets_claim | quote }},
       "CREATE_SLEEP": {{ .Values.base_config.create_sleep }},
       "JOB_TIMEOUT": {{ .Values.base_config.job_timeout }},
-      "JOB_LIMIT_MULTIPLIER": {{ .Values.base_config.job_limit_multiplier }},
+      "JOB_LIMIT_MULTIPLIER": {{ .Values.base_config.job_limit_multiplier | quote  }},
       "JOB_BACKOFF_LIMIT": {{ .Values.base_config.job_backoff_limit }}
     }
