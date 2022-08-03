@@ -19,6 +19,18 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+isAWS: false
+
+logVolumes:
+  create: false
+  name: logs-vol
+  claimName: log-pvc
+  storageClass: "sc"
+  size: 1Gi
+  accessMode: "ReadWriteOnce"
+  efsHandle: "fs"
+  mountPoint: /mountpath
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: false

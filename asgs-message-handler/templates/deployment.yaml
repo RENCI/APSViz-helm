@@ -62,11 +62,16 @@ spec:
           - mountPath: /srv/django/ASGS_Web/messages/msg_settings.ini
             name: settings-script
             subPath: msg_settings.ini
+          - name: {{ .Values.logVolumes.claimName }}
+            mountPath: {{ .Values.logVolumes.mountPoint }}
       volumes:
       - name: settings-script
         configMap:
           name: "{{- include "asgs_message_handler.fullname" . }}-scripts"
           defaultMode: 0777
+      - name: {{ .Values.logVolumes.claimName }}
+        persistentVolumeClaim:
+          claimName: {{ include "asgs_message_handler.fullname" . }}-logs-pvc
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

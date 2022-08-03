@@ -1,0 +1,45 @@
+# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: LicenseRef-RENCI
+# SPDX-License-Identifier: MIT
+
+{{ if .Values.logVolumes.create }}
+{{/*{{ if .Values.isAWS }}*/}}
+{{/*---*/}}
+{{/*apiVersion: v1*/}}
+{{/*kind: PersistentVolume*/}}
+{{/*metadata:*/}}
+{{/*  name: {{ .Values.logVolumes.name }}*/}}
+{{/*spec:*/}}
+{{/*  capacity:*/}}
+{{/*    storage: {{ .Values.logVolumes.size }}*/}}
+{{/*  volumeMode: Filesystem*/}}
+{{/*  accessModes:*/}}
+{{/*    - {{ .Values.logVolumes.accessMode }}*/}}
+{{/*  persistentVolumeReclaimPolicy: Retain*/}}
+{{/*  storageClassName: {{ .Values.logVolumes.storageClass }}*/}}
+{{/*  csi:*/}}
+{{/*    driver: efs.csi.aws.com*/}}
+{{/*    volumeHandle: {{ .Values.logVolumes.efsHandle }}*/}}
+{{/*{{ end }}*/}}
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "asgs_message_handler.fullname" . }}-logs-pvc
+{{/*  annotations:*/}}
+{{/*    helm.sh/resource-policy: keep*/}}
+spec:
+  accessModes:
+  - {{ .Values.logVolumes.accessMode }}
+  {{ if .Values.isAWS }}
+  storageClassName: {{ .Values.logVolumes.storageClass }}
+  {{ end }}
+  resources:
+    requests:
+      storage: {{ .Values.logVolumes.size }}
+{{ end }}
+
+
