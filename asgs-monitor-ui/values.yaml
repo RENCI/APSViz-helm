@@ -11,7 +11,7 @@
 replicaCount: 1
 
 image:
-  repository: renciorg/asgs_monitor_ui:0.0.1
+  repository: containers.renci.org/eds/asgs_monitor_ui:0.0.1
   pullPolicy: Always
 
 imagePullSecrets: []
