@@ -49,6 +49,17 @@ spec:
               value: "{{ .Values.env.PG_PW }}"
             - name: "PG_DB"
               value: "{{ .Values.env.PG_DB }}"
+            - name: SLACK_ISSUES_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: slack-issues-token
+            - name: SLACK_ISSUES_CHANNEL
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: slack-issues-channel
+
           command: [ "/bin/bash", "-c"]
           args: ["/message/startup.sh"]
           #args: ["while true; do sleep 30; done;"]
