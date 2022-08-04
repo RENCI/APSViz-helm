@@ -11,7 +11,7 @@
 replicaCount: 1
 
 image:
-  repository: renciorg/apsviz-settings:v0.0.10
+  repository: containers.renci.org/eds/apsviz-settings:v0.0.10
   pullPolicy: Always
 
 imagePullSecrets: []

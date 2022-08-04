@@ -11,7 +11,7 @@
 replicaCount: 1
 
 image:
-  repository: renciorg/apsviz-k8s
+  repository: containers.renci.org/eds/apsviz-k8s
   tag: "sometag"
   pullPolicy: Always
 

@@ -11,7 +11,7 @@
 replicaCount: 1
 
 image:
-  repository: renciorg/asgs-rabbitmq
+  repository: containers.renci.org/eds/asgs-rabbitmq
   tag: latest
   pullPolicy: "IfNotPresent"
 
