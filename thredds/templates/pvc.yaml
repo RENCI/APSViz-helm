@@ -29,8 +29,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ include "apsviz-thredds.fullname" . }}-logs-pvc
-{{/*  annotations:*/}}
-{{/*    helm.sh/resource-policy: keep*/}}
+  annotations:
+    helm.sh/resource-policy: keep
 spec:
   accessModes:
   - {{ .Values.logVolumes.accessMode }}
