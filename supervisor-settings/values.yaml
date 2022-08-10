@@ -55,7 +55,7 @@ ingress:
     nginx.ingress.kubernetes.io/send-timeout: "86400"
     nginx.ingress.kubernetes.io/service-upstream: 'true'
     nginx.ingress.kubernetes.io/upstream-keepalive-timeout: "86400"
-    nginx.ingress.kubernetes.io/proxy-body-size: 1m
+    nginx.ingress.kubernetes.io/proxy-body-size: 256m
   host: somehost
   pathType: "ImplementationSpecific"
   tls:
@@ -91,7 +91,7 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-    cpu: 200m
+    cpu: 750m
     memory: 200Mi
   requests:
     cpu: 100m
