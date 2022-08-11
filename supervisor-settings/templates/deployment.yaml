@@ -103,7 +103,7 @@ spec:
       volumes:
         - name: {{ .Values.volumes.name }}
           persistentVolumeClaim:
-            claimName: {{ .Values.volumes.claimname }}
+            claimName: {{ .Values.volumes.claimName }}
     {{- with .Values.nodeSelector}}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
