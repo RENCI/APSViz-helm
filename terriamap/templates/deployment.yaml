@@ -35,8 +35,6 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - name: apsviz-terria-map-vol
-              mountPath: /home/nru/usr/src/app/data
             - name: apsviz-fileserver-vol
               mountPath: /fileserver
           ports:
@@ -51,10 +49,6 @@ spec:
               value: {{ .Values.ingress.https_proxy }}
           {{ end }}
       volumes:
-        - name: apsviz-terria-map-vol
-          persistentVolumeClaim:
-            claimName: {{ include "apsviz-terriamap.fullname" . }}-pvc
-
         - name: apsviz-fileserver-vol
           persistentVolumeClaim:
             claimName: {{ .Values.volumes.fileserverPvc }}
