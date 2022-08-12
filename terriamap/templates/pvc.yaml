@@ -13,7 +13,7 @@ metadata:
     helm.sh/resource-policy: keep
 spec:
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
   {{ if .Values.isAWS }}
   storageClassName: {{ .Values.storage.class }}
   {{ end }}
