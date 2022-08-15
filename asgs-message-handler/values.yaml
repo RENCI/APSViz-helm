@@ -63,7 +63,7 @@ env:
   PG_USER: "someuser"
   PG_PW: "somepassword"
   PG_DB: "somedb"
-  sleepTimeSeconds: 180
+  sleepTimeSeconds: 90
 
 ingress:
   enabled: false
