@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: LicenseRef-RENCI
+# SPDX-License-Identifier: MIT
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "apsviz-terriamap.fullname" . }}-data-refresh-job
+  labels:
+    {{- include "apsviz-terriamap.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.dataReload.crontab }}"
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 0
+      template:
+        spec:
+          containers:
+          - name: {{ .Chart.Name }}-data-refresh
+            securityContext:
+              {{- toYaml .Values.securityContext | nindent 16 }}
+            image: "alpine:3.14"
+            imagePullPolicy: Always
+            volumeMounts:
+            - mountPath: /fileserver
+              name: filesvr-pvc-vol
+
+          restartPolicy: Never
+          volumes:
+          - name: filesvr-pvc-vol
+            persistentVolumeClaim:
+              claimName: apsviz-fileserver-pvc

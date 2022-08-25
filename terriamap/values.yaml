@@ -30,6 +30,9 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name:
 
+dataReload:
+  crontab: "0 2 * * *"
+
 podSecurityContext: {}
   # fsGroup: 2000
 
@@ -70,7 +73,7 @@ ingress:
 resources:
   limits:
     memory: 8Gi
-    ephemeral-storage: 256Mi
+    ephemeral-storage: 512Mi
     cpu: 2000m
   requests:
     memory: 4Gi
