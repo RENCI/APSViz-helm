@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-License-Identifier: LicenseRef-RENCI
 # SPDX-License-Identifier: MIT
-
+{{ if .Values.dataReload.enable }}
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -27,9 +27,11 @@ spec:
             volumeMounts:
             - mountPath: /fileserver
               name: filesvr-pvc-vol
-
+            command: ['wget']
+            args: ['http://apsviz-settings-dev/get_terria_map_data?limit=2', '-O', '/fileserver/terria-map/test.json']
           restartPolicy: Never
           volumes:
           - name: filesvr-pvc-vol
             persistentVolumeClaim:
               claimName: apsviz-fileserver-pvc
+{{ end }}
