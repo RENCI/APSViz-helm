@@ -24,9 +24,6 @@ metadata:
     {{- end }}
 spec:
   type: {{ .Values.service.type }}
-  {{- if .Values.service.loadBalancerIP }}
-  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
-  {{- end }}
   ports:
     - name: http-geoserver
       port: 80
@@ -36,18 +33,18 @@ spec:
     app: {{ template "geoserver.fullname" . }}
     release: {{ .Release.Name | quote }}
 
-{{ if .Values.service.loadBalancerIP }}
----
-kind: NetworkPolicy
-apiVersion: networking.k8s.io/v1
-metadata:
-  name: loadbalancer-port-for-geoserver
-spec:
-  podSelector:
-    matchLabels:
-      type: http
-  ingress:
-  - from: []
-    ports:
-      - port: 80
-{{- end }}
+{{/*{{ if .Values.service.loadBalancerIP }}*/}}
+{{/*---*/}}
+{{/*kind: NetworkPolicy*/}}
+{{/*apiVersion: networking.k8s.io/v1*/}}
+{{/*metadata:*/}}
+{{/*  name: loadbalancer-port-for-geoserver*/}}
+{{/*spec:*/}}
+{{/*  podSelector:*/}}
+{{/*    matchLabels:*/}}
+{{/*      type: http*/}}
+{{/*  ingress:*/}}
+{{/*  - from: []*/}}
+{{/*    ports:*/}}
+{{/*      - port: 80*/}}
+{{/*{{- end }}*/}}
