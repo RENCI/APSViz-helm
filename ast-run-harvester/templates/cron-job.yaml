@@ -1,0 +1,41 @@
+# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: LicenseRef-RENCI
+# SPDX-License-Identifier: MIT
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "ast-run-harvester.fullname" . }}-job
+  labels:
+    {{- include "ast-run-harvester.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.run.crontab }}"
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3
+      template:
+        spec:
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          containers:
+          - name: {{ .Chart.Name }}-job
+            securityContext:
+              {{- toYaml .Values.securityContext | nindent 16 }}
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            volumeMounts:
+            - name:  {{ .Values.volumes.name }}
+              mountPath: "/data"
+            command: ['bash', './execute_run_harvest.sh', '/data/ast-run-harvester']
+            env:
+            - name: CONTRAILS_KEY
+              value: "20cebc91-5838-49b1-ab01-701324161aa8"
+          restartPolicy: Never
+          volumes:
+            - name: {{ .Values.volumes.name }}
+              persistentVolumeClaim:
+                claimName: {{ .Values.volumes.claimName }}
+
