@@ -17,6 +17,10 @@ image:
 storage:
     size: 10Gi
 
+backup:
+  enable: true
+  crontab: "0 2 * * *"
+
 # will invoke a DB restore when set
 restoreDB: false
 
