@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: LicenseRef-RENCI
 # SPDX-License-Identifier: MIT
 
+{{ if .Values.backup.enable }}
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -63,3 +64,4 @@ spec:
               configMap:
                 name: "{{- include "asgs-postgres.fullname" . }}-scripts"
                 defaultMode: 0777
+  {{ end }}
