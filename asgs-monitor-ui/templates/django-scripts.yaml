@@ -102,7 +102,7 @@ data:
                   'NAME': 'asgs_testdb',
                   'USER': 'asgstest',
                   'PASSWORD': 'Z1ppityD0Da',
-                  'HOST': 'asgs-postgres-dev',
+                  'HOST': '{{ .Values.database.db_host }}',
                   'PORT': '5432',
               },
               'default': {
