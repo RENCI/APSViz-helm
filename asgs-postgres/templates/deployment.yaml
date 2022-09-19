@@ -45,6 +45,8 @@ spec:
             value: {{ .Values.adminUser }}
           - name: POSTGRES_PASSWORD
             value: {{ .Values.adminPassword }}
+          - name: PGDATA
+            value: {{ .Values.dataMountPath }}{{ .Values.dataMountSubPath }}
           ports:
             - name: postgres-port
               containerPort: 5432
@@ -53,9 +55,6 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
           - mountPath: {{ .Values.dataMountPath }}
-          {{ if .Values.mountSubPath }}
-            subPath: {{ .Values.dataMountSubPath }}
-          {{ end }}
             name: {{ include "asgs-postgres.fullname" . }}-postgres-data
           {{- if .Values.shmSize }}
           - mountPath: /dev/shm
