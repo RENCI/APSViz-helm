@@ -27,6 +27,10 @@ restoreDB: false
 # declares what cluster this is running on
 isAWS: false
 
+dataMountPath: /var/lib/postgresql/data
+dataMountSubPath: /db_data
+accessMode: "ReadWriteMany"
+
 adminUser:
 adminPassword: ""
 mountSubPath: ""
