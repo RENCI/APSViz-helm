@@ -84,7 +84,7 @@ spec:
     - metadata:
         name: {{ include "asgs-postgres.fullname" . }}-postgres-data
       spec:
-        accessModes: [ "ReadWriteMany" ]
+        accessModes: [ {{ .Values.accessMode }} ]
         {{ if .Values.isAWS }}
         storageClassName: {{ .Values.storage.class }}
         {{ end }}
