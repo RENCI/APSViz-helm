@@ -74,13 +74,13 @@ ingress:
 
 resources:
   limits:
-    memory: 8Gi
-    ephemeral-storage: 512Mi
-    cpu: 2000m
+    memory: 5Gi
+    ephemeral-storage: 1Gi
+    cpu: 2500m
   requests:
-    memory: 4Gi
-    ephemeral-storage: 50Mi
-    cpu: 250m
+    memory: 2Gi
+    ephemeral-storage: 100Mi
+    cpu: 1000m
 
 storage:
   class: "eds-sc"
