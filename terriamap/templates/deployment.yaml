@@ -37,6 +37,8 @@ spec:
           volumeMounts:
             - name: apsviz-fileserver-vol
               mountPath: /fileserver
+            - name:  {{ .Values.volumes.buildVolName }}
+              mountPath: {{ .Values.volumes.buildMountPoint }}
           ports:
             - name: http
               containerPort: 80
@@ -52,6 +54,9 @@ spec:
         - name: apsviz-fileserver-vol
           persistentVolumeClaim:
             claimName: {{ .Values.volumes.fileserverPvc }}
+        - name: {{ .Values.volumes.buildVolName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.volumes.buildClaimName }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
