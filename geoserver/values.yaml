@@ -25,13 +25,13 @@ database:
 
 resources:
   limits:
-    cpu: 1000m
-    ephemeral-storage: 128Mi
-    memory: 10Gi
+    cpu: 1500m
+    ephemeral-storage: 256Mi
+    memory: 15Gi
   requests:
     cpu: 500m
-    ephemeral-storage: 50Mi
-    memory: 3Gi
+    ephemeral-storage: 64Mi
+    memory: 5Gi
 
 # Use this if you have predefined secrets
 existingSecret: |
