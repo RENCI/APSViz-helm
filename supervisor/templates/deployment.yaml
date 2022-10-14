@@ -37,7 +37,7 @@ spec:
           volumeMounts:
           - name:  {{ .Values.volumes.name }}
             mountPath: "/data"
-          - mountPath: /repo/APSVIZ-Supervisor/common/base_config.json
+          - mountPath: /repo/APSVIZ-Supervisor/src/common/base_config.json
             name: "base-config-script"
             subPath: "base_config.json"
           resources:

@@ -101,7 +101,7 @@ data:
                   'ENGINE': 'django.db.backends.postgresql_psycopg2',
                   'NAME': 'asgs_testdb',
                   'USER': 'asgstest',
-                  'PASSWORD': '{{ .Values.database.db_host }}',
+                  'PASSWORD': '{{ .Values.database.db_password }}',
                   'HOST': '{{ .Values.database.db_host }}',
                   'PORT': '5432',
               },
