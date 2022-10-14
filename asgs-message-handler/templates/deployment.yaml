@@ -61,7 +61,7 @@ spec:
                   key: slack-issues-channel
 
           command: [ "/bin/bash", "-c"]
-          args: ["/message/startup.sh {{ .Values.env.sleepTimeSeconds }}"]
+          args: ["/repo/message/startup.sh {{ .Values.env.sleepTimeSeconds }}"]
           #args: ["while true; do sleep 30; done;"]
           ports:
             - name: http
