@@ -27,11 +27,11 @@ resources:
   limits:
     cpu: 1500m
     ephemeral-storage: 256Mi
-    memory: 15Gi
+    memory: 20Gi
   requests:
     cpu: 500m
     ephemeral-storage: 64Mi
-    memory: 5Gi
+    memory: 10Gi
 
 # Use this if you have predefined secrets
 existingSecret: |
