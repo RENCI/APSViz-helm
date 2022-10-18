@@ -54,6 +54,18 @@ spec:
               mountPath: {{ .Values.volumes.sftp.mountPoint }}
             - name: {{ .Values.volumes.thredds.name }}
               mountPath: {{ .Values.volumes.thredds.mountPoint }}
+          startupProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.target_port }}
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: {{ .Values.service.target_port }}
+            initialDelaySeconds: 1
+            periodSeconds: 30
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:

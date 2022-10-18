@@ -41,6 +41,18 @@ spec:
           volumeMounts:
             - name: {{ .Values.volumes.name }}
               mountPath: {{ .Values.volumes.mountPoint }}
+          startupProbe:
+            httpGet:
+              path: /obs_pngs/wellness.txt
+              port: {{ .Values.service.target_port }}
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /obs_pngs/wellness.txt
+              port: {{ .Values.service.target_port }}
+            initialDelaySeconds: 1
+            periodSeconds: 30
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
