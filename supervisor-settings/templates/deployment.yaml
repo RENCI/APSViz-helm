@@ -81,7 +81,7 @@ spec:
             value: {{ .Values.volumes.temp_dir }}
           volumeMounts:
             - name:  {{ .Values.volumes.name }}
-              mountPath: {{ .Values.volumes.temp_dir }}
+              mountPath: {{ .Values.volumes.mount_dir }}
           command:
             - 'uvicorn'
           args:
