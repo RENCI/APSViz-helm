@@ -78,12 +78,13 @@ database:
 
 volumes:
   name: pvc-name
-  claimname: pvc-claim-name
+  claimName: pvc-claim-name
   create: false
   accessMode: "ReadWriteOnce"
   storageClass: "storage class"
   size: 1Gi
   efsHandle: "the handle"
+  temp_dir: /some_temp_dir
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious

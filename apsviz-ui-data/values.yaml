@@ -78,7 +78,7 @@ database:
 
 volumes:
   name: pvc-name
-  claimname: pvc-claim-name
+  claimName: pvc-claim-name
   create: false
   accessMode: "ReadWriteOnce"
   storageClass: "storage class"

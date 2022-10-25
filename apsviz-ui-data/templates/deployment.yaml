@@ -77,9 +77,11 @@ spec:
                 key: log-path
           - name: SYSTEM
             value: {{ .Values.system }}
+          - name: TEMP_FILE_PATH
+            value: {{ .Values.volumes.temp_dir }}
           volumeMounts:
             - name:  {{ .Values.volumes.name }}
-              mountPath: "/data"
+              mountPath: {{ .Values.volumes.temp_dir }}
           command:
             - 'uvicorn'
           args:
