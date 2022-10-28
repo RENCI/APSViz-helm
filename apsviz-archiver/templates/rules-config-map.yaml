@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{- include "apsviz-archiver.fullname" . }}-scripts"
+data:
+  rule_file.json: |-
+    {
+      "rule_definition_name": "APSViz data archival rule set.",
+      "rule_definition_version": "0.0.0",
+      "description": "Copies directories in /data/logs to /data/tmp/archiver-test.",
+      "rule_sets":
+      [
+        {
+          "rule_set_name": "Copy log directories rule set",
+          "description": "Copies directories in /data/logs to /data/tmp/archiver-test.",
+          "rules": [
+            {
+              "name": "Copy log directories",
+              "description": "This rule copies directories from source to destination.",
+              "query_criteria_type": "BY_AGE",
+              "query_data_type": "INTEGER",
+              "query_data_value": 1,
+              "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
+              "action_type": "SWEEP_COPY",
+              "data_type": "DIRECTORY",
+              "source": "/data/logs",
+              "destination": "/data/tmp/archiver-test"
+            }
+          ]
+        }
+      ]
+    }

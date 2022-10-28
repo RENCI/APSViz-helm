@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: LicenseRef-RENCI
+# SPDX-License-Identifier: MIT
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "apsviz-archiver.fullname" . }}-job
+  labels:
+    {{- include "apsviz-archiver.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.run.crontab }}"
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3
+      template:
+        spec:
+          containers:
+          - name: {{ .Chart.Name }}
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            command: ['python', 'main.py', '-f', '{{ .Values.rules.fileName }}']
+            volumeMounts:
+            - name: {{ .Values.volumes.name }}
+              mountPath: {{ .Values.volumes.mountPath }}
+            - name: rule-script
+              mountPath: "/repo/APSVIZ-Archiver/{{ .Values.rules.fileName }}"
+              subPath: {{ .Values.rules.fileName }}
+            env:
+            - name: LOG_LEVEL
+              value: "20"
+            - name: LOG_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: log-path
+          restartPolicy: Never
+          volumes:
+            - name: {{ .Values.volumes.name }}
+              persistentVolumeClaim:
+                claimName: {{ .Values.volumes.claimName }}
+            - name: rule-script
+              configMap:
+                name: "{{- include "apsviz-archiver.fullname" . }}-scripts"
