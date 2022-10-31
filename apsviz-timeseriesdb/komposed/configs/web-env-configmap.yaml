@@ -4,12 +4,12 @@ data:
   DEBUG: "0"
   DJANGO_ALLOWED_HOSTS: apsviz-timeseriesdb.edc.renci.org
   SECRET_KEY: change_me
-  SQL_DATABASE: apsviz_gauges
+  SQL_DATABASE: xxxxxx
   SQL_ENGINE: timescale.db.backends.postgis
   SQL_HOST: db
   SQL_PASSWORD: xxxxxx
   SQL_PORT: "5432"
-  SQL_USER: apsviz_gauges
+  SQL_USER: xxxxxx
 kind: ConfigMap
 metadata:
   creationTimestamp: null
