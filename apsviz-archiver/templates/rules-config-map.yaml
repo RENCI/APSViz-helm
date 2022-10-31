@@ -5,18 +5,18 @@ metadata:
 data:
   rule_file.json: |-
     {
-      "rule_definition_name": "APSViz data archival rule set.",
+      "rule_definition_name": "APSViz archival rules",
       "rule_definition_version": "0.0.0",
-      "description": "Copies directories in /data/logs to /data/tmp/archiver-test.",
+      "description": "Log directory operations.",
       "rule_sets":
       [
         {
-          "rule_set_name": "Copy log directories rule set",
-          "description": "Copies directories in /data/logs to /data/tmp/archiver-test.",
+          "rule_set_name": "Log operations rule set",
+          "description": "Operations on log directories located in /data/logs.",
           "rules": [
             {
               "name": "Copy log directories",
-              "description": "This rule copies directories from source to destination.",
+              "description": "This rule copies directories of a certain age from source to destination.",
               "query_criteria_type": "BY_AGE",
               "query_data_type": "INTEGER",
               "query_data_value": 1,
@@ -25,6 +25,18 @@ data:
               "data_type": "DIRECTORY",
               "source": "/data/logs",
               "destination": "/data/tmp/archiver-test"
+            },
+            {
+              "name": "Move log directories",
+              "description": "This rule moves directories of a certain age from source to destination.",
+              "query_criteria_type": "BY_AGE",
+              "query_data_type": "INTEGER",
+              "query_data_value": 1,
+              "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
+              "action_type": "SWEEP_MOVE",
+              "data_type": "DIRECTORY",
+              "source": "/data/logs",
+              "destination": "/data/tmp/archiver-test/old"
             }
           ]
         }
