@@ -37,6 +37,28 @@ spec:
                 secretKeyRef:
                   name: eds-keys
                   key: log-path
+            - name: SYSTEM
+              value: "{{ .Values.system }}"
+            - name: SLACK_STATUS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: slack-status-token
+            - name: SLACK_STATUS_CHANNEL
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: slack-status-channel
+            - name: SLACK_ISSUES_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: slack-issues-token
+            - name: SLACK_ISSUES_CHANNEL
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: slack-issues-channel
           restartPolicy: Never
           volumes:
             - name: {{ .Values.volumes.name }}
