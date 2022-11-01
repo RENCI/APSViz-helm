@@ -1,0 +1,75 @@
+# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: LicenseRef-RENCI
+# SPDX-License-Identifier: MIT
+
+# Default values for asgs-postgres.
+# This is a YAML-formatted file.
+
+replicaCount: 1
+
+image:
+  repository: postgres
+  tag: "9.6.23"
+  pullPolicy: IfNotPresent
+
+storage:
+    size: 10Gi
+
+backup:
+  enable: true
+  crontab: "0 2 * * *"
+
+# will invoke a DB restore when set
+restoreDB: false
+
+# declares what cluster this is running on
+isAWS: false
+
+dataMountPath: /var/lib/postgresql/data
+dataMountSubPath: /db_data
+accessMode: "ReadWriteMany"
+
+adminUser:
+adminPassword: ""
+mountSubPath: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 1234
+
+shmSize: 1Gi
+
+resources:
+  limits:
+    memory: 5Gi
+    cpu: 2000m
+  requests:
+    memory: 1Gi
+    cpu: 1000m
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

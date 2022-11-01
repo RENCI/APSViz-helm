@@ -1,0 +1,78 @@
+---
+apiVersion:  apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "apsviz-timeseries-web.fullname" . }}
+  labels:
+    {{- include "apsviz-timeseries-web.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "apsviz-timeseries-web.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "apsviz-timeseries-web.selectorLabels" . | nindent 8 }}
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+      - name: web
+        securityContext:
+          runAsUser: 1001
+          runAsGroup: 1001
+
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+
+        args:
+        - bash
+        - -c
+        - python manage.py collectstatic --no-input --clear && python manage.py makemigrations
+          --noinput && python manage.py migrate --no-input &&  gunicorn apsviz_gauges.wsgi:application
+          --bind 0.0.0.0:8000
+
+        env:
+        - name: DATABASE
+          value: {{ .Values.web.database | quote }}
+        - name: DEBUG
+          value: {{ .Values.web.debug | quote }}
+        - name: DJANGO_ALLOWED_HOSTS
+          value: {{ .Values.web.django_allowed_hosts | quote }}
+        - name: SECRET_KEY
+          value: {{ .Values.web.secret_key | quote }}
+        - name: SQL_DATABASE
+          value: {{ .Values.web.sql_database | quote }}
+        - name: SQL_ENGINE
+          value: {{ .Values.web.sql_engine | quote }}
+        - name: SQL_HOST
+          value: {{ .Values.web.sql_host | quote }}
+        - name: SQL_PASSWORD
+          value: {{ .Values.web.sql_password | quote }}
+        - name: SQL_PORT
+          value: {{ .Values.web.sql_port | quote }}
+        - name: SQL_USER
+          value: {{ .Values.web.sql_user | quote }}
+        - name: HTTPS_PROXY
+          value: http://proxy.renci.org:8080
+        - name: HTTP_PROXY
+          value: http://proxy.renci.org:8080
+
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+
+        volumeMounts:
+        - mountPath: /home/django/web/staticfiles
+          name: static-volume
+        - mountPath: /home/django/web/mediafiles
+          name: media-volume
+
+      restartPolicy: Always
+
+      volumes:
+      - name: static-volume
+        persistentVolumeClaim:
+          claimName: {{ include "apsviz-timeseries-web.name" . }}-static-volume
+      - name: media-volume
+        persistentVolumeClaim:
+          claimName: {{ include "apsviz-timeseries-web.name" . }}-media-volume
