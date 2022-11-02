@@ -41,16 +41,10 @@ spec:
                 secretKeyRef:
                   name: eds-keys
                   key: log-path
-            - name: ASGS_DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: asgs-host
-            - name: ASGS_DB_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: asgs-port
+            - name: DB_HOST
+              value: {{ include "apsviz-timeseries-postgres.fullname" . }}
+            - name: DB_PORT
+              value: {{ .Values.service.port | quote }}
             - name: PGUSER
               value: {{ .Values.adminUser }}
             - name: PGPASSWORD

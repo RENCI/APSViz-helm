@@ -20,9 +20,6 @@ data:
 
     BCKP_FILE_1=$DUMPS_DIR/{{ .Values.sqlFile1 }}
     BCKP_FILE_2=$DUMPS_DIR/{{ .Values.sqlFile2 }}
-    BCKP_FILE_3=$DUMPS_DIR/{{ .Values.sqlFile3 }}
-    BCKP_FILE_4=$DUMPS_DIR/{{ .Values.sqlFile4 }}
-    BCKP_FILE_5=$DUMPS_DIR/apsviz_cog_mosaic.1
 
     until pg_isready ; do
         echo "postgres not ready";
@@ -34,9 +31,6 @@ data:
 
     # restore the databases. pg_restore is used here because it is a compressed backup
     pg_restore -d postgres --clean --create $BCKP_FILE_2
-    pg_restore -d postgres --clean --create $BCKP_FILE_3
-    pg_restore -d postgres --clean --create $BCKP_FILE_4
-    pg_restore -d postgres --clean --create $BCKP_FILE_5
 
     # this is truly a hack. pg_restore returns a count of warnings,
     # in this case a warning stating that the "public schema already exists".
@@ -60,7 +54,7 @@ data:
     date >> $LOG_PATH/export.log
 
     # increment the dump file version numbers
-    for i in `psql -h $ASGS_DB_HOST -c "SELECT datname FROM pg_database where datname in ('apsviz', 'adcirc_obs', 'asgs_dashboard', 'apsviz_cog_mosaic')" | head -n -2 | tail -n +3`; do
+    for i in `psql -h $DB_HOST -c "SELECT datname FROM pg_database where datname in ('apsviz_gauges')" | head -n -2 | tail -n +3`; do
         for j in {8..1}; do
             DUMP_FILE=$DUMPS_DIR/$i.dump.$j
             NEW_DUMP_FILE=$DUMPS_DIR/$i.dump.$(( j + 1 ))
@@ -74,7 +68,7 @@ data:
     done
 
     # perform the dumps
-    for i in `psql -h $ASGS_DB_HOST -c "SELECT datname FROM pg_database where datname in ('apsviz', 'adcirc_obs', 'asgs_dashboard', 'apsviz_cog_mosaic')" | head -n -2 | tail -n +3`; do
+    for i in `psql -h $DB_HOST -c "SELECT datname FROM pg_database where datname in ('apsviz_gauges')" | head -n -2 | tail -n +3`; do
         # remove the last globals file version if it exists
         if [ -e $DUMPS_DIR/$i.dump.8 ]; then
             echo "removing $DUMPS_DIR/$i.dump.8" >> $LOG_PATH/export.log
@@ -84,14 +78,14 @@ data:
         # get the dump
         echo "dumping...$DUMPS_DIR/$i.dump.1" >> $LOG_PATH/export.log
         date >> $LOG_PATH/export.log
-        pg_dump -h $ASGS_DB_HOST -d $i -Fc -f $DUMPS_DIR/$i.dump.1
+        pg_dump -h $DB_HOST -d $i -Fc -f $DUMPS_DIR/$i.dump.1
         date >> $LOG_PATH/export.log
     done
 
     # increment the globals file version numbers
     for j in {8..1}; do
-      GLOBALS_FILE=$DUMPS_DIR/dbglobals.sql.$j
-      NEW_GLOBALS_FILE=$DUMPS_DIR/dbglobals.sql.$(( j + 1 ))
+      GLOBALS_FILE=$DUMPS_DIR/ts_dbglobals.sql.$j
+      NEW_GLOBALS_FILE=$DUMPS_DIR/ts_dbglobals.sql.$(( j + 1 ))
 
       # rename the globals file version
       if [ -e $GLOBALS_FILE ]; then
@@ -101,15 +95,15 @@ data:
     done
 
     # remove the last globals file version if it exists
-    if [ -e $DUMPS_DIR/dbglobals.sql.8 ]; then
-      echo "removing $DUMPS_DIR/dbglobals.sql.8" >> $LOG_PATH/export.log
-      rm $DUMPS_DIR/dbglobals.sql.8
+    if [ -e $DUMPS_DIR/ts_dbglobals.sql.8 ]; then
+      echo "removing $DUMPS_DIR/ts_dbglobals.sql.8" >> $LOG_PATH/export.log
+      rm $DUMPS_DIR/ts_dbglobals.sql.8
     fi
 
     # get the globals file
-    echo "dumping...$DUMPS_DIR/dbglobals.sql.1" >> $LOG_PATH/export.log
+    echo "dumping...$DUMPS_DIR/ts_dbglobals.sql.1" >> $LOG_PATH/export.log
     date >> $LOG_PATH/export.log
-    pg_dumpall -h $ASGS_DB_HOST --globals-only | grep -v 'ROLE postgres' > $DUMPS_DIR/dbglobals.sql.1
+    pg_dumpall -h $DB_HOST --globals-only | grep -v 'ROLE postgres' > $DUMPS_DIR/ts_dbglobals.sql.1
     date >> $LOG_PATH/export.log
 
     exit 0
