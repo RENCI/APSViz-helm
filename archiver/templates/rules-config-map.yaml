@@ -37,6 +37,18 @@ data:
               "data_type": "DIRECTORY",
               "source": "/data/logs",
               "destination": "/data/tmp/archiver-test/old"
+            },
+            {
+              "name": "Remove log directories",
+              "description": "This rule removes directories of a certain age.",
+              "query_criteria_type": "BY_AGE",
+              "query_data_type": "INTEGER",
+              "query_data_value": 3,
+              "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
+              "action_type": "SWEEP_REMOVE",
+              "data_type": "DIRECTORY",
+              "source": "/data/tmp/archiver-test/old",
+              "destination": null
             }
           ]
         }
