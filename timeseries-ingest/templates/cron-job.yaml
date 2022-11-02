@@ -1,0 +1,59 @@
+# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: LicenseRef-RENCI
+# SPDX-License-Identifier: MIT
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "apsviz-timeseries-ingest.fullname" . }}-job
+  labels:
+    {{- include "apsviz-timeseries-ingest.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.run.crontab }}"
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3
+      template:
+        spec:
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          containers:
+          - name: {{ .Chart.Name }}-job
+            securityContext:
+              {{- toYaml .Values.securityContext | nindent 16 }}
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: {{ .Values.image.pullPolicy }}
+            volumeMounts:
+            - name:  {{ .Values.volumes.name }}
+              mountPath: "/data"
+#            command: ['python', 'runIngest.py', '--inputTask', 'DataIngest', '{{ .Values.volumes.dataLocation }}']
+            command: ['/bin/sh']
+            args: ['-c', 'while true; do date; sleep 3600; done']
+            env:
+            - name: LOG_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: log-path
+            - name: SQL_DATABASE
+              value: {{ .Values.database.sql_database | quote }}
+            - name: AST_HARVESTER_DATA
+              value: {{ .Values.volumes.dataLocation | quote }}
+            - name: SQL_ENGINE
+              value: {{ .Values.database.sql_engine | quote }}
+            - name: SQL_HOST
+              value: {{ .Values.database.sql_host | quote }}
+            - name: SQL_PASSWORD
+              value: {{ .Values.database.sql_password | quote }}
+            - name: SQL_PORT
+              value: {{ .Values.database.sql_port | quote }}
+            - name: SQL_USER
+              value: {{ .Values.database.sql_user | quote }}
+          restartPolicy: Never
+          volumes:
+            - name: {{ .Values.volumes.name }}
+              persistentVolumeClaim:
+                claimName: {{ .Values.volumes.claimName }}
