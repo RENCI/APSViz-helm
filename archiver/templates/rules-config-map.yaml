@@ -11,9 +11,21 @@ data:
       "rule_sets":
       [
         {
-          "rule_set_name": "Log operations rule set",
-          "description": "Operations on log directories located in /data/logs.",
+          "rule_set_name": "Log operations rule set using the by age criteria",
+          "description": "Copy /data/logs/ -> /data/tmp/archiver-test/, copy archiver-test/ -> ./copy/, move copy/ -> ../move/, remove move/",
           "rules": [
+            {
+              "name": "Copy log directories",
+              "description": "This rule copies directories of a certain age from source to destination.",
+              "query_criteria_type": "BY_AGE",
+              "query_data_type": "INTEGER",
+              "query_data_value": 7,
+              "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
+              "action_type": "SWEEP_COPY",
+              "data_type": "DIRECTORY",
+              "source": "/data/logs",
+              "destination": "/data/tmp/archiver-test"
+            },
             {
               "name": "Copy log directories",
               "description": "This rule copies directories of a certain age from source to destination.",
@@ -23,8 +35,8 @@ data:
               "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
               "action_type": "SWEEP_COPY",
               "data_type": "DIRECTORY",
-              "source": "/data/logs",
-              "destination": "/data/tmp/archiver-test"
+              "source": "/data/tmp/archiver-test",
+              "destination": "/data/tmp/archiver-test/copy"
             },
             {
               "name": "Move log directories",
@@ -35,8 +47,8 @@ data:
               "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
               "action_type": "SWEEP_MOVE",
               "data_type": "DIRECTORY",
-              "source": "/data/logs",
-              "destination": "/data/tmp/archiver-test/old"
+              "source": "/data/tmp/archiver-test/copy",
+              "destination": "/data/tmp/archiver-test/move"
             },
             {
               "name": "Remove log directories",
@@ -47,7 +59,7 @@ data:
               "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
               "action_type": "SWEEP_REMOVE",
               "data_type": "DIRECTORY",
-              "source": "/data/tmp/archiver-test/old",
+              "source": "/data/tmp/archiver-test/move",
               "destination": null
             }
           ]
