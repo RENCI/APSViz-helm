@@ -10,6 +10,11 @@ kind: ConfigMap
 metadata:
   name: "{{- include "apsviz-timeseries-postgres.fullname" . }}-scripts"
 data:
+  init-timeseries-db.sh: |-
+    #!/bin/bash
+
+    exit 0
+
   loaddb.sh: |-
     #!/bin/bash
     apt-get -yq update
