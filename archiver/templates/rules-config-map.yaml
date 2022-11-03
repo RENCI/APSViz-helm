@@ -63,6 +63,24 @@ data:
               "destination": null
             }
           ]
+        },
+        {
+          "rule_set_name": "Archive rule set for AST harvester data.",
+          "description": "Copy /data/ast-run-harvester files -> /data/tmp/ast-run-harvester",
+          "rules": [
+            {
+              "name": "Copy AST harvester data directory",
+              "description": "This rule copies files of a certain age from source to destination.",
+              "query_criteria_type": "BY_AGE",
+              "query_data_type": "INTEGER",
+              "query_data_value": 7,
+              "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
+              "action_type": "SWEEP_COPY",
+              "data_type": "FILE",
+              "source": "/data/ast-run-harvester",
+              "destination": "/data/tmp/ast-run-harvester"
+            }
+          ]
         }
       ]
     }
