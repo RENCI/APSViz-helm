@@ -32,7 +32,7 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: {{ .Values.volumes.name }}
-        - mountPath:  loaddb.sh
+        - mountPath: loaddb.sh
           name: "loader-script"
           subPath: "loaddb.sh"
 
