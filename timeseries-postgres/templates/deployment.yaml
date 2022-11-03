@@ -56,6 +56,9 @@ spec:
           volumeMounts:
           - mountPath: {{ .Values.dataMountPath }}
             name: {{ include "apsviz-timeseries-postgres.name" . }}
+          - mountPath: /docker-entrypoint-initdb.d/002-init-apsviz-gauges.sh
+            name: "init-script"
+            subPath: "init-timeseries-db.sh"
           {{- if .Values.shmSize }}
           - mountPath: /dev/shm
             name: dshm
@@ -73,6 +76,10 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
+        - name: init-script
+          configMap:
+            name: "{{- include "apsviz-timeseries-postgres.fullname" . }}-scripts"
+            defaultMode: 0777
         {{- if .Values.shmSize }}
         - name: dshm
           emptyDir:
