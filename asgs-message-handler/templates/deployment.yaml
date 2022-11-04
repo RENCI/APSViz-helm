@@ -35,20 +35,44 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            - name: "SYSTEM"
+              value: "{{ .Values.env.system }}"
             - name: "RABBITMQ_HOST"
               value: "{{ .Values.env.RABBITMQ_HOST }}"
             - name: "RABBITMQ_USER"
               value: "{{ .Values.env.RABBITMQ_USER }}"
             - name: "RABBITMQ_PW"
               value: "{{ .Values.env.RABBITMQ_PW }}"
-            - name: "PG_HOST"
-              value: "{{ .Values.env.PG_HOST }}"
-            - name: "PG_USER"
-              value: "{{ .Values.env.PG_USER }}"
-            - name: "PG_PW"
-              value: "{{ .Values.env.PG_PW }}"
-            - name: "PG_DB"
-              value: "{{ .Values.env.PG_DB }}"
+            - name: LOG_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: log-path
+            - name: ASGS_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: asgs-host
+            - name: ASGS_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: asgs-port
+            - name: ASGS_DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: asgs-database
+            - name: ASGS_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: asgs-username
+            - name: ASGS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: asgs-password
             - name: SLACK_ISSUES_TOKEN
               valueFrom:
                 secretKeyRef:
@@ -62,7 +86,6 @@ spec:
 
           command: [ "/bin/bash", "-c"]
           args: ["/repo/message/startup.sh {{ .Values.env.sleepTimeSeconds }}"]
-          #args: ["while true; do sleep 30; done;"]
           ports:
             - name: http
               containerPort: 80
@@ -70,19 +93,13 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-          - mountPath: /srv/django/ASGS_Web/messages/msg_settings.ini
-            name: settings-script
-            subPath: msg_settings.ini
-          - name: {{ .Values.logVolumes.claimName }}
-            mountPath: {{ .Values.logVolumes.mountPoint }}
+            - name: {{ .Values.volumes.name }}
+              mountPath: {{ .Values.volumes.mountPath }}
       volumes:
-      - name: settings-script
-        configMap:
-          name: "{{- include "asgs_message_handler.fullname" . }}-scripts"
-          defaultMode: 0777
-      - name: {{ .Values.logVolumes.claimName }}
-        persistentVolumeClaim:
-          claimName: {{ include "asgs_message_handler.fullname" . }}-logs-pvc
+        - name: {{ .Values.volumes.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.volumes.claimName }}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

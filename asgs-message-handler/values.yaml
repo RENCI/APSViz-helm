@@ -59,11 +59,7 @@ env:
   RABBITMQ_HOST: "somehost"
   RABBITMQ_USER: "someuser"
   RABBITMQ_PW: "somepassword"
-  PG_HOST: "somehost"
-  PG_USER: "someuser"
-  PG_PW: "somepassword"
-  PG_DB: "somedb"
-  sleepTimeSeconds: 90
+  sleepTimeSeconds: 1
 
 ingress:
   enabled: false
