@@ -27,7 +27,7 @@ data:
               "destination": "/data/tmp/archiver-test"
             },
             {
-              "name": "Copy log directories",
+              "name": "Copy log directories again to new location",
               "description": "This rule copies directories of a certain age from source to destination.",
               "query_criteria_type": "BY_AGE",
               "query_data_type": "INTEGER",
