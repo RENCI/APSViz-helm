@@ -8,24 +8,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "asgs_message_handler.fullname" . }}
+  name: {{ include "apsviz-msg-handler.fullname" . }}
   labels:
-    {{- include "asgs_message_handler.labels" . | nindent 4 }}
+    {{- include "apsviz-msg-handler.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "asgs_message_handler.selectorLabels" . | nindent 6 }}
+      {{- include "apsviz-msg-handler.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "asgs_message_handler.selectorLabels" . | nindent 8 }}
+        {{- include "apsviz-msg-handler.selectorLabels" . | nindent 8 }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ include "asgs_message_handler.serviceAccountName" . }}
+      serviceAccountName: {{ include "apsviz-msg-handler.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:

@@ -10,7 +10,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "asgs_message_handler.name" -}}
+{{- define "apsviz-msg-handler.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -19,7 +19,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "asgs_message_handler.fullname" -}}
+{{- define "apsviz-msg-handler.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -35,16 +35,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "asgs_message_handler.chart" -}}
+{{- define "apsviz-msg-handler.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "asgs_message_handler.labels" -}}
-helm.sh/chart: {{ include "asgs_message_handler.chart" . }}
-{{ include "asgs_message_handler.selectorLabels" . }}
+{{- define "apsviz-msg-handler.labels" -}}
+helm.sh/chart: {{ include "apsviz-msg-handler.chart" . }}
+{{ include "apsviz-msg-handler.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -54,17 +54,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "asgs_message_handler.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "asgs_message_handler.name" . }}
+{{- define "apsviz-msg-handler.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "apsviz-msg-handler.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "asgs_message_handler.serviceAccountName" -}}
+{{- define "apsviz-msg-handler.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "asgs_message_handler.fullname" .) .Values.serviceAccount.name }}
+    {{ default (include "apsviz-msg-handler.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
