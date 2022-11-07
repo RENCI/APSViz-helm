@@ -11,9 +11,15 @@ metadata:
   name: "{{- include "apsviz-timeseries-postgres.fullname" . }}-scripts"
 data:
   init-timeseries-db.sh: |-
-    #!/bin/bash
+    #!/bin/sh
+    set -e
 
-    exit 0
+    # Check to see if the apsviz_gauge DB and user exist. if not create them
+    psql -v ON_ERROR_STOP=1 --username "{{ .Values.adminUser }}" <<-EOSQL
+            CREATE DATABASE "{{ .Values.timeseriesDBName }}" WITH OWNER = {{ .Values.adminUser }} ENCODING = 'UTF8' LC_COLLATE = 'en_US.utf8' LC_CTYPE = 'en_US.utf8' TABLESPACE = pg_default CONNECTION LIMIT = -1 IS_TEMPLATE = False;
+            CREATE ROLE "{{ .Values.timeseriesUserName }}" WITH LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT NOREPLICATION CONNECTION LIMIT -1 PASSWORD '{{ .Values.timeseriesUserPW }}';
+            GRANT ALL PRIVILEGES ON DATABASE "{{ .Values.timeseriesDBName }}" TO "{{ .Values.timeseriesUserName }}";
+    EOSQL
 
   loaddb.sh: |-
     #!/bin/bash
