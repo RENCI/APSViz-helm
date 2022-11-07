@@ -11,7 +11,7 @@ data:
       "rule_sets":
       [
         {
-          "rule_set_name": "Log operations rule set using the by age criteria",
+          "rule_set_name": "Archive rule set for log operations.",
           "description": "Copy /data/logs/ -> /data/tmp/archiver-test/, copy archiver-test/ -> ./copy/, move copy/ -> ../move/, remove move/",
           "rules": [
             {
@@ -53,7 +53,7 @@ data:
           ]
         },
         {
-          "rule_set_name": "Archive rule set for AST harvester data.",
+          "rule_set_name": "Archive rule set for AST harvester operations",
           "description": "Copy /data/ast-run-harvester files -> /data/tmp/ast-run-harvester",
           "rules": [
             {
