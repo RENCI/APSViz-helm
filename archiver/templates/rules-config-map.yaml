@@ -27,11 +27,11 @@ data:
               "destination": "/data/tmp/archiver-test"
             },
             {
-              "name": "Copy log directories again to new location",
+              "name": "Copy log directories to another location",
               "description": "This rule copies directories of a certain age from source to destination.",
               "query_criteria_type": "BY_AGE",
               "query_data_type": "INTEGER",
-              "query_data_value": 1,
+              "query_data_value": 0,
               "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
               "action_type": "SWEEP_COPY",
               "data_type": "DIRECTORY",
@@ -39,27 +39,15 @@ data:
               "destination": "/data/tmp/archiver-test/copy"
             },
             {
-              "name": "Move log directories",
-              "description": "This rule moves directories of a certain age from source to destination.",
-              "query_criteria_type": "BY_AGE",
-              "query_data_type": "INTEGER",
-              "query_data_value": 1,
-              "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
-              "action_type": "SWEEP_MOVE",
-              "data_type": "DIRECTORY",
-              "source": "/data/tmp/archiver-test/copy",
-              "destination": "/data/tmp/archiver-test/move"
-            },
-            {
               "name": "Remove log directories",
               "description": "This rule removes directories of a certain age.",
               "query_criteria_type": "BY_AGE",
               "query_data_type": "INTEGER",
-              "query_data_value": 3,
+              "query_data_value": 14,
               "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
               "action_type": "SWEEP_REMOVE",
               "data_type": "DIRECTORY",
-              "source": "/data/tmp/archiver-test/move",
+              "source": "/data/tmp/archiver-test",
               "destination": null
             }
           ]
@@ -73,12 +61,12 @@ data:
               "description": "This rule copies files of a certain age from source to destination.",
               "query_criteria_type": "BY_AGE",
               "query_data_type": "INTEGER",
-              "query_data_value": 7,
+              "query_data_value": 1,
               "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
               "action_type": "SWEEP_COPY",
               "data_type": "FILE",
               "source": "/data/ast-run-harvester",
-              "destination": "/data/tmp/ast-run-harvester"
+              "destination": "/data/tmp/ast-run-harvester/"
             }
           ]
         }
