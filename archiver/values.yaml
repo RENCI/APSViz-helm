@@ -12,7 +12,7 @@ replicaCount: 1
 
 image:
   repository: containers.renci.org/eds/apsviz-archiver
-  tag: "v0.0.1"
+  tag: "v0.0.3"
   pullPolicy: Always
 
 run:
