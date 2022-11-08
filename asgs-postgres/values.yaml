@@ -19,7 +19,7 @@ storage:
 
 backup:
   enable: true
-  crontab: "0 4 * * *"
+  crontab: "0 0 * * *"
 
 # will invoke a DB restore when set
 restoreDB: false
