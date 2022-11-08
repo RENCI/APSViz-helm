@@ -62,6 +62,8 @@ spec:
           - mountPath: /docker-entrypoint-initdb.d/003-create-extensions.sh
             name: "create-extensions-script"
             subPath: "create-extensions.sh"
+          - name:  {{ .Values.volumes.name }}
+            mountPath: "/data"
 
           {{- if .Values.shmSize }}
           - mountPath: /dev/shm
@@ -88,6 +90,9 @@ spec:
           configMap:
             name: "{{- include "apsviz-timeseries-postgres.fullname" . }}-scripts"
             defaultMode: 0777
+        - name: {{ .Values.volumes.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.volumes.claimName }}
         {{- if .Values.shmSize }}
         - name: dshm
           emptyDir:
