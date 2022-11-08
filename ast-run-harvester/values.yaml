@@ -56,13 +56,13 @@ ingress:
 
 resources:
   limits:
-    cpu: 2000m
+    memory: 384Mi
     ephemeral-storage: 64Mi
-    memory: 1000Mi
+    cpu: 350m
   requests:
-    cpu: 250m
+    memory: 256Mi
     ephemeral-storage: 50Mi
-    memory: 128Mi
+    cpu: 100m
 
 nodeSelector: {}
 
