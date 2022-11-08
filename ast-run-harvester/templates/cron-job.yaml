@@ -22,14 +22,14 @@ spec:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
           containers:
           - name: {{ .Chart.Name }}-job
-            securityContext:
-              {{- toYaml .Values.securityContext | nindent 16 }}
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
             volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: "/data"
             command: ['bash', './execute_run_harvest.sh', '/data/ast-run-harvester']
+            resources:
+              {{- toYaml .Values.resources | nindent 14 }}
             env:
             - name: CONTRAILS_KEY
               value: "20cebc91-5838-49b1-ab01-701324161aa8"
