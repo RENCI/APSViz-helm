@@ -16,7 +16,7 @@ image:
   pullPolicy: Always
 
 run:
-  crontab: "0 4 * * *"
+  crontab: "0 0 * * *"
 
 system: 'Default'
 
