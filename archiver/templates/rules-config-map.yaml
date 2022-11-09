@@ -11,50 +11,38 @@ data:
       "rule_sets":
       [
         {
-          "rule_set_name": "Archive rule set for log operations.",
-          "description": "Copy /data/logs/ -> /data/tmp/archiver-test/, copy archiver-test/ -> ./copy/, move copy/ -> ../move/, remove move/",
+          "rule_set_name": "Archive rule set for log data.",
+          "description": "DIRECTORY ops: Copy /data/logs/ -> /data/logs/log-backups/, remove old dirs in /data/logs",
           "rules": [
             {
               "name": "Copy log directories",
-              "description": "This rule copies directories of a certain age from source to destination.",
+              "description": "This rule copies directories of age >= 3 days from source to destination.",
               "query_criteria_type": "BY_AGE",
               "query_data_type": "INTEGER",
-              "query_data_value": 7,
+              "query_data_value": 3,
               "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
               "action_type": "SWEEP_COPY",
               "data_type": "DIRECTORY",
-              "source": "/data/logs",
-              "destination": "/data/tmp/archiver-test"
-            },
-            {
-              "name": "Copy log directories to another location",
-              "description": "This rule copies directories of a certain age from source to destination.",
-              "query_criteria_type": "BY_AGE",
-              "query_data_type": "INTEGER",
-              "query_data_value": 0,
-              "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
-              "action_type": "SWEEP_COPY",
-              "data_type": "DIRECTORY",
-              "source": "/data/tmp/archiver-test",
-              "destination": "/data/tmp/archiver-test/copy"
+              "source": "/data/logs/",
+              "destination": "/data/logs/log-backups/"
             },
             {
               "name": "Remove log directories",
-              "description": "This rule removes directories of a certain age.",
+              "description": "This rule removes log directories  >= 14 days old.",
               "query_criteria_type": "BY_AGE",
               "query_data_type": "INTEGER",
               "query_data_value": 14,
               "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
               "action_type": "SWEEP_REMOVE",
               "data_type": "DIRECTORY",
-              "source": "/data/tmp/archiver-test",
+              "source": "/data/logs/",
               "destination": null
             }
           ]
         },
         {
-          "rule_set_name": "Archive rule set for AST harvester operations",
-          "description": "Copy /data/ast-run-harvester files -> /data/tmp/ast-run-harvester",
+          "rule_set_name": "Archive rule set for AST harvester data",
+          "description": "Copy /data/ast-run-harvester files -> /data/ast-run-harvester/harvester-backups/",
           "rules": [
             {
               "name": "Copy AST harvester data directory",
@@ -65,8 +53,8 @@ data:
               "predicate_type": "GREATER_THAN_OR_EQUAL_TO",
               "action_type": "SWEEP_COPY",
               "data_type": "FILE",
-              "source": "/data/ast-run-harvester",
-              "destination": "/data/tmp/ast-run-harvester/"
+              "source": "/data/ast-run-harvester/",
+              "destination": "/data/ast-run-harvester/harvester-backups/"
             }
           ]
         }
