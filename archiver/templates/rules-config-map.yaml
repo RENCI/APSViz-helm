@@ -12,7 +12,7 @@ data:
       [
         {
           "rule_set_name": "Archive rule set for log data.",
-          "description": "DIRECTORY ops: Copy /data/logs/ -> /data/logs/log-backups/, remove old dirs in /data/logs",
+          "description": "DIRECTORY ops: Copy /data/logs/ -> /data/log-backups/, remove old dirs in /data/logs",
           "rules": [
             {
               "name": "Copy log directories",
@@ -24,7 +24,7 @@ data:
               "action_type": "SWEEP_COPY",
               "data_type": "DIRECTORY",
               "source": "/data/logs/",
-              "destination": "/data/logs/log-backups/"
+              "destination": "/data/log-backups/"
             },
             {
               "name": "Remove log directories",
@@ -42,7 +42,7 @@ data:
         },
         {
           "rule_set_name": "Archive rule set for AST harvester data",
-          "description": "Copy /data/ast-run-harvester files -> /data/ast-run-harvester/harvester-backups/",
+          "description": "Copy /data/ast-run-harvester files -> /data/ast-harvester-backups/",
           "rules": [
             {
               "name": "Copy AST harvester data directory",
@@ -54,7 +54,7 @@ data:
               "action_type": "SWEEP_COPY",
               "data_type": "FILE",
               "source": "/data/ast-run-harvester/",
-              "destination": "/data/ast-run-harvester/harvester-backups/"
+              "destination": "/data/ast-run-harvester-backups/"
             }
           ]
         }
