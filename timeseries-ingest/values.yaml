@@ -29,7 +29,7 @@ volumes:
   claimName: some-pvc
 
 run:
-  crontab: "0 0 * * *"
+  crontab: "0 5 * * *"
 
 securityContext: {}
   # capabilities:
