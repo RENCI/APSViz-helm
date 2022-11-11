@@ -59,7 +59,8 @@ env:
   RABBITMQ_HOST: "somehost"
   RABBITMQ_USER: "someuser"
   RABBITMQ_PW: "somepassword"
-  sleepTimeSeconds: 1
+  system: "Unknown"
+  sleepTimeSeconds: 5
 
 ingress:
   enabled: false
