@@ -40,21 +40,6 @@ spec:
               secretKeyRef:
                 name: {{ $store_name }}
                 key: {{ .Values.database.db_port }}
-          - name: {{ .Values.database.asgs_db_name_index }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ $store_name }}
-                key: {{ .Values.database.asgs_db_name }}
-          - name: {{ .Values.database.asgs_db_username_index }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ $store_name }}
-                key: {{ .Values.database.asgs_db_username }}
-          - name: {{ .Values.database.asgs_db_password_index }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ $store_name }}
-                key: {{ .Values.database.asgs_db_password }}
           - name: {{ .Values.database.apsviz_db_name_index }}
             valueFrom:
               secretKeyRef:
