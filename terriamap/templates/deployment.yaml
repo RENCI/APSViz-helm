@@ -53,6 +53,8 @@ spec:
             - name: HTTP_PROXY
               value: {{ .Values.ingress.https_proxy }}
           {{ end }}
+            - name: NODE_OPTIONS
+              value: "--max_old_space_size=8192"
       volumes:
         - name: apsviz-fileserver-vol
           persistentVolumeClaim:
