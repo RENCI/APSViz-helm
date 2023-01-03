@@ -32,7 +32,7 @@ serviceAccount:
 
 dataReload:
   enable: false
-  crontab: "0 2 * * *"
+  crontab: "0 5 * * *"
 
 podSecurityContext: {}
   # fsGroup: 2000
