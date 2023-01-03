@@ -39,6 +39,9 @@ spec:
               mountPath: /fileserver
             - name:  {{ .Values.volumes.buildVolName }}
               mountPath: {{ .Values.volumes.buildMountPoint }}
+            - name: "config-script"
+              mountPath: {{ .Values.data.fileLocation }}/{{ .Values.data.fileName }}
+              subPath: "{{ .Values.data.fileName }}"
           ports:
             - name: http
               containerPort: 80
@@ -57,7 +60,10 @@ spec:
         - name: {{ .Values.volumes.buildVolName }}
           persistentVolumeClaim:
             claimName: {{ .Values.volumes.buildClaimName }}
-
+        - name: config-script
+          configMap:
+            name: "{{- include "apsviz-terriamap.fullname" . }}-scripts"
+            defaultMode: 0777
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
