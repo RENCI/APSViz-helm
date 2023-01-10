@@ -16,14 +16,16 @@ spec:
     storage: {{ .Values.persistence.geoserverDataDir.size }}
   volumeMode: Filesystem
   accessModes:
-    - {{ .Values.persistence.geoserverDataDir.accessModes }}
+  {{- range .Values.persistence.geoserverDataDir.accessModes }}
+    - {{ . | quote }}
+  {{- end }}
   persistentVolumeReclaimPolicy: Retain
   storageClassName: {{ .Values.persistence.geoserverDataDir.storageClass }}
   csi:
     driver: efs.csi.aws.com
     volumeHandle: {{ .Values.persistence.geoserverDataDir.efsHandle }}
 {{ end }}
-
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -62,7 +64,7 @@ spec:
   {{- range .Values.persistence.geowebcacheCacheDir.accessModes }}
     - {{ . | quote }}
   {{- end }}
-  {{ include "geoserver.geowebcacheCacheDir.storageClass" . }}
+  storageClassName: "eds-sc"
   resources:
     requests:
       storage: {{ .Values.persistence.geowebcacheCacheDir.size | quote }}
