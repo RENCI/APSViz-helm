@@ -22,7 +22,7 @@ data:
     BCKP_FILE_2=$DUMPS_DIR/{{ .Values.sqlFile2 }}
     BCKP_FILE_3=$DUMPS_DIR/{{ .Values.sqlFile3 }}
     BCKP_FILE_4=$DUMPS_DIR/{{ .Values.sqlFile4 }}
-    BCKP_FILE_5=$DUMPS_DIR/apsviz_cog_mosaic.1
+    BCKP_FILE_5=$DUMPS_DIR/{{ .Values.sqlFile5 }}
 
     until pg_isready ; do
         echo "postgres not ready";
