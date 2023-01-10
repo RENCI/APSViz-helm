@@ -29,7 +29,7 @@ isAWS: false
 
 dataMountPath: /var/lib/postgresql/data
 dataMountSubPath: /db_data
-accessMode: "ReadWriteMany"
+accessMode: "ReadWriteOnce"
 
 adminUser:
 adminPassword: ""
