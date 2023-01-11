@@ -33,6 +33,7 @@ spec:
             - name: http
               containerPort: {{ .Values.service.containerPort }}
               protocol: TCP
+          {{ if not .Values.isAWS }}
           startupProbe:
             httpGet:
               path: /
@@ -45,6 +46,7 @@ spec:
               port: {{ .Values.service.containerPort }}
             initialDelaySeconds: 1
             periodSeconds: 30
+          {{ end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

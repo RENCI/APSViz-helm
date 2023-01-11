@@ -41,6 +41,7 @@ spec:
           volumeMounts:
             - name: {{ .Values.volumes.name }}
               mountPath: {{ .Values.volumes.mountPoint }}
+          {{ if not .Values.isAWS }}
           startupProbe:
             httpGet:
               path: /obs_pngs/wellness.txt
@@ -53,6 +54,7 @@ spec:
               port: {{ .Values.service.target_port }}
             initialDelaySeconds: 1
             periodSeconds: 30
+          {{ end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
