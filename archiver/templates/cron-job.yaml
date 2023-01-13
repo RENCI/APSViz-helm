@@ -30,6 +30,8 @@ spec:
             - name: rule-script
               mountPath: "/repo/APSVIZ-Archiver/{{ .Values.rules.fileName }}"
               subPath: {{ .Values.rules.fileName }}
+            resources:
+              {{- toYaml .Values.resources | nindent 12 }}
             env:
             - name: LOG_LEVEL
               value: "20"
