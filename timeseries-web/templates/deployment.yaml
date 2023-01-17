@@ -49,6 +49,10 @@ spec:
           value: {{ .Values.web.sql_port | quote }}
         - name: SQL_USER
           value: {{ .Values.web.sql_user | quote }}
+        ports:
+          - name: http
+            containerPort: {{ .Values.service.containerPort }}
+            protocol: TCP
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
         volumeMounts:
