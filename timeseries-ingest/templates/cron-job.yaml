@@ -24,7 +24,7 @@ spec:
           - name: {{ .Chart.Name }}-job
             securityContext:
               {{- toYaml .Values.securityContext | nindent 16 }}
-            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            image: "{{ .Values.image.repository }}{{ .Values.image.tag }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
             volumeMounts:
             - name:  {{ .Values.volumes.name }}
