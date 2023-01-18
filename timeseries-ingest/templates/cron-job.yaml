@@ -29,9 +29,17 @@ spec:
             volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: "/data"
-#            command: ['python', 'daily_ops.py']
-            command: ['/bin/sh']
-            args: ['-c', 'while true; do date; sleep 3600; done']
+            command: ['python']
+            args:
+              - 'runIngest.py'
+              - '--harvestDIR'
+              - ' /data/ast-run-harvester/'
+              - '--ingestDIR'
+              - ' /data/ast-run-ingester/'
+              - '--inputTask'
+              - 'SequenceIngest'
+{{/*            command: ['/bin/sh']*/}}
+{{/*            args: ['-c', 'while true; do date; sleep 3600; done']*/}}
             env:
             - name: LOG_PATH
               valueFrom:
