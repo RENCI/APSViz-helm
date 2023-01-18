@@ -11,8 +11,7 @@
 replicaCount: 1
 
 image:
-  repository: "containers.renci.org/eds/apsviz-timeseriesdb-ingest:"
-  tag: "sometag"
+  repository: "containers.renci.org/eds/apsviz-timeseriesdb-ingest:latest"
   pullPolicy: Always
 
 imagePullSecrets: []
