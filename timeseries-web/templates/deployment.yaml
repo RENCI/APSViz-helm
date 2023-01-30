@@ -60,6 +60,10 @@ spec:
           name: static-volume
         - mountPath: /home/django/web/mediafiles
           name: media-volume
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       restartPolicy: Always
       volumes:
       - name: static-volume
