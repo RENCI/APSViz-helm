@@ -48,11 +48,11 @@ spec:
                 secretKeyRef:
                   name: eds-keys
                   key: log-path
-            - name: LOG_LEVEL
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: log-level
+{{/*            - name: LOG_LEVEL*/}}
+{{/*              valueFrom:*/}}
+{{/*                secretKeyRef:*/}}
+{{/*                  name: eds-keys*/}}
+{{/*                  key: log-level*/}}
             - name: ASGS_DB_HOST
               valueFrom:
                 secretKeyRef:
