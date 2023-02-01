@@ -12,7 +12,7 @@ replicaCount: 1
 
 image:
   repository: someimage
-  tag: sometag
+  tag: latest
   pullPolicy: Always
 
 imagePullSecrets: []
