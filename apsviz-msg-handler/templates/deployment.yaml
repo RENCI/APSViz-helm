@@ -49,10 +49,7 @@ spec:
                   name: eds-keys
                   key: log-path
             - name: LOG_LEVEL
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: log-level
+              value: {{ .Values.env.log_level }}
             - name: ASGS_DB_HOST
               valueFrom:
                 secretKeyRef:
