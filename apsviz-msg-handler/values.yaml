@@ -61,6 +61,7 @@ env:
   RABBITMQ_PW: "somepassword"
   system: "Unknown"
   sleepTimeSeconds: 5
+  log_level: 10
 
 ingress:
   enabled: false
