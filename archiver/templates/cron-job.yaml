@@ -1,72 +1,1 @@
-# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.
-#
-# SPDX-License-Identifier: GPL-3.0-or-later
-# SPDX-License-Identifier: LicenseRef-RENCI
-# SPDX-License-Identifier: MIT
-
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: {{ include "apsviz-archiver.fullname" . }}-job
-  labels:
-    {{- include "apsviz-archiver.labels" . | nindent 4 }}
-spec:
-  schedule: "{{ .Values.run.crontab }}"
-  jobTemplate:
-    spec:
-      ttlSecondsAfterFinished: 3
-      backoffLimit: 0
-      template:
-        spec:
-          containers:
-          - name: {{ .Chart.Name }}
-            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-            imagePullPolicy: {{ .Values.image.pullPolicy }}
-            command: ['python', 'main.py', '-f', '{{ .Values.rules.fileName }}']
-            volumeMounts:
-            - name: {{ .Values.volumes.name }}
-              mountPath: {{ .Values.volumes.mountPath }}
-            - name: rule-script
-              mountPath: "/repo/APSVIZ-Archiver/{{ .Values.rules.fileName }}"
-              subPath: {{ .Values.rules.fileName }}
-            resources:
-              {{- toYaml .Values.resources | nindent 12 }}
-            env:
-            - name: LOG_LEVEL
-              value: "20"
-            - name: LOG_PATH
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: log-path
-            - name: SYSTEM
-              value: "{{ .Values.system }}"
-            - name: SLACK_STATUS_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: slack-status-token
-            - name: SLACK_STATUS_CHANNEL
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: slack-status-channel
-            - name: SLACK_ISSUES_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: slack-issues-token
-            - name: SLACK_ISSUES_CHANNEL
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: slack-issues-channel
-          restartPolicy: Never
-          volumes:
-            - name: {{ .Values.volumes.name }}
-              persistentVolumeClaim:
-                claimName: {{ .Values.volumes.claimName }}
-            - name: rule-script
-              configMap:
-                name: "{{- include "apsviz-archiver.fullname" . }}-scripts"
+# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.## SPDX-License-Identifier: GPL-3.0-or-later# SPDX-License-Identifier: LicenseRef-RENCI# SPDX-License-Identifier: MIT---apiVersion: batch/v1kind: CronJobmetadata:  name: {{ include "apsviz-archiver.fullname" . }}-job  labels:    {{- include "apsviz-archiver.labels" . | nindent 4 }}spec:  schedule: "{{ .Values.run.crontab }}"  jobTemplate:    spec:      ttlSecondsAfterFinished: 3      backoffLimit: 0      template:        spec:          containers:          - name: {{ .Chart.Name }}            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"            imagePullPolicy: {{ .Values.image.pullPolicy }}            command: ['python', 'main.py', '-f', '{{ .Values.rules.fileName }}']            volumeMounts:            - name: {{ .Values.sv_volume.name }}              mountPath: {{ .Values.sv_volume.mountPath }}            - name: {{ .Values.geo_svr_volume.name }}              mountPath: {{ .Values.geo_svr_volume.mountPath }}            - name:  {{ .Values.fs_svr_volume.name }}              mountPath:  {{ .Values.fs_svr_volume.mountPath }}            - name: rule-script              mountPath: "/repo/APSVIZ-Archiver/{{ .Values.rules.fileName }}"              subPath: {{ .Values.rules.fileName }}            resources:              {{- toYaml .Values.resources | nindent 12 }}            env:            - name: LOG_LEVEL              value: "20"            - name: LOG_PATH              valueFrom:                secretKeyRef:                  name: eds-keys                  key: log-path            - name: SYSTEM              value: "{{ .Values.system }}"            - name: SLACK_STATUS_TOKEN              valueFrom:                secretKeyRef:                  name: eds-keys                  key: slack-status-token            - name: SLACK_STATUS_CHANNEL              valueFrom:                secretKeyRef:                  name: eds-keys                  key: slack-status-channel            - name: SLACK_ISSUES_TOKEN              valueFrom:                secretKeyRef:                  name: eds-keys                  key: slack-issues-token            - name: SLACK_ISSUES_CHANNEL              valueFrom:                secretKeyRef:                  name: eds-keys                  key: slack-issues-channel            - name: ASGS_DB_HOST              valueFrom:                secretKeyRef:                  name: eds-keys                  key: asgs-host            - name: ASGS_DB_PORT              valueFrom:                secretKeyRef:                  name: eds-keys                  key: asgs-port            - name: ASGS_DB_DATABASE              valueFrom:                secretKeyRef:                  name: eds-keys                  key: asgs-database            - name: ASGS_DB_USERNAME              valueFrom:                secretKeyRef:                  name: eds-keys                  key: asgs-username            - name: ASGS_DB_PASSWORD              valueFrom:                secretKeyRef:                  name: eds-keys                  key: asgs-password            - name: APSVIZ_DB_DATABASE              valueFrom:                secretKeyRef:                  name: eds-keys                  key: apsviz-database            - name: APSVIZ_DB_USERNAME              valueFrom:                secretKeyRef:                  name: eds-keys                  key: apsviz-username            - name: APSVIZ_DB_PASSWORD              valueFrom:                secretKeyRef:                  name: eds-keys                  key: apsviz-password            - name: GEOSERVER_USER              valueFrom:                secretKeyRef:                  name: eds-keys                  key: geo-username            - name: GEOSERVER_PASSWORD              valueFrom:                secretKeyRef:                  name: eds-keys                  key: geo-password            - name: GEOSERVER_URL              valueFrom:                secretKeyRef:                  name: eds-keys                  key: geo-url            - name: GEOSERVER_HOST              valueFrom:                secretKeyRef:                  name: eds-keys                  key: geo-host            - name: GEOSERVER_WORKSPACE              valueFrom:                secretKeyRef:                  name: eds-keys                  key: geo-workspace            - name: FILESERVER_HOST_URL              valueFrom:                secretKeyRef:                  name: eds-keys                  key: file-server-host-url            - name: FILESERVER_OBS_PATH              valueFrom:                secretKeyRef:                  name: eds-keys                  key: file-server-obs-path            - name: FILESERVER_CAT_PATH              valueFrom:                secretKeyRef:                  name: eds-keys                  key: file-server-cat-path          restartPolicy: Never          volumes:            - name: {{ .Values.sv_volume.name }}              persistentVolumeClaim:                claimName: {{ .Values.sv_volume.claimName }}            - name: {{ .Values.geo_svr_volume.name }}              persistentVolumeClaim:                claimName: {{ .Values.geo_svr_volume.claimName }}            - name: {{ .Values.fs_svr_volume.name }}              persistentVolumeClaim:                claimName: {{ .Values.fs_svr_volume.claimName }}            - name: rule-script              configMap:                name: "{{- include "apsviz-archiver.fullname" . }}-scripts"
