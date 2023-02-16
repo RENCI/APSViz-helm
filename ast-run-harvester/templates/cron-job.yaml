@@ -33,6 +33,26 @@ spec:
             env:
             - name: CONTRAILS_KEY
               value: "20cebc91-5838-49b1-ab01-701324161aa8"
+            - name: http_proxy
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: http-proxy-url
+            - name: https_proxy
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: http-proxy-url
+            - name: HTTP_PROXY
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: http-proxy-url
+            - name: HTTPS_PROXY
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: http-proxy-url
           restartPolicy: Never
           volumes:
             - name: {{ .Values.volumes.name }}
