@@ -420,6 +420,6 @@ metadata:
   name: "s3-config-script"
 data:
   s3.properties: |
-    alias.s3.endpoint={{ .Values.s3.url | quote }}
-    alias.s3.user={{ .Values.s3.username | quote }}
-    alias.s3.password={{ .Values.s3.password | quote }}
+    s3.user={{ .Values.s3.username | quote }}
+    s3.password={{ .Values.s3.password | quote }}
+    s3.endpoint={{ .Values.s3.url | quote }}
