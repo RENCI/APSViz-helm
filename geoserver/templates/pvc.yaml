@@ -64,7 +64,9 @@ spec:
   {{- range .Values.persistence.geowebcacheCacheDir.accessModes }}
     - {{ . | quote }}
   {{- end }}
+  {{ if .Values.isAWS }}
   storageClassName: "eds-sc"
+  {{ end }}
   resources:
     requests:
       storage: {{ .Values.persistence.geowebcacheCacheDir.size | quote }}
