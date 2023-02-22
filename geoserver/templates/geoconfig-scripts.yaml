@@ -420,6 +420,12 @@ metadata:
   name: "s3-config-script"
 data:
   s3.properties: |
-    s3.user={{ .Values.s3.username | quote }}
-    s3.password={{ .Values.s3.password | quote }}
-    s3.endpoint={{ .Values.s3.url | quote }}
+    s3.user={{ .Values.s3.username }}
+    s3.password={{ .Values.s3.password }}
+    s3.endpoint={{ .Values.s3.url }}
+    http.user={{ .Values.s3.username }}
+    http.password={{ .Values.s3.password }}
+    http.endpoint=https://hecrastest/
+    http.s3.user={{ .Values.s3.username }}
+    http.s3.password={{ .Values.s3.password }}
+    http.s3.endpoint=https://hecrastest/
