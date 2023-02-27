@@ -101,9 +101,6 @@ spec:
             - mountPath: /usr/local/tomcat/webapps/geoserver/WEB-INF/web.xml
               name: "web-config-script"
               subPath: "web.xml"
-            - mountPath: {{ .Values.persistence.geoserverDataDir.mountPath }}/s3.properties
-              name: "s3-config-script"
-              subPath: "s3.properties"
             {{- if .Values.persistence.geoserverDataDir.enabled }}
             - name: geoserver-data-dir
               mountPath: {{ .Values.persistence.geoserverDataDir.mountPath }}
@@ -131,10 +128,6 @@ spec:
         - name: web-config-script
           configMap:
             name: "web-config-script"
-            defaultMode: 0777
-        - name: s3-config-script
-          configMap:
-            name: "s3-config-script"
             defaultMode: 0777
         {{- with .Values.extraVolume }}
         {{- (tpl . $) | nindent 8 }}
