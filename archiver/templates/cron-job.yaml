@@ -39,7 +39,10 @@ spec:
               {{- toYaml .Values.resources | nindent 12 }}
             env:
             - name: LOG_LEVEL
-              value: "20"
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: log-level
             - name: LOG_PATH
               valueFrom:
                 secretKeyRef:
