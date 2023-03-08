@@ -110,6 +110,41 @@ spec:
                 secretKeyRef:
                   name: eds-keys
                   key: apsviz-password
+            - name: APSVIZ_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: apsviz-host
+            - name: APSVIZ_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: apsviz-port
+            - name: ADCIRC_OBS_DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: adcirc-obs-database
+            - name: ADCIRC_OBS_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: adcirc-obs-username
+            - name: ADCIRC_OBS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: adcirc-obs-password
+            - name: ADCIRC_OBS_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: adcirc-obs-host
+            - name: ADCIRC_OBS_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: adcirc-obs-port
             - name: GEOSERVER_USER
               valueFrom:
                 secretKeyRef:
