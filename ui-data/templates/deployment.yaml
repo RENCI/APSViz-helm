@@ -55,6 +55,18 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: apsviz-password
+
+          - name: APSVIZ_GAUGES_DB_HOST
+            value: {{ .Values.DB.APSVIZ_GAUGES_DB_HOST }}
+          - name: APSVIZ_GAUGES_DB_DATABASE
+            value: {{ .Values.DB.APSVIZ_GAUGES_DB_DATABASE }}
+          - name: APSVIZ_GAUGES_DB_PORT
+            value: {{ .Values.DB.APSVIZ_GAUGES_DB_PORT | quote }}
+          - name: APSVIZ_GAUGES_DB_USERNAME
+            value: {{ .Values.DB.APSVIZ_GAUGES_DB_USERNAME }}
+          - name: APSVIZ_GAUGES_DB_PASSWORD
+            value: {{ .Values.DB.APSVIZ_GAUGES_PASSWORD }}
+
           - name: LOG_PATH
             valueFrom:
               secretKeyRef:
@@ -69,7 +81,6 @@ spec:
             value: {{ .Values.system }}
           - name: TEMP_FILE_PATH
             value: {{ .Values.volumes.temp_dir }}
-
           volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: {{ .Values.volumes.mount_dir }}
