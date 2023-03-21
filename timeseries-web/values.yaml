@@ -72,9 +72,6 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-nodeSelector:
-  apsviz-ng: apps
-
 tolerations: []
 
 affinity: {}
