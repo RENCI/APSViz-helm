@@ -81,7 +81,6 @@ spec:
                 name: eds-keys
                 key: asgs-password
 
-
           - name: SLACK_STATUS_TOKEN
             valueFrom:
               secretKeyRef:
