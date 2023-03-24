@@ -54,6 +54,7 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: log-level
+
           - name: ASGS_DB_HOST
             valueFrom:
               secretKeyRef:
@@ -79,21 +80,8 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: asgs-password
-          - name: APSVIZ_DB_DATABASE
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: apsviz-database
-          - name: APSVIZ_DB_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: apsviz-username
-          - name: APSVIZ_DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: apsviz-password
+
+
           - name: SLACK_STATUS_TOKEN
             valueFrom:
               secretKeyRef:
@@ -114,6 +102,7 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: slack-issues-channel
+
           - name: SYSTEM
             value: {{ .Values.system  | quote }}
       volumes:
