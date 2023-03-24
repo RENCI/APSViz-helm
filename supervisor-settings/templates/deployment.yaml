@@ -30,32 +30,6 @@ spec:
           image: "{{ .Values.image.repository }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-          - name: APSVIZ_DB_HOST
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: apsviz-host
-          - name: APSVIZ_DB_PORT
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: apsviz-port
-          - name: APSVIZ_DB_DATABASE
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: apsviz-database
-          - name: APSVIZ_DB_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: apsviz-username
-          - name: APSVIZ_DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: apsviz-password
-
           - name: ASGS_DB_HOST
             valueFrom:
               secretKeyRef:
