@@ -63,11 +63,11 @@ shmSize: 1Gi
 
 resources:
   limits:
-    memory: 5Gi
-    cpu: 2000m
+    memory: 3Gi
+    cpu: 1500m
   requests:
     memory: 1Gi
-    cpu: 1000m
+    cpu: 500m
 
 nodeSelector: {}
 
