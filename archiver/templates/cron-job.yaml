@@ -170,21 +170,16 @@ spec:
                 secretKeyRef:
                   name: eds-keys
                   key: geo-workspace
-            - name: FILESERVER_HOST_URL
+            - name: GEOSERVER_PROJ_PATH
               valueFrom:
                 secretKeyRef:
                   name: eds-keys
-                  key: file-server-host-url
+                  key: geo-proj-path
             - name: FILESERVER_OBS_PATH
               valueFrom:
                 secretKeyRef:
                   name: eds-keys
                   key: file-server-obs-path
-            - name: FILESERVER_CAT_PATH
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: file-server-cat-path
           restartPolicy: Never
           volumes:
             - name: {{ .Values.sv_volume.name }}
