@@ -13,13 +13,13 @@ metadata:
 data:
   base_config.json: |-
     {
-      "CLUSTER":{{ .Values.base_config.cluster | quote }},
-      "NAMESPACE":{{ .Values.base_config.namespace | quote }},
-      "DATA_PVC_CLAIM":{{ .Values.base_config.data_pvc_claim | quote }},
-      "SECRETS_CLAIM":{{ .Values.base_config.secrets_claim | quote }},
-      "CREATE_SLEEP":{{ .Values.base_config.create_sleep }}
-      "JOB_TIMEOUT":{{ .Values.base_config.job_timeout }}
-      "JOB_LIMIT_MULTIPLIER":{{ .Values.base_config.job_limit_multiplier | quote  }},
+      "CLUSTER": {{ .Values.base_config.cluster | quote }},
+      "NAMESPACE": {{ .Values.base_config.namespace | quote }},
+      "DATA_PVC_CLAIM": {{ .Values.base_config.data_pvc_claim | quote }},
+      "SECRETS_CLAIM": {{ .Values.base_config.secrets_claim | quote }},
+      "CREATE_SLEEP": {{ .Values.base_config.create_sleep }}
+      "JOB_TIMEOUT": {{ .Values.base_config.job_timeout }}
+      "JOB_LIMIT_MULTIPLIER": {{ .Values.base_config.job_limit_multiplier | quote  }},
       "JOB_BACKOFF_LIMIT":{{ .Values.base_config.job_backoff_limit }},
       "SV_INACTIVITY":{{ .Values.base_config.sv_inactivity }}
     }
