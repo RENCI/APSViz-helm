@@ -44,15 +44,13 @@ spec:
     - host: {{ .Values.ingress.host | quote }}
       http:
         paths:
-          - path: "/"
-            {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
-            pathType: "{{ .Values.ingress.pathType }}"
-            {{- end }}
+        {{- range .Values.ingress.endpoints }}
+          - path: {{ . }}
+            pathType: {{ $.Values.ingress.pathType }}
             backend:
-              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
                 name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
-              {{- end }}
+        {{- end }}
 {{- end }}
