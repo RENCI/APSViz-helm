@@ -70,7 +70,7 @@ base_config:
   filesvr_pvc_claim: "filesvr_pvc_claim"
   secrets_claim: "secrets-claim"
   create_sleep: 2,
-  job_timeout: 3600,
+  job_timeout: 7200,
   job_limit_multiplier: ".1"
   job_backoff_limit: 1
   sv_inactivity: 8
