@@ -86,7 +86,7 @@ networking:
 
 resources:
   limits:
-    memory: 1000Mi
+    memory: 512Mi
     ephemeral-storage: 64Mi
     cpu: 500m
   requests:
