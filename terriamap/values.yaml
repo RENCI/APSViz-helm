@@ -48,7 +48,8 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  http: 80
+  https: 443
   target_port: 3001
 
 ingress:
