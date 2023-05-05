@@ -40,7 +40,8 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 80
+  http: 80
+  https: 443
   target_port: 8080
 
 volumes:

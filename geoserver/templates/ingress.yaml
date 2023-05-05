@@ -34,7 +34,7 @@ spec:
           service:
             name: {{ template "geoserver.fullname" . }}
             port:
-              number: 80
+              number: {{ .Values.service.http }}
         path: /geoserver
         pathType: "{{ .Values.ingress.pathType }}"
   {{- if .Values.ingress.tls.enabled }}

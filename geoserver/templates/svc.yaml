@@ -27,9 +27,13 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - name: http-geoserver
-      port: 80
+      port: {{ .Values.service.http }}
       protocol: TCP
-      targetPort: http-geoserver
+      targetPort: {{ .Values.service.target_port }}
+    - name: https-geoserver
+      port: {{ .Values.service.https }}
+      protocol: TCP
+      targetPort: {{ .Values.service.target_port }}
   selector:
     app: {{ template "geoserver.fullname" . }}
     release: {{ .Release.Name | quote }}

@@ -131,24 +131,24 @@ spec:
             - "--host"
             - "0.0.0.0"
             - "--port"
-            - "{{ .Values.service.containerPort }}"
+            - "{{ .Values.service.target_port }}"
             - "--workers"
             - "4"
             - "src.server:APP"
           ports:
             - name: http
-              containerPort: {{ .Values.service.containerPort }}
+              containerPort: {{ .Values.service.target_port }}
               protocol: TCP
           startupProbe:
             httpGet:
               path: /docs
-              port: {{ .Values.service.containerPort }}
+              port: {{ .Values.service.target_port }}
             failureThreshold: 30
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /docs
-              port: {{ .Values.service.containerPort }}
+              port: {{ .Values.service.target_port }}
             initialDelaySeconds: 1
             periodSeconds: 30
           resources:

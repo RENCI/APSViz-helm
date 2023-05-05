@@ -87,7 +87,8 @@ spec:
             {{- end }}
           ports:
             - name: http-geoserver
-              containerPort: 8080
+              containerPort: {{ .Values.service.target_port }}
+              protocol: TCP
           {{- if .Values.probe }}
             {{- with .Values.probe }}
             {{- tpl . $ | nindent 10 }}

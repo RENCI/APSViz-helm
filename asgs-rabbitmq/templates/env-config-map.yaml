@@ -12,6 +12,6 @@ metadata:
   name: {{ include "asgs-rabbitmq.fullname" . }}-configmap
 data:
   QUEUE_HOST: "{{ .Values.networking.host }}"
-  QUEUE_MONITOR_PORT: "{{ .Values.secrets.mgtPort }}"
+  QUEUE_MONITOR_PORT: "{{ .Values.service.target_port }}"
   QUEUE_PORT: "{{ .Values.networking.port }}"
 

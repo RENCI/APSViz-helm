@@ -63,7 +63,7 @@ spec:
           ports:
             - name: mgt-port
               protocol: TCP
-              containerPort: {{ .Values.secrets.mgtPort }}
+              containerPort: {{ .Values.service.target_port }}
             - name: queue-port
               protocol: TCP
               containerPort: {{ .Values.networking.port }}

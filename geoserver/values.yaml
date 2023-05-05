@@ -75,9 +75,12 @@ extraVolume: |
 service:
   ## GeoServer service type
   type: ClusterIP
+  target_port: 8080
+  http: 80
+  https: 443
   # clusterIP: ""
   # externalIPs: ""
-  port: 80
+
 
   # nodePort:
 

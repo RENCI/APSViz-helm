@@ -15,9 +15,13 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.containerPort }}
+    - port: {{ .Values.service.http }}
+      targetPort: {{ .Values.service.target_port }}
       protocol: TCP
       name: http
+    - port: {{ .Values.service.https }}
+      targetPort: {{ .Values.service.target_port }}
+      protocol: TCP
+      name: https
   selector:
     {{- include "apsviz-ui-data.selectorLabels" . | nindent 4 }}

@@ -43,8 +43,9 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
-  containerPort: 4000
+  http: 80
+  https: 443
+  target_port: 4000
 
 ingress:
   enabled: true

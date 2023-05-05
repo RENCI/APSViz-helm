@@ -15,10 +15,14 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.secrets.mgtPort }}
-      targetPort: {{ .Values.secrets.mgtPort }}
+    - port: {{ .Values.service.http }}
+      targetPort: {{ .Values.service.target_port }}
       protocol: TCP
       name: rbtmq-http-prt
+    - port: {{ .Values.service.https }}
+      targetPort: {{ .Values.service.target_port }}
+      protocol: TCP
+      name: https
   selector:
     {{- include "asgs-rabbitmq.selectorLabels" . | nindent 4 }}
 
@@ -34,7 +38,6 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: {{ .Values.networking.host }}
 spec:
   type: {{ .Values.networking.type }}
-  loadBalancerIP: {{ .Values.networking.loadbalancerIP }}
   ports:
   - name: {{ .Values.networking.name }}
     port: {{ .Values.networking.port }}

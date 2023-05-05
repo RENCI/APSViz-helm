@@ -32,19 +32,19 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.containerPort }}
+              containerPort: {{ .Values.service.target_port }}
               protocol: TCP
           {{ if not .Values.isAWS }}
           startupProbe:
             httpGet:
               path: /
-              port: {{ .Values.service.containerPort }}
+              port: {{ .Values.service.target_port }}
             failureThreshold: 30
             periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /
-              port: {{ .Values.service.containerPort }}
+              port: {{ .Values.service.target_port }}
             initialDelaySeconds: 1
             periodSeconds: 30
           {{ end }}
