@@ -56,8 +56,9 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
-  queueport: 0
+  http: 80
+  https: 443
+  target_port: 15672
 
 ingress:
   enabled: false
