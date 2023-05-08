@@ -44,6 +44,14 @@ spec:
               value: "{{ .Values.env.RABBITMQ_USER }}"
             - name: "RABBITMQ_PW"
               value: "{{ .Values.env.RABBITMQ_PW }}"
+            - name: RELAY_RABBITMQ_HOST
+              value: "{{ .Values.env.RELAY_RABBITMQ_HOST }}"
+            - name: RELAY_RABBITMQ_PW
+              value: "{{ .Values.env.RELAY_RABBITMQ_PW }}"
+            - name: RELAY_RABBITMQ_USER
+              value: "{{ .Values.env.RELAY_RABBITMQ_USER }}"
+            - name: RELAY_ENABLED
+              value: {{ .Values.env.RELAY_ENABLED }}
             - name: LOG_PATH
               valueFrom:
                 secretKeyRef:

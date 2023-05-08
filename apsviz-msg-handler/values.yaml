@@ -60,6 +60,12 @@ env:
   RABBITMQ_HOST: "somehost"
   RABBITMQ_USER: "someuser"
   RABBITMQ_PW: "somepassword"
+
+  RELAY_RABBITMQ_HOST: "somehost"
+  RELAY_RABBITMQ_PW: "someuser"
+  RELAY_RABBITMQ_USER: "somepassword"
+  RELAY_ENABLED: False
+
   system: "Unknown"
   sleepTimeSeconds: 5
 
