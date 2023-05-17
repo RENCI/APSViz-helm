@@ -108,6 +108,12 @@ spec:
                 name: eds-keys
                 key: apsviz-gauges-password
 
+          - name: PSC_SYNC_PROJECTS
+            valueFrom:
+              secretKeyRef:
+                name: eds-keys
+                key: psc_sync_projects
+
           - name: LOG_PATH
             valueFrom:
               secretKeyRef:
