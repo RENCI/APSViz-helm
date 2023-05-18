@@ -8,7 +8,7 @@
 ---
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "sftpgo.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
+{{- $svcPort := .Values.service.http -}}
 {{- if and .Values.ingress.class (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.class }}
@@ -44,13 +44,11 @@ spec:
     - host: {{ .Values.ingress.host | quote }}
       http:
         paths:
-        {{- range .Values.ingress.endpoints }}
-          - path: {{ . }}
-            pathType: {{ $.Values.ingress.pathType }}
+          - path: "/"
+            pathType: "{{ .Values.ingress.pathType }}"
             backend:
               service:
                 name: {{ $fullName }}
                 port:
                   number: {{ $svcPort }}
-        {{- end }}
 {{- end }}
