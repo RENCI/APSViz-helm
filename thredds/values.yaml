@@ -88,7 +88,7 @@ resources:
     cpu: 2000m
   requests:
     memory: 2000Mi
-    ephemeral-storage: 50Mi
+    ephemeral-storage: 64Mi
     cpu: 750m
 
 storage:
