@@ -44,8 +44,12 @@ spec:
               mountPath: {{ .Values.logVolumes.mountPoint }}
             - name: {{ .Values.dataVolumes.claimName }}
               mountPath: {{ .Values.dataVolumes.mountPoint }}
+            - mountPath: /home/nru/tomcat/bin/javaopts.sh
+              name: "javaopt-config-script"
+              subPath: "javaopts.sh"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+{{/*          command: [ '/bin/sh', '-c', 'while true; do date; sleep 3600; done' ]*/}}
       volumes:
         - name: {{ .Values.logVolumes.claimName }}
           persistentVolumeClaim:
@@ -53,6 +57,10 @@ spec:
         - name: {{ .Values.dataVolumes.claimName }}
           persistentVolumeClaim:
             claimName: {{ include "apsviz-thredds.fullname" . }}-data-pvc
+        - name: javaopt-config-script
+          configMap:
+            name: "{{- include "apsviz-thredds.fullname" . }}-scripts"
+            defaultMode: 0777
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
