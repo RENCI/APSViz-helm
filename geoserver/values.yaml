@@ -11,6 +11,8 @@ image:
   tag: "2.20.1"
   pullPolicy: IfNotPresent
 
+replicas: 1
+
 geoserverUser: someuser
 
 # For prefilled password
@@ -30,7 +32,7 @@ resources:
   limits:
     cpu: 1000m
     ephemeral-storage: 256Mi
-    memory: 7Gi
+    memory: 8Gi
   requests:
     cpu: 500m
     ephemeral-storage: 64Mi
