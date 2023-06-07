@@ -30,7 +30,8 @@ data:
               "action_type": "SWEEP_COPY",
               "data_type": "DIRECTORY",
               "source": "/data/logs/",
-              "destination": "/data/log-backups/"
+              "destination": "/data/log-backups/",
+              "debug": false
             },
             {
               "name": "Remove log directories",
@@ -42,7 +43,8 @@ data:
               "action_type": "SWEEP_REMOVE",
               "data_type": "DIRECTORY",
               "source": "/data/logs/",
-              "destination": null
+              "destination": null,
+              "debug": false
             }
           ]
         },
@@ -60,7 +62,8 @@ data:
               "action_type": "SWEEP_COPY",
               "data_type": "FILE",
               "source": "/data/ast-run-harvester/",
-              "destination": "/data/ast-run-harvester-backups/"
+              "destination": "/data/ast-run-harvester-backups/",
+              "debug": false
             }
           ]
         }
