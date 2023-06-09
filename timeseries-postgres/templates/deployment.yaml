@@ -61,6 +61,19 @@ spec:
           - mountPath: /docker-entrypoint-initdb.d/003-create-extensions.sh
             name: "create-extensions-script"
             subPath: "create-extensions.sh"
+          - mountPath: /docker-entrypoint-initdb.d/004-install-crosstab.sh
+            name: "install-crosstab-script"
+            subPath: "install-crosstab.sh"
+          - mountPath: /docker-entrypoint-initdb.d/005-install-renci-funcs.sh
+            name: "install-renci-funcs-script"
+            subPath: "install-renci-funcs.sh"
+          - mountPath: /docker-entrypoint-initdb.d/get-obs-timeseries-station-data.sql
+            name: "get-obs-timeseries-station-script"
+            subPath: "get-obs-timeseries-station-data.sql"
+          - mountPath: /docker-entrypoint-initdb.d/get-forecast-timeseries-station-data.sql
+            name: "get-forecast-timeseries-station-script"
+            subPath: "get-forecast-timeseries-station-data.sql"
+
           {{- if .Values.shmSize }}
           - mountPath: /dev/shm
             name: dshm
@@ -86,6 +99,23 @@ spec:
           configMap:
             name: "{{- include "apsviz-timeseries-postgres.fullname" . }}-scripts"
             defaultMode: 0777
+        - name: install-crosstab-script
+          configMap:
+            name: "{{- include "apsviz-timeseries-postgres.fullname" . }}-scripts"
+            defaultMode: 0777
+        - name: install-renci-funcs-script
+          configMap:
+            name: "{{- include "apsviz-timeseries-postgres.fullname" . }}-scripts"
+            defaultMode: 0777
+        - name: get-obs-timeseries-station-script
+          configMap:
+            name: "{{- include "apsviz-timeseries-postgres.fullname" . }}-scripts"
+            defaultMode: 0777
+        - name: get-forecast-timeseries-station-script
+          configMap:
+            name: "{{- include "apsviz-timeseries-postgres.fullname" . }}-scripts"
+            defaultMode: 0777
+
         {{- if .Values.shmSize }}
         - name: dshm
           emptyDir:
