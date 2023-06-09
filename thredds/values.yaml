@@ -69,17 +69,13 @@ dataVolumes:
 
 ingress:
   enabled: false
-  class: ""
+  class: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/enable-cors: "true"
   hosts:
   pathType: "ImplementationSpecific"
   tls:
     enabled: false
-
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
 resources:
   limits:

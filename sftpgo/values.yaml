@@ -55,7 +55,7 @@ volumes:
 
 ingress:
   enabled: false
-  class: ""
+  class: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "86400"

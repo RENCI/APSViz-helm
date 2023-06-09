@@ -49,7 +49,7 @@ service:
 
 ingress:
   enabled: true
-  class: ""
+  class: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "86400"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"

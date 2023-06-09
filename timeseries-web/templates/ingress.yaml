@@ -31,9 +31,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if and .Values.ingress.class (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
   ingressClassName: {{ .Values.ingress.class }}
-  {{- end }}
   {{- if .Values.ingress.tls.enabled }}
   tls:
   - hosts:

@@ -14,7 +14,6 @@ metadata:
     {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
-  generation: 1
   labels:
     app: {{ template "geoserver.fullname" . }}
     chart: {{ template "geoserver.chart" . }}
@@ -26,6 +25,7 @@ metadata:
   name: {{ template "geoserver.fullname" . }}
   namespace: {{ .Release.Namespace }}
 spec:
+  ingressClassName: "nginx"
   rules:
   - host: {{ .Values.ingress.host }}
     http:
