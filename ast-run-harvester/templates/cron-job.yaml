@@ -21,7 +21,7 @@ spec:
         spec:
           securityContext:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
-          containers:
+          initContainers:
           - name: {{ .Chart.Name }}-job
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -62,9 +62,78 @@ spec:
                 secretKeyRef:
                   name: eds-keys
                   key: http-proxy-url
+          containers:
+          - image: containers.renci.org/eds/apsviz-timeseriesdb-ingest:v0.0.9
+            imagePullPolicy: Always
+            name: test-timeseriesdb-ingest
+            command: ['python', 'runIngest.py', '--harvestDir', '/data/ast-run-harvester/', '--ingestDir', '/data/ast-run-ingester/', '--dataType', 'obs', '--inputTask', 'SequenceIngest']
+            volumeMounts:
+            - name: {{ .Values.volumes.name }}
+              mountPath: "/data"
+            env:
+              - name: APSVIZ_GAUGES_DATABASE
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: apsviz-gauges-database
+              - name: APSVIZ_GAUGES_ENGINE
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: apsviz-gauges-engine
+              - name: APSVIZ_GAUGES_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: apsviz-gauges-host
+              - name: APSVIZ_GAUGES_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: apsviz-gauges-password
+              - name: APSVIZ_GAUGES_PORT
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: apsviz-gauges-port
+              - name: APSVIZ_GAUGES_USERNAME
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: apsviz-gauges-username
+              - name: ASGS_DB_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: asgs-host
+              - name: ASGS_DB_PORT
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: asgs-port
+              - name: ASGS_DB_DATABASE
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: asgs-database
+              - name: ASGS_DB_USERNAME
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: asgs-username
+              - name: ASGS_DB_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: asgs-password
+              - name: AST_HARVESTER_DATA
+                value: /data/ast-run-harvester
+            resources:
+              {{- toYaml .Values.resources | nindent 14 }}
           restartPolicy: Never
           volumes:
             - name: {{ .Values.volumes.name }}
               persistentVolumeClaim:
                 claimName: {{ .Values.volumes.claimName }}
+
 
