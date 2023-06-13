@@ -107,7 +107,8 @@ data:
         return _output;
     END
     $function$;
-    alter function get_obs_timeseries_station_data(varchar, varchar, varchar, varchar) owner to apsviz_ingester;
+    ALTER FUNCTION public.get_obs_timeseries_station_data(character varying, character varying, character varying, character varying) OWNER TO postgres;
+    GRANT EXECUTE ON FUNCTION public.get_obs_timeseries_station_data(character varying, character varying, character varying, character varying) TO apsviz_ingester;
 
 
   get-forecast-timeseries-station-data.sql : |-
@@ -148,7 +149,8 @@ data:
         return _output;
     END
     $function$;
-    alter function get_forecast_timeseries_station_data(varchar, varchar, varchar) owner to apsviz_ingester;
+    ALTER FUNCTION public.get_forecast_timeseries_station_data(character varying, character varying, character varying) OWNER TO postgres;
+    GRANT EXECUTE ON FUNCTION public.get_forecast_timeseries_station_data(character varying, character varying, character varying) TO apsviz_ingester;
 
   loaddb.sh: |-
     #!/bin/bash
