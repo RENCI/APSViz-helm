@@ -22,7 +22,7 @@ spec:
           securityContext:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
           initContainers:
-          - name: {{ .Chart.Name }}-job
+          - name: {{ .Chart.Name }}-cronjob
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
             volumeMounts:
@@ -65,7 +65,7 @@ spec:
           containers:
           - image: containers.renci.org/eds/apsviz-timeseriesdb-ingest:v0.0.9
             imagePullPolicy: Always
-            name: test-timeseriesdb-ingest
+            name: apsviz-timeseriesdb-ingest-cronjob
             command: ['python', 'runIngest.py', '--harvestDir', '/data/ast-run-harvester/', '--ingestDir', '/data/ast-run-ingester/', '--dataType', 'obs', '--inputTask', 'SequenceIngest']
             volumeMounts:
             - name: {{ .Values.volumes.name }}
