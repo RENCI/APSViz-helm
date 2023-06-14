@@ -28,6 +28,7 @@ spec:
             volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: "/data"
+            # command: ['/bin/sh', '-c', 'sleep 30']
             command: ['bash', './execute_run_harvest.sh', '/data/ast-run-harvester']
             resources:
               {{- toYaml .Values.resources | nindent 14 }}
@@ -63,7 +64,7 @@ spec:
                   name: eds-keys
                   key: http-proxy-url
           containers:
-          - image: containers.renci.org/eds/apsviz-timeseriesdb-ingest:v0.0.9
+          - image: containers.renci.org/eds/apsviz-timeseriesdb-ingest:v0.0.10
             imagePullPolicy: Always
             name: apsviz-timeseriesdb-ingest-cronjob
             command: ['python', 'runIngest.py', '--harvestDir', '/data/ast-run-harvester/', '--ingestDir', '/data/ast-run-ingester/', '--dataType', 'obs', '--inputTask', 'SequenceIngest']
@@ -71,32 +72,32 @@ spec:
             - name: {{ .Values.volumes.name }}
               mountPath: "/data"
             env:
-              - name: APSVIZ_GAUGES_DATABASE
+              - name: APSVIZ_GAUGES_DB_DATABASE
                 valueFrom:
                   secretKeyRef:
                     name: eds-keys
                     key: apsviz-gauges-database
-              - name: APSVIZ_GAUGES_ENGINE
+              - name: APSVIZ_GAUGES_DB_ENGINE
                 valueFrom:
                   secretKeyRef:
                     name: eds-keys
                     key: apsviz-gauges-engine
-              - name: APSVIZ_GAUGES_HOST
+              - name: APSVIZ_GAUGES_DB_HOST
                 valueFrom:
                   secretKeyRef:
                     name: eds-keys
                     key: apsviz-gauges-host
-              - name: APSVIZ_GAUGES_PASSWORD
+              - name: APSVIZ_GAUGES_DB_PASSWORD
                 valueFrom:
                   secretKeyRef:
                     name: eds-keys
                     key: apsviz-gauges-password
-              - name: APSVIZ_GAUGES_PORT
+              - name: APSVIZ_GAUGES_DB_PORT
                 valueFrom:
                   secretKeyRef:
                     name: eds-keys
                     key: apsviz-gauges-port
-              - name: APSVIZ_GAUGES_USERNAME
+              - name: APSVIZ_GAUGES_DB_USERNAME
                 valueFrom:
                   secretKeyRef:
                     name: eds-keys
