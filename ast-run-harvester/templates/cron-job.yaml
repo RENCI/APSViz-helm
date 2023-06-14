@@ -22,9 +22,9 @@ spec:
           securityContext:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
           initContainers:
-          - name: {{ .Chart.Name }}-cronjob
-            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-            imagePullPolicy: {{ .Values.image.pullPolicy }}
+          - name: ast-harvester-cronjob
+            image: "{{ .Values.harvesterImage.repository }}:{{ .Values.harvesterImage.tag }}"
+            imagePullPolicy: {{ .Values.harvesterImage.pullPolicy }}
             volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: "/data"
@@ -64,9 +64,9 @@ spec:
                   name: eds-keys
                   key: http-proxy-url
           containers:
-          - image: containers.renci.org/eds/apsviz-timeseriesdb-ingest:v0.0.10
-            imagePullPolicy: Always
-            name: apsviz-timeseriesdb-ingest-cronjob
+          - name: apsviz-timeseriesdb-ingest-cronjob
+            image: "{{ .Values.ingesterImage.repository }}:{{ .Values.ingesterImage.tag }}"
+            imagePullPolicy: {{ .Values.ingesterImage.pullPolicy }}
             command: ['python', 'runIngest.py', '--harvestDir', '/data/ast-run-harvester/', '--ingestDir', '/data/ast-run-ingester/', '--dataType', 'obs', '--inputTask', 'SequenceIngest']
             volumeMounts:
             - name: {{ .Values.volumes.name }}
