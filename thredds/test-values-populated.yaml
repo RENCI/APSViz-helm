@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.
+# SPDX-FileCopyrightText: 2023 Renaissance Computing Institute. All rights reserved.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: LicenseRef-RENCI
+# SPDX-License-Identifier: MIT
+
+# Default values for apsviz thredds.
+# This is a YAML-formatted file.
+
+replicaCount: 1
+
+image:
+  repository: containers.renci.org/eds/apsviz-thredds
+  tag: test3
+  pullPolicy: Always
+
+logVolumes:
+  create: true
+  name: apsviz-thredds-logs-vol
+  claimName: apsviz-thredds-log-pvc
+  storageClass: "sc"
+  size: 2Gi
+  accessMode: "ReadWriteMany"
+  efsHandle: "fs"
+  mountPoint: /home/nru/tomcat/logs
+
+nfsVolumes:
+  name1: nfs-1
+  mountPath1: "/projects/ncfs/opendap/data"
+  path1: "/ncfs/opendap/data"
+
+  name2: nfs-2
+  mountPath2: "/projects/reanalysis"
+  path2: "/reanalysis"
+
+  server: na-projects.edc.renci.org
+
+securityContext:
+  runAsUser: 30000
+  supplementalGroups:
+   - 1078
+   - 1170
+
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+#    nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0,::/0
+    nginx.ingress.kubernetes.io/proxy-body-size: 512m
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '86400'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '86400'
+    nginx.ingress.kubernetes.io/send-timeout: '86400'
+    nginx.ingress.kubernetes.io/service-upstream: 'true'
+    nginx.ingress.kubernetes.io/upstream-keepalive-timeout: '86400'
+    nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive
+  host: tdstest-dev.apps.renci.org
+  pathType: "ImplementationSpecific"
+  endpoints:
+    - /favicon.ico
+    - /thredds
+  tls:
+    enabled: true
