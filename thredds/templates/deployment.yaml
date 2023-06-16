@@ -35,6 +35,13 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: THREDDS_XMX_SIZE
+              value: "6G"
+            - name: THREDDS_XMS_SIZE
+              value: "4G"
+            - name: TDS_CONTENT_ROOT_PATH
+              value: /home/nru/tomcat/content
           ports:
             - name: http
               containerPort: {{ .Values.service.target_port }}
