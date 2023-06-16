@@ -61,7 +61,7 @@ dataVolumes:
   efsHandle: "fs"
   mountPoint: /thredds-data
 
-nfsVolumes: {}
+nfsVolumes: false
 
 ingress:
   enabled: false
