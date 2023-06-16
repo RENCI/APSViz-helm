@@ -47,20 +47,46 @@ spec:
               containerPort: {{ .Values.service.target_port }}
               protocol: TCP
           volumeMounts:
+            - name: "javaopt-config-script"
+              mountPath: /home/nru/tomcat/bin/javaopts.sh
+              subPath: "javaopts.sh"
             - name: {{ .Values.logVolumes.claimName }}
               mountPath: {{ .Values.logVolumes.mountPoint }}
+            {{- if not .Values.nfsVolumes }}
             - name: {{ .Values.dataVolumes.claimName }}
               mountPath: {{ .Values.dataVolumes.mountPoint }}
+            {{- else }}
+            - name: {{ .Values.nfsVolumes.name1 }}
+              mountPath: {{ .Values.nfsVolumes.mountPath1 }}
+            - name: {{ .Values.nfsVolumes.name2 }}
+              mountPath: {{ .Values.nfsVolumes.mountPath2 }}
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
+        - name: javaopt-config-script
+          configMap:
+            name: "{{- include "apsviz-thredds.fullname" . }}-scripts"
+            defaultMode: 0777
         - name: {{ .Values.logVolumes.claimName }}
           persistentVolumeClaim:
             claimName: {{ include "apsviz-thredds.fullname" . }}-logs-pvc
+        {{- if not .Values.nfsVolumes }}
         - name: {{ .Values.dataVolumes.claimName }}
           persistentVolumeClaim:
             claimName: {{ include "apsviz-thredds.fullname" . }}-data-pvc
-
+        {{- else }}
+        {{- with .Values.nfsVolumes }}
+        - name: {{ .name1 }}
+          nfs:
+            server: {{ .server }}
+            path: {{ .path1 }}
+        - name: {{ .name2 }}
+          nfs:
+            server: {{ .server }}
+            path: {{ .path2 }}
+        {{- end }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -43,6 +43,7 @@ spec:
     driver: efs.csi.aws.com
     volumeHandle: {{ .Values.dataVolumes.efsHandle }}
 {{ end }}
+{{- if not .Values.nfsVolumes }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -60,4 +61,4 @@ spec:
     requests:
       storage: {{ .Values.dataVolumes.size }}
 {{ end }}
-
+{{ end }}
