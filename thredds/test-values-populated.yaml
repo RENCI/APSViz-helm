@@ -12,7 +12,7 @@ replicaCount: 1
 
 image:
   repository: containers.renci.org/eds/apsviz-thredds
-  tag: test3
+  tag: latest
   pullPolicy: Always
 
 logVolumes:
@@ -47,13 +47,13 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
 #    nginx.ingress.kubernetes.io/whitelist-source-range: 0.0.0.0/0,::/0
-    nginx.ingress.kubernetes.io/proxy-body-size: 512m
+    nginx.ingress.kubernetes.io/proxy-body-size: "512m"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: '86400'
     nginx.ingress.kubernetes.io/proxy-read-timeout: '86400'
     nginx.ingress.kubernetes.io/send-timeout: '86400'
     nginx.ingress.kubernetes.io/service-upstream: 'true'
     nginx.ingress.kubernetes.io/upstream-keepalive-timeout: '86400'
-    nginx.ingress.kubernetes.io/connection-proxy-header: keep-alive
+    nginx.ingress.kubernetes.io/connection-proxy-header: "keep-alive"
   host: tdstest-dev.apps.renci.org
   pathType: "ImplementationSpecific"
   endpoints:
