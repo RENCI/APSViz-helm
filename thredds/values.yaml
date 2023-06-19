@@ -77,7 +77,7 @@ resources:
   limits:
     memory: 8Gi
     ephemeral-storage: 256Mi
-    cpu: 2000m
+    cpu: 3000m
   requests:
     memory: 4Gi
     ephemeral-storage: 64Mi
