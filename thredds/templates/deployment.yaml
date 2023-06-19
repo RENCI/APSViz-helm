@@ -40,16 +40,11 @@ spec:
               value: "6G"
             - name: THREDDS_XMS_SIZE
               value: "4G"
-            - name: TDS_CONTENT_ROOT_PATH
-              value: /home/nru/tomcat/content
           ports:
             - name: http
               containerPort: {{ .Values.service.target_port }}
               protocol: TCP
           volumeMounts:
-            - name: "javaopt-config-script"
-              mountPath: /home/nru/tomcat/bin/javaopts.sh
-              subPath: "javaopts.sh"
             - name: {{ .Values.logVolumes.claimName }}
               mountPath: {{ .Values.logVolumes.mountPoint }}
             {{- if not .Values.nfsVolumes }}
