@@ -10,6 +10,9 @@
 
 replicaCount: 1
 
+podSecurityContext:
+  fsGroup: 30000
+
 image:
   repository: containers.renci.org/eds/apsviz-thredds
   tag: latest
