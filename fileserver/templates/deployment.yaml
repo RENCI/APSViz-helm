@@ -29,6 +29,16 @@ spec:
       serviceAccountName: {{ include "apsviz-fileserver.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+
+      initContainers:
+        - name: init-geoserver-icons
+          imagePullPolicy: Always
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command: ['/bin/sh', '-c', 'cp -R /etc/icons/ /fileserver/terria-map/']
+          volumeMounts:
+          - name: apsviz-fileserver-vol
+            mountPath: /fileserver
+
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
