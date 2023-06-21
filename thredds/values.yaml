@@ -16,6 +16,19 @@ image:
   tag: someversion
   pullPolicy: Always
 
+tomcatCatalinaHome: "/somedir/path"
+
+tomcatUsers:
+  user-1:
+    name: "u1"
+    password: "somepw1"
+    roles: "role1"
+
+  user-2:
+    name: "u2"
+    password: "somepw2"
+    roles: "role2,role3"
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
