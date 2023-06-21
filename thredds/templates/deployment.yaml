@@ -47,14 +47,17 @@ spec:
           volumeMounts:
             - name: {{ .Values.logVolumes.claimName }}
               mountPath: {{ .Values.logVolumes.mountPoint }}
+            - name: "tomcat-users-config-script"
+              mountPath: {{ .Values.tomcatCatalinaHome }}/conf/tomcat-users.xml
+              subPath: "tomcat-users.xml"
             {{- if not .Values.nfsVolumes }}
             - name: {{ .Values.dataVolumes.claimName }}
               mountPath: {{ .Values.dataVolumes.mountPoint }}
             {{- else }}
-            - name: {{ .Values.nfsVolumes.name1 }}
-              mountPath: {{ .Values.nfsVolumes.mountPath1 }}
-            - name: {{ .Values.nfsVolumes.name2 }}
-              mountPath: {{ .Values.nfsVolumes.mountPath2 }}
+            {{- range $key, $value := .Values.nfsVolumes }}
+            - name: {{ $value.name | quote }}
+              mountPath: {{ $value.mountPath | quote }}
+            {{- end }}
             {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -66,20 +69,20 @@ spec:
         - name: {{ .Values.logVolumes.claimName }}
           persistentVolumeClaim:
             claimName: {{ include "apsviz-thredds.fullname" . }}-logs-pvc
+        - name: tomcat-users-config-script
+          configMap:
+            name: "{{- include "apsviz-thredds.fullname" . }}-scripts"
+            defaultMode: 0777
         {{- if not .Values.nfsVolumes }}
         - name: {{ .Values.dataVolumes.claimName }}
           persistentVolumeClaim:
             claimName: {{ include "apsviz-thredds.fullname" . }}-data-pvc
         {{- else }}
-        {{- with .Values.nfsVolumes }}
-        - name: {{ .name1 }}
+        {{- range $key, $value := .Values.nfsVolumes }}
+        - name: {{ $value.name | quote }}
           nfs:
-            server: {{ .server }}
-            path: {{ .path1 }}
-        - name: {{ .name2 }}
-          nfs:
-            server: {{ .server }}
-            path: {{ .path2 }}
+            path: {{ $value.path | quote }}
+            server: {{ $value.server | quote}}
         {{- end }}
         {{- end }}
       {{- with .Values.nodeSelector }}
