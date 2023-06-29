@@ -22,6 +22,8 @@ fullnameOverride: ""
 
 isAWS: false
 
+cpu_limits: false
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: false

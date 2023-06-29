@@ -24,5 +24,6 @@ data:
       "SV_INACTIVITY": {{ .Values.base_config.sv_inactivity }},
       "POLL_SHORT_SLEEP": {{ .Values.base_config.poll_short_sleep }},
       "POLL_LONG_SLEEP": {{ .Values.base_config.poll_long_sleep }},
-      "MAX_NO_ACTIVITY_COUNT": {{ .Values.base_config.max_no_activity_count }}
+      "MAX_NO_ACTIVITY_COUNT": {{ .Values.base_config.max_no_activity_count }},
+      "CPU_LIMITS": {{ .Values.cpu_limits }}
     }
