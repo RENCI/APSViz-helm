@@ -79,11 +79,10 @@ resources:
   limits:
     memory: 256Mi
     ephemeral-storage: 64Mi
-    cpu: 512m
   requests:
     memory: 128Mi
     ephemeral-storage: 50Mi
-    cpu: 100m
+    cpu: 1000m
 
 storage:
   class: "eds-efs-sc"
