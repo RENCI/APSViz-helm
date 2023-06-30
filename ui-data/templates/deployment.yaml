@@ -126,6 +126,18 @@ spec:
                 key: log-level
           - name: SYSTEM
             value: {{ .Values.system }}
+
+          - name: BEARER_NAME
+            value: {{ .Values.jwtSecurity.bearerName }}
+          - name: BEARER_SECRET
+            value: {{ .Values.jwtSecurity.bearerSecret }}
+          - name: JWT_ALGORITHM
+            value: {{ .Values.jwtSecurity.jwtAlgorithm }}
+          - name: JWT_SECRET
+            value: {{ .Values.jwtSecurity.jwtSecret }}
+          - name: JWT_TOKEN
+            value: {{ .Values.jwtSecurity.jwtToken }}
+
           - name: TEMP_FILE_PATH
             value: {{ .Values.volumes.temp_dir }}
           volumeMounts:

@@ -33,6 +33,13 @@ serviceAccount:
 podSecurityContext: {}
   # fsGroup: 2000
 
+jwtSecurity:
+  bearerName: "someBearerName"
+  bearerSecret: "someBearerSecret"
+  jwtAlgorithm: "ALGO"
+  jwtSecret: "jwtSecret"
+  jwtToken: "secretToken"
+
 securityContext: {}
   # capabilities:
   #   drop:
