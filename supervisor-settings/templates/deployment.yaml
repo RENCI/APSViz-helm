@@ -70,6 +70,16 @@ spec:
             value: {{ .Values.system }}
           - name: TEMP_FILE_PATH
             value: {{ .Values.volumes.temp_dir }}
+
+          - name: BEARER_NAME
+            value: {{ .Values.jwt.bearerName }}
+          - name: BEARER_SECRET
+            value: {{ .Values.jwt.bearerSecret }}
+          - name: JWT_ALGORITHM
+            value: {{ .Values.jwt.jwtAlgorithm }}
+          - name: JWT_SECRET
+            value: {{ .Values.jwt.jwtSecret }}
+
           volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: {{ .Values.volumes.mountPath }}
