@@ -72,13 +72,13 @@ spec:
             value: {{ .Values.volumes.temp_dir }}
 
           - name: BEARER_NAME
-            value: {{ .Values.jwt.bearerName }}
+            value: {{ .Values.jwtSecurity.bearerName }}
           - name: BEARER_SECRET
-            value: {{ .Values.jwt.bearerSecret }}
+            value: {{ .Values.jwtSecurity.bearerSecret }}
           - name: JWT_ALGORITHM
-            value: {{ .Values.jwt.jwtAlgorithm }}
+            value: {{ .Values.jwtSecurity.jwtAlgorithm }}
           - name: JWT_SECRET
-            value: {{ .Values.jwt.jwtSecret }}
+            value: {{ .Values.jwtSecurity.jwtSecret }}
 
           volumeMounts:
             - name:  {{ .Values.volumes.name }}
