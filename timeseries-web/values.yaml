@@ -12,7 +12,8 @@
 replicaCount: 1
 
 image:
-  repository: containers.renci.org/eds/apsviz-settings:v0.0.10
+  repository: containers.renci.org/eds/apsviz-timeseriesdb-web
+  tag: "v0.0.4"
   pullPolicy: Always
 
 imagePullSecrets: []
