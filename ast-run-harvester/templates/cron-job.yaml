@@ -72,6 +72,11 @@ spec:
             - name: {{ .Values.volumes.name }}
               mountPath: "/data"
             env:
+              - name: LOG_PATH
+                valueFrom:
+                  secretKeyRef:
+                    name: eds-keys
+                    key: log-path
               - name: APSVIZ_GAUGES_DB_DATABASE
                 valueFrom:
                   secretKeyRef:
