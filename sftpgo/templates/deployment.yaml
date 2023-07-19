@@ -53,8 +53,17 @@ spec:
           volumeMounts:
             - name: {{ .Values.volumes.sftp.name }}
               mountPath: {{ .Values.volumes.sftp.mountPoint }}
+
+              {{- if not .Values.nfsVolumes }}
             - name: {{ .Values.volumes.thredds.name }}
               mountPath: {{ .Values.volumes.thredds.mountPoint }}
+              {{- else }}
+                {{- range $key, $value := .Values.nfsVolumes }}
+            - name: {{ $value.name | quote }}
+              mountPath: {{ $value.mountPath | quote }}
+                {{- end }}
+              {{- end }}
+
           startupProbe:
             httpGet:
               path: /
@@ -73,9 +82,20 @@ spec:
         - name: {{ .Values.volumes.sftp.name }}
           persistentVolumeClaim:
             claimName: {{ .Values.volumes.sftp.claimName }}
+
+        {{- if not .Values.nfsVolumes }}
         - name: {{ .Values.volumes.thredds.name }}
           persistentVolumeClaim:
             claimName: {{ .Values.volumes.thredds.claimName }}
+        {{- else }}
+          {{- range $key, $value := .Values.nfsVolumes }}
+        - name: {{ $value.name | quote }}
+          nfs:
+            path: {{ $value.path | quote }}
+            server: {{ $value.server | quote}}
+          {{- end }}
+        {{- end }}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

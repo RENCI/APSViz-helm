@@ -19,6 +19,8 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+nfsVolumes: false
+
 isAWS: false
 
 serviceAccount:
