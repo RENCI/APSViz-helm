@@ -10,3 +10,6 @@ aws*.yaml filter=git-crypt diff=git-crypt
 context.xml filter=git-crypt diff=git-crypt
 web.xml  filter=git-crypt diff=git-crypt
 test-values*.yaml filter=git-crypt diff=git-crypt
+std*.yaml filter=git-crypt diff=git-crypt
+exp*.yaml filter=git-crypt diff=git-crypt
+*.xml filter=git-crypt diff=git-crypt
