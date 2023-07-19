@@ -48,23 +48,29 @@ spec:
             - name: {{ .Values.logVolumes.claimName }}
               mountPath: {{ .Values.logVolumes.mountPoint }}
 
-            {{ $catalina_home := .Values.tomcatCatalinaHome -}}
-            {{ $config_map := .Values.configMapName -}}
+            - name: tds-config-script
+              mountPath: {{ .Values.tomcatCatalinaHome }}/conf/tomcat-users.xml
+              subPath: "tomcat-users.xml"
 
-            {{- range $key, $value := .Values.configMaps }}
+            {{- if ne .Values.configMapName "none" -}}
+              {{ $catalina_home := .Values.tomcatCatalinaHome -}}
+              {{ $config_map := .Values.configMapName -}}
+
+              {{- range $key, $value := .Values.configMaps }}
             - name: tds-config-script
               mountPath: {{ $catalina_home }}{{ $value.mountPath }}{{ $value.subPath }}
               subPath: {{ $value.subPath | quote }}
+              {{- end }}
             {{- end }}
 
             {{- if not .Values.nfsVolumes }}
             - name: {{ .Values.dataVolumes.claimName }}
               mountPath: {{ .Values.dataVolumes.mountPoint }}
             {{- else }}
-            {{- range $key, $value := .Values.nfsVolumes }}
+              {{- range $key, $value := .Values.nfsVolumes }}
             - name: {{ $value.name | quote }}
               mountPath: {{ $value.mountPath | quote }}
-            {{- end }}
+              {{- end }}
             {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -72,23 +78,27 @@ spec:
         - name: {{ .Values.logVolumes.claimName }}
           persistentVolumeClaim:
             claimName: {{ include "apsviz-thredds.fullname" . }}-logs-pvc
+
+        {{- if ne .Values.configMapName "none" }}
         - name: tds-config-script
           configMap:
             name: {{ .Values.configMapName }}
             defaultMode: 0777
+        {{ end }}
 
         {{- if not .Values.nfsVolumes }}
         - name: {{ .Values.dataVolumes.claimName }}
           persistentVolumeClaim:
             claimName: {{ include "apsviz-thredds.fullname" . }}-data-pvc
         {{- else }}
-        {{- range $key, $value := .Values.nfsVolumes }}
+          {{- range $key, $value := .Values.nfsVolumes }}
         - name: {{ $value.name | quote }}
           nfs:
             path: {{ $value.path | quote }}
             server: {{ $value.server | quote}}
+          {{- end }}
         {{- end }}
-        {{- end }}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

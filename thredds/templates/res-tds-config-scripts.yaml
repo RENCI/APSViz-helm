@@ -1,0 +1,761 @@
+# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.
+# SPDX-FileCopyrightText: 2023 Renaissance Computing Institute. All rights reserved.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: LicenseRef-RENCI
+# SPDX-License-Identifier: MIT
+
+---
+{{ if eq .Values.configMapName "apsviz-thredds-res-scripts" }}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "apsviz-thredds-res-scripts"
+data:
+  CHEER.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <catalog name="NSF CHEER" xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+
+        <service name="all" base="" serviceType="compound">
+            <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
+            <!--service name="dap4" serviceType="DAP4" base="/thredds/dap4/" /-->
+            <service name="http" serviceType="HTTPServer" base="/thredds/fileServer/"/>
+            <service name="wcs" serviceType="WCS" base="/thredds/wcs/"/>
+            <service name="wms" serviceType="WMS" base="/thredds/wms/"/>
+            <service name="ncss" serviceType="NetcdfSubset" base="/thredds/ncss/"/>
+            <service name="iso" serviceType="ISO" base="/thredds/iso/"/>
+            <service name="ncml" serviceType="NCML" base="/thredds/ncml/"/>
+            <service name="uddc" serviceType="UDDC" base="/thredds/uddc/"/>
+        </service>
+
+        <datasetScan
+                name="NSF CHEER"
+                ID="CHEER"
+                path="cheer"
+                location="/projects/ees/TDS/CHEER/">
+
+            <metadata inherited="true">
+                <serviceName>all</serviceName>
+                <authority>renci.org</authority>
+                <dataFormatType>Various</dataFormatType>
+                <dataType>Various</dataType>
+                <documentation> CHEER Research Products</documentation>
+            </metadata>
+
+            <filter>
+                <include wildcard="*"/>
+                <exclude wildcard="*.zip"/>
+                <!--include wildcard="*.nc"/-->
+                <!--exclude wildcard="*sh" atomic="false" collection="true" /-->
+                <!--exclude wildcard="ec95d*" atomic="false" collection="true" /-->
+                <!--exclude wildcard="fort.22*"/-->
+                <!--exclude wildcard="*~"/-->
+            </filter>
+
+            <sort>
+                <lexigraphicByName increasing="true"/>
+            </sort>
+        </datasetScan>
+    </catalog>
+
+  DataLayers.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <catalog name="DataLayersTEST"
+             xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+
+        <service name="all" base="" serviceType="compound">
+            <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
+            <!--service name="dap4" serviceType="DAP4" base="/thredds/dap4/" /-->
+            <service name="http" serviceType="HTTPServer" base="/thredds/fileServer/"/>
+            <!--service name="wcs" serviceType="WCS" base="/thredds/wcs/" /-->
+            <!--service name="wms" serviceType="WMS" base="/thredds/wms/" /-->
+            <!--service name="ncss" serviceType="NetcdfSubset" base="/thredds/ncss/" /-->
+            <!--service name="iso" serviceType="ISO" base="/thredds/iso/" /-->
+            <!--service name="ncml" serviceType="NCML" base="/thredds/ncml/" /-->
+            <!--service name="uddc" serviceType="UDDC" base="/thredds/uddc/" /-->
+        </service>
+
+        <datasetScan
+                name="DataLayers"
+                ID="DataLayers"
+                path="datalayers"
+                location="/projects/ees/TDS/DataLayers">
+
+            <metadata inherited="true">
+                <serviceName>all</serviceName>
+                <authority>renci.org</authority>
+                <dataType>GRID</dataType>
+                <documentation> DataLayers</documentation>
+            </metadata>
+
+            <filter>
+                <!--include wildcard="*"/-->
+                <exclude wildcard="*.zip"/>
+                <exclude wildcard="*.sh"/>
+                <exclude wildcard="*.py"/>
+            </filter>
+        </datasetScan>
+    </catalog>
+
+  Reanalysis.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <catalog name="Coastal Reanalysis"
+             xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+        <!--
+          <contributor role="data manager">John Smith</contributor>
+          <keyword>Atmospheric Chemistry</keyword>
+          <publisher>
+            <long_name vocabulary="DIF">Community Data Portal, National Center for Atmospheric Research, University Corporation for Atmospheric Research</long_name>
+            <contact url="https://dataportal.ucar.edu" email="cdp@ucar.edu"/>
+          </publisher>
+        -->
+
+        <service name="all" base="" serviceType="compound">
+            <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
+            <!--service name="dap4" serviceType="DAP4" base="/thredds/dap4/" /-->
+            <service name="http" serviceType="HTTPServer" base="/thredds/fileServer/"/>
+            <service name="wcs" serviceType="WCS" base="/thredds/wcs/"/>
+            <service name="wms" serviceType="WMS" base="/thredds/wms/"/>
+            <service name="ncss" serviceType="NetcdfSubset" base="/thredds/ncss/"/>
+            <service name="iso" serviceType="ISO" base="/thredds/iso/"/>
+            <service name="ncml" serviceType="NCML" base="/thredds/ncml/"/>
+            <service name="uddc" serviceType="UDDC" base="/thredds/uddc/"/>
+        </service>
+
+        <datasetScan
+                name="Forcing"
+                ID="Forcing"
+                path="Reanalysis/Forcing"
+                location="/projects/reanalysis/Forcing/">
+
+            <metadata inherited="true">
+                <serviceName>all</serviceName>
+                <authority>renci.org</authority>
+                <dataFormatType>NetCDF</dataFormatType>
+                <dataType>GRID</dataType>
+                <documentation> ERA5 Reanalysis u10, v10, mslp, and dwlc for driving ADCIRC.</documentation>
+            </metadata>
+            <filter>
+                <!--include wildcard="*"/-->
+                <!--include wildcard="*.nc"/-->
+                <exclude wildcard="*sh" atomic="false" collection="true"/>
+                <exclude wildcard="ec95d*" atomic="false" collection="true"/>
+                <!--exclude wildcard="fort.22*"/-->
+                <!--exclude wildcard="*.sh"/-->
+                <!--exclude wildcard="*~"/-->
+            </filter>
+            <sort>
+                <lexigraphicByName increasing="true"/>
+            </sort>
+        </datasetScan>
+
+        <datasetScan
+                name="ADCIRC"
+                ID="ADCIRC"
+                path="Reanalysis/ADCIRC"
+                location="/projects/reanalysis/ADCIRC/">
+
+            <metadata inherited="true">
+                <serviceName>all</serviceName>
+                <authority>renci.org</authority>
+                <dataType>GRID</dataType>
+                <documentation> Reanalysis ADCIRC solutions.</documentation>
+            </metadata>
+            <filter>
+                <!--include wildcard="*"/-->
+                <!--include wildcard="fort.15"/-->
+                <!--include wildcard="*.nc"/-->
+                <!--exclude wildcard="fort.22*"/-->
+                <!--exclude wildcard="*.sh"/ -->
+                <exclude wildcard="slurm*"/>
+                <exclude wildcard="*.zip"/>
+                <exclude wildcard="*.sh"/>
+                <exclude wildcard="*.py"/>
+                <exclude wildcard="README"/>
+                <exclude wildcard="*.txt"/>
+                <exclude wildcard=".gitignore*"/>
+                <exclude wildcard="Grids" atomic="false" collection="true"/>
+                <exclude wildcard="bin" atomic="false" collection="true"/>
+                <exclude wildcard="configs" atomic="false" collection="true"/>
+                <exclude wildcard="common" atomic="false" collection="true"/>
+                <exclude wildcard="Tides" atomic="false" collection="true"/>
+                <exclude wildcard="TracksToRun" atomic="false" collection="true"/>
+                <exclude wildcard="ec95d*" atomic="false" collection="true"/>
+                <exclude wildcard="PE*" atomic="false" collection="true"/>
+                <exclude wildcard=".git*" atomic="false" collection="true"/>
+            </filter>
+            <sort>
+                <lexigraphicByName increasing="true"/>
+            </sort>
+        </datasetScan>
+
+        <!--/dataset-->
+
+    </catalog>
+
+  Taylor.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <catalog name="TaylorsStuff"
+             xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+
+        <service name="all" base="" serviceType="compound">
+            <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
+            <!--service name="dap4" serviceType="DAP4" base="/thredds/dap4/" /-->
+            <service name="http" serviceType="HTTPServer" base="/thredds/fileServer/"/>
+            <!--service name="wcs" serviceType="WCS" base="/thredds/wcs/" /-->
+            <!--service name="wms" serviceType="WMS" base="/thredds/wms/" /-->
+            <!--service name="ncss" serviceType="NetcdfSubset" base="/thredds/ncss/" /-->
+            <!--service name="iso" serviceType="ISO" base="/thredds/iso/" /-->
+            <!--service name="ncml" serviceType="NCML" base="/thredds/ncml/" /-->
+            <!--service name="uddc" serviceType="UDDC" base="/thredds/uddc/" /-->
+        </service>
+
+        <datasetScan
+                name="Taylor"
+                ID="Taylor"
+                path="Taylor"
+                location="/projects/ees/TDS/Taylor">
+
+            <metadata inherited="true">
+                <serviceName>all</serviceName>
+                <authority>renci.org</authority>
+                <dataType>GRID</dataType>
+                <documentation> DataLayers</documentation>
+            </metadata>
+
+            <filter>
+                <!--include wildcard="*"/-->
+                <exclude wildcard="*.zip"/>
+                <exclude wildcard="*.sh"/>
+                <exclude wildcard="*.py"/>
+            </filter>
+        </datasetScan>
+    </catalog>
+
+  aps2023.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <catalog name="APS/NCFS/RENCI"
+             xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+
+        <service name="all" base="" serviceType="compound">
+            <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
+            <service name="dap4" serviceType="DAP4" base="/thredds/dap4/"/>
+            <service name="http" serviceType="HTTPServer" base="/thredds/fileServer/"/>
+            <service name="ncml" serviceType="NCML" base="/thredds/ncml/"/>
+        </service>
+
+        <datasetScan
+                name="APS-2023"
+                ID="APS-2023"
+                path="2023"
+                location="/projects/ncfs/opendap/data/2023">
+
+            <metadata inherited="true">
+                <serviceName>all</serviceName>
+                <documentation type="summary"> APS Results for 2023</documentation>
+            </metadata>
+            <filesSort increasing="false"/>
+            <filter>
+                <include wildcard="*"/>
+            </filter>
+        </datasetScan>
+    </catalog>
+
+  catalog.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <catalog name="RENCI/EDS Research THREDDS Data Server"
+             xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"
+             xmlns:xlink="http://www.w3.org/1999/xlink"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+
+        <service name="all" base="" serviceType="compound">
+            <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
+            <service name="http" serviceType="HTTPServer" base="/thredds/fileServer/"/>
+            <!--service name="dap4" serviceType="DAP4" base="/thredds/dap4/"/-->
+            <!--service name="wcs" serviceType="WCS" base="/thredds/wcs/"/-->
+            <!--service name="wms" serviceType="WMS" base="/thredds/wms/"/-->
+            <!--service name="ncssGrid" serviceType="NetcdfSubset" base="/thredds/ncss/grid/"/-->
+            <!--service name="ncssPoint" serviceType="NetcdfSubset" base="/thredds/ncss/point/"/-->
+            <!--service name="cdmremote" serviceType="CdmRemote" base="/thredds/cdmremote/"/-->
+            <!--service name="iso" serviceType="ISO" base="/thredds/iso/"/-->
+            <!--service name="ncml" serviceType="NCML" base="/thredds/ncml/"/-->
+            <!--service name="uddc" serviceType="UDDC" base="/thredds/uddc/"/-->
+        </service>
+
+        <dataset name="RENCI/EDS Research THREDDS Catalogs">
+            <!--catalogRef xlink:href="Reanalysis.xml"    xlink:title="RENCI Reanalysis"   name=""/-->
+            <catalogRef xlink:href="DataLayers.xml" xlink:title="DataLayers" name=""/>
+            <catalogRef xlink:href="CHEER.xml" xlink:title="NSF CHEER" name=""/>
+            <!--catalogRef xlink:href="aps2023.xml"       xlink:title="APS2023"            name=""/-->
+        </dataset>
+
+        <!--catalogRef xlink:title="Test Enhanced Catalog" xlink:href="enhancedCatalog.xml" name=""/-->
+    </catalog>
+
+  enhancedCatalog.xml: |+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <catalog xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+             name="Unidata THREDDS-IDD NetCDF-OpenDAP Server" version="1.0.1">
+
+        <dataset name="NCEP Model Data">
+            <metadata inherited="true">
+                <authority>edu.ucar.unidata</authority>
+                <dataType>Grid</dataType>
+                <dataFormat>NetCDF</dataFormat>
+                <documentation type="rights">Freely available</documentation>
+                <documentation xlink:href="https://www.emc.ncep.noaa.gov/modelinfo/index.html" xlink:title="NCEP Model documentation"/>
+                <creator>
+                    <name vocabulary="DIF">DOC/NOAA/NWS/NCEP</name>
+                    <contact url="https://www.ncep.noaa.gov/" email="https://www.ncep.noaa.gov/mail_liaison.shtml"/>
+                </creator>
+                <publisher>
+                    <name vocabulary="DIF">UCAR/UNIDATA</name>
+                    <contact url="https://www.unidata.ucar.edu/" email="support@unidata.ucar.edu"/>
+                </publisher>
+                <timeCoverage>
+                    <end>present</end>
+                    <duration>14 days</duration>
+                </timeCoverage>
+            </metadata>
+
+            <datasetScan name="ETA Data" ID="testEnhanced"
+                         path="testEnhanced" location="content/testdata/"
+                         harvest="true">
+                <metadata inherited="true">
+                    <documentation type="summary">NCEP North American Model : AWIPS 211 (Q) Regional - CONUS (Lambert Conformal). Model runs are made at
+                        12Z and 00Z, with analysis and forecasts every 6 hours out to 60 hours. Horizontal = 93 by 65 points, resolution 81.27 km,
+                        LambertConformal projection. Vertical = 1000 to 100 hPa pressure levels.
+                    </documentation>
+                    <geospatialCoverage>
+                        <northsouth>
+                            <start>26.92475</start>
+                            <size>15.9778</size>
+                            <units>degrees_north</units>
+                        </northsouth>
+                        <eastwest>
+                            <start>-135.33123</start>
+                            <size>103.78772</size>
+                            <units>degrees_east</units>
+                        </eastwest>
+                        <updown>
+                            <start>0.0</start>
+                            <size>0.0</size>
+                            <units>km</units>
+                        </updown>
+                    </geospatialCoverage>
+                </metadata>
+
+                <filter>
+                    <include wildcard="*eta_211.nc"/>
+                </filter>
+
+                <sort>
+                    <lexigraphicByName increasing="false"/>
+                </sort>
+                <addLatest/>
+
+                <addTimeCoverage datasetNameMatchPattern="([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})_eta_211.nc$"
+                                 startTimeSubstitutionPattern="$1-$2-$3T$4:00:00"
+                                 duration="60 hours"/>
+            </datasetScan>
+        </dataset>
+    </catalog>
+
+  threddsConfig.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <threddsConfig>
+
+        <!-- all options are commented out in standard install - meaning use default values -->
+        <!-- see https://www.unidata.ucar.edu/software/thredds/current/tds/reference/ThreddsConfigXMLFile.html -->
+        <serverInformation>
+            <name>RENCI/EDS Research</name>
+            <logoUrl>/thredds/renci-logo.png</logoUrl>
+            <logoAltText>Initial TDS Installation</logoAltText>
+
+            <abstract>Scientific Data</abstract>
+            <keywords>meteorology, atmosphere, climate, ocean, earth science</keywords>
+
+            <contact>
+                <name>Brian Blanton</name>
+                <organization>Earth Data Science, RENCI</organization>
+                <email>bblanton@renci.org</email>
+                <!--phone></phone-->
+            </contact>
+            <hostInstitution>
+                <name>EDS/RENCI</name>
+                <webSite>https://www.renci.org/</webSite>
+                <logoUrl>/thredds/renci-logo.png</logoUrl>
+                <logoAltText>EDS</logoAltText>
+            </hostInstitution>
+        </serverInformation>
+
+        <!--
+        The <catalogRoot> element:
+        For catalogs you don't want visible from the /thredds/catalog.xml chain
+        of catalogs, you can use catalogRoot elements. Each catalog root config
+        catalog is crawled and used in configuring the TDS.
+
+        <catalogRoot>myExtraCatalog.xml</catalogRoot>
+        <catalogRoot>myOtherExtraCatalog.xml</catalogRoot>
+        -->
+
+        <!--
+         * Setup for generated HTML pages.
+          -->
+        <htmlSetup>
+            <!--
+             * CSS documents used in generated HTML pages.
+             * The CSS document given in the "catalogCssUrl" element is used for HTML catalog views,
+             * "datasetCssUrl" is used for the dataset access HTML view,
+             * and the CSS document given in the "standardCssUrl"element is used in all other generated HTML pages.
+             * The OPeNDAP HTML form is treated special - the only CSS document applied to this page is
+             * defined by the `openDapCssUrl` element.
+             *
+             * NOTE: CSS documents should be placed inside tds.content.root.path/thredds/public
+             *
+
+             <standardCssUrl>standard.css</standardCssUrl>
+             <catalogCssUrl>catalog.css</catalogCssUrl>
+             <datasetCssUrl>dataset.css</datasetCssUrl>
+             <openDapCssUrl>tdsDap.css</openDapCssUrl>
+            -->
+
+            <!--
+             * The Google Analytics Tracking ID you would like to use for the
+             * webpages associated with THREDDS. This will not track WMS or DAP
+             * requests for data, only browsing the catalog.
+
+            <googleTrackingCode></googleTrackingCode>
+            -->
+
+            <!--
+             * Allow the TDS to generate JSON-LD in Dataset HTML pages following
+             * schema.org Dataset (https://schema.org/Dataset)
+             * The default is false, as this is experimental
+
+            <generateDatasetJsonLD>false</generateDatasetJsonLD>
+            -->
+
+        </htmlSetup>
+
+        <!--
+          The <TdsUpdateConfig> element controls if and how the TDS checks
+          for updates. The default is for the TDS to check for the current
+          stable and development release versions, and to log that information
+          in the TDS serverStartup.log file as INFO entries.
+
+        <TdsUpdateConfig>
+           <logVersionInfo>true</logVersionInfo>
+        </TdsUpdateConfig>
+        -->
+
+        <!--
+         The <CatalogServices> element:
+         - Services on local TDS served catalogs are always on.
+         - Services on remote catalogs are set with the allowRemote element
+         below. They are off by default (recommended).
+         -->
+        <CatalogServices>
+            <allowRemote>false</allowRemote>
+        </CatalogServices>
+
+        <!--
+        Configuring the CDM (netcdf-java library)
+        see https://www.unidata.ucar.edu/software/netcdf-java/reference/RuntimeLoading.html
+
+        <nj22Config>
+          <ioServiceProvider class="edu.univ.ny.stuff.FooFiles"/>
+          <coordSysBuilder convention="foo" class="test.Foo"/>
+          <coordTransBuilder name="atmos_ln_sigma_coordinates" type="vertical" class="my.stuff.atmosSigmaLog"/>
+          <typedDatasetFactory datatype="Point" class="gov.noaa.obscure.file.Flabulate"/>
+        </nj22Config>
+        -->
+
+        <!--
+        CDM uses the DiskCache directory to store temporary files, like uncompressed files.
+        <DiskCache>
+          <alwaysUse>false</alwaysUse>
+          <scour>1 hour</scour>
+          <maxSize>1 Gb</maxSize>
+        </DiskCache>
+        -->
+
+        <!--
+        Caching open NetcdfFile objects.
+        default is to allow 50 - 100 open files, cleanup every 11 minutes
+        <NetcdfFileCache>
+          <minFiles>50</minFiles>
+          <maxFiles>100</maxFiles>
+          <scour>11 min</scour>
+        </NetcdfFileCache>
+        -->
+
+        <!--
+        The <HTTPFileCache> element:
+        allow 10 - 20 open datasets, cleanup every 17 minutes
+        used by HTTP Range requests.
+        <HTTPFileCache>
+          <minFiles>10</minFiles>
+          <maxFiles>20</maxFiles>
+          <scour>17 min</scour>
+        </HTTPFileCache>
+        -->
+
+        <!--
+        Writing GRIB indexes.
+        <GribIndex>
+          <alwaysUse>false</alwaysUse>
+          <neverUse>false</neverUse>
+          <dir>/tomcat_home/content/thredds/cache/grib/</dir>
+          <policy>nestedDirectory</policy>
+          <scour>0 hours</scour>
+          <maxAge>90 days</maxAge>
+        </GribIndex>
+        -->
+
+        <!--
+        Persist joinNew aggregations to named directory. scour every 24 hours, delete stuff older than 90 days
+        <AggregationCache>
+          <scour>24 hours</scour>
+          <maxAge>90 days</maxAge>
+          <cachePathPolicy>NestedDirectory</cachePathPolicy>
+        </AggregationCache>
+        -->
+
+        <!--
+        How to choose the template dataset for an aggregation. latest, random, or penultimate
+        <Aggregation>
+          <typicalDataset>penultimate</typicalDataset>
+        </Aggregation>
+        -->
+
+        <NetcdfSubsetService>
+            <scour>15 min</scour>
+            <maxAge>30 min</maxAge>
+        </NetcdfSubsetService>
+
+        <JupyterNotebookService>
+            <allow>true</allow>
+            <maxAge>60</maxAge>
+            <maxFiles>100</maxFiles>
+        </JupyterNotebookService>
+
+        <!--
+        <Opendap>
+          <ascLimit>50</ascLimit>
+          <binLimit>500</binLimit>
+          <serverVersion>opendap/3.7</serverVersion>
+        </Opendap>
+          -->
+
+        <!--
+        The WCS Service is on by default.
+        Also, off by default (and encouraged) is operating on a remote dataset.
+        <WCS>
+          <allow>true</allow>
+          <allowRemote>false</allowRemote>
+          <scour>15 min</scour>
+          <maxAge>30 min</maxAge>
+        </WCS>
+        -->
+
+        <!--
+        <WMS>
+          <allow>true</allow>
+          <allowRemote>false</allowRemote>
+          <maxImageWidth>2048</maxImageWidth>
+          <maxImageHeight>2048</maxImageHeight>
+        </WMS>
+        -->
+
+        <!--
+        <NCISO>
+          <ncmlAllow>true</ncmlAllow>
+          <uddcAllow>true</uddcAllow>
+          <isoAllow>true</isoAllow>
+        </NCISO>
+        -->
+
+        <!--
+        <NCSOS>
+          <allow>false</allow>
+        </NCSOS>
+        -->
+
+        <!-- CatalogGen service is off by default.
+        <CatalogGen>
+          <allow>false</allow>
+        </CatalogGen>
+         -->
+
+        <!-- DLwriter service is off by default.
+             As is support for operating on remote catalogs.
+        <DLwriter>
+          <allow>false</allow>
+          <allowRemote>false</allowRemote>
+        </DLwriter>
+         -->
+
+        <!-- DqcService is off by default.
+        <DqcService>
+          <allow>false</allow>
+        </DqcService>
+         -->
+
+        <!--
+         Link to a Viewer application on the HTML page:
+         <Viewer>my.package.MyViewer</Viewer>
+         -->
+
+        <!--
+        Add a DataSource - essentially an IOSP with access to Servlet request parameters
+        <datasetSource>my.package.DatsetSourceImpl</datasetSource>
+        -->
+
+        <!--
+          Configure how the NetCDF-4 C library is discovered and used.
+          libraryPath: The directory in which the native library is installed.
+          libraryName: The name of the native library. This will be used to locate the proper .DLL, .SO, or .DYLIB file
+            within the libraryPath directory.
+          useForReading: By default, the native library is only used for writing NetCDF-4 files; a pure-Java layer is
+            responsible for reading them. However, if this property is set to true, then it will be used for reading
+            NetCDF-4 (and HDF5) files as well.
+        -->
+        <!--
+        <Netcdf4Clibrary>
+          <libraryPath>/usr/local/lib</libraryPath>
+          <libraryName>netcdf</libraryName>
+          <useForReading>false</useForReading>
+        </Netcdf4Clibrary>
+        -->
+    </threddsConfig>
+
+  tomcat-users.xml: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!--
+      Licensed to the Apache Software Foundation (ASF) under one or more
+      contributor license agreements.  See the NOTICE file distributed with
+      this work for additional information regarding copyright ownership.
+      The ASF licenses this file to You under the Apache License, Version 2.0
+      (the "License"); you may not use this file except in compliance with
+      the License.  You may obtain a copy of the License at
+
+          https://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+    -->
+    <tomcat-users xmlns="https://tomcat.apache.org/xml"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://tomcat.apache.org/xml"
+                  version="1.0">
+        <!--
+          By default, no user is included in the "manager-gui" role required
+          to operate the "/manager/html" web application.  If you wish to use this app,
+          you must define such a user - the username and password are arbitrary.
+
+          Built-in Tomcat manager roles:
+            - manager-gui    - allows access to the HTML GUI and the status pages
+            - manager-script - allows access to the HTTP API and the status pages
+            - manager-jmx    - allows access to the JMX proxy and the status pages
+            - manager-status - allows access to the status pages only
+
+          The users below are wrapped in a comment and are therefore ignored. If you
+          wish to configure one or more of these users for use with the manager web
+          application, do not forget to remove the <!.. ..> that surrounds them. You
+          will also need to set the passwords to something appropriate.
+        -->
+        <!--
+          <user username="admin" password="<must-be-changed>" roles="manager-gui"/>
+          <user username="robot" password="<must-be-changed>" roles="manager-script"/>
+        -->
+        <!--
+          The sample user and role entries below are intended for use with the
+          examples web application. They are wrapped in a comment and thus are ignored
+          when reading this file. If you wish to configure these users for use with the
+          examples web application, do not forget to remove the <!.. ..> that surrounds
+          them. You will also need to set the passwords to something appropriate.
+        -->
+        <!--
+          <role rolename="tomcat"/>
+          <role rolename="role1"/>
+          <user username="tomcat" password="<must-be-changed>" roles="tomcat"/>
+          <user username="both" password="<must-be-changed>" roles="tomcat,role1"/>
+          <user username="role1" password="<must-be-changed>" roles="role1"/>
+        -->
+    </tomcat-users>
+
+  wmsConfig.xml: |-
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE wmsConfig SYSTEM>
+    <!--
+    Detailed configuration of the WMS service.  This config file can be used to
+    set default styling parameters for each dataset/variable, and to enable or disable
+    the GetFeatureInfo operation.
+    -->
+    <wmsConfig>
+        <global>
+            <!-- These settings apply to all datasets unless overridden below -->
+            <defaults>
+                <!-- The global defaults. All elements are mandatory -->
+                <allowFeatureInfo>true</allowFeatureInfo>
+                <defaultColorScaleRange>-50 50</defaultColorScaleRange>
+                <defaultPaletteName>psu-viridis</defaultPaletteName>
+                <defaultNumColorBands>20</defaultNumColorBands>
+                <logScaling>false</logScaling>
+                <intervalTime>false</intervalTime>
+            </defaults>
+            <standardNames>
+                <!-- Use this section to set defaults per standard name -->
+                <!-- Units must come from the UDUNITS vocabulary -->
+                <standardName name="sea_water_potential_temperature" units="K">
+                    <defaultColorScaleRange>268 308</defaultColorScaleRange>
+                </standardName>
+                <standardName name="sea_water_temperature" units="K">
+                    <defaultColorScaleRange>268 308</defaultColorScaleRange>
+                </standardName>
+                <standardName name="mass_concentration_of_chlorophyll_in_sea_water" units="kg m-3">
+                    <logScaling>true</logScaling>
+                </standardName>
+            </standardNames>
+        </global>
+        <overrides>
+            <datasetPath pathSpec="testAll/20040503*_eta_211.nc">
+                <!-- Will apply to all paths that match the path spec above -->
+                <pathDefaults>
+                    <!-- These will apply to all variables in this path unless overridden below -->
+                    <allowFeatureInfo>false</allowFeatureInfo>
+                    <defaultPaletteName>x-Occam</defaultPaletteName>
+                </pathDefaults>
+
+                <variables>
+                    <!-- Configure variables individually according to their internal ID.
+                         This is the most specific setting and will override any others -->
+                    <variable id="Z_sfc">
+                        <defaultColorScaleRange>0 2920</defaultColorScaleRange>
+                    </variable>
+                </variables>
+            </datasetPath>
+            <datasetPath pathSpec="testAll/20040504*_eta_211.nc">
+                <!-- Will apply to all paths that match the path spec above -->
+                <pathDefaults>
+                    <!-- These will apply to all variables in this path unless overridden below -->
+                    <allowFeatureInfo>true</allowFeatureInfo>
+                    <defaultPaletteName>seq-Reds</defaultPaletteName>
+                </pathDefaults>
+                <variables>
+                    <!-- Configure variables individually according to their internal ID.
+                         This is the most specific setting and will override any others -->
+                    <variable id="Z_sfc">
+                        <defaultColorScaleRange>0 3170</defaultColorScaleRange>
+                    </variable>
+                </variables>
+            </datasetPath>
+        </overrides>
+    </wmsConfig>
+  {{ end }}
