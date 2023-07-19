@@ -75,6 +75,7 @@ dataVolumes:
   mountPoint: /thredds-data
 
 nfsVolumes: false
+configMapName: "none"
 
 ingress:
   enabled: false
