@@ -1,0 +1,32 @@
+# SPDX-FileCopyrightText: 2022 Renaissance Computing Institute. All rights reserved.
+# SPDX-FileCopyrightText: 2023 Renaissance Computing Institute. All rights reserved.
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: LicenseRef-RENCI
+# SPDX-License-Identifier: MIT
+
+# Default values for apsviz thredds.
+# This is a YAML-formatted file.
+
+configMapName: "apsviz-thredds-dev-scripts"
+
+configMaps:
+  item-1:
+    mountPath: "/content/thredds/"
+    subPath: "aps2023.xml"
+
+  item-2:
+    mountPath: "/content/thredds/"
+    subPath: "asgs2021.xml"
+
+  item-3:
+    mountPath: "/content/thredds/"
+    subPath: "asgs2022.xml"
+
+  item-4:
+    mountPath: "/content/thredds/"
+    subPath: "catalog.xml"
+
+  item-5:
+    mountPath: "/content/thredds/"
+    subPath: "threddsConfig.xml"
