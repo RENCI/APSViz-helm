@@ -96,6 +96,7 @@ spec:
           nfs:
             path: {{ $value.path | quote }}
             server: {{ $value.server | quote}}
+            readOnly: true
           {{- end }}
         {{- end }}
 
