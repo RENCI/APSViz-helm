@@ -61,6 +61,7 @@ spec:
                 {{- range $key, $value := .Values.nfsVolumes }}
             - name: {{ $value.name | quote }}
               mountPath: {{ $value.mountPath | quote }}
+              readOnly: {{ $value.readOnly }}
                 {{- end }}
               {{- end }}
 
