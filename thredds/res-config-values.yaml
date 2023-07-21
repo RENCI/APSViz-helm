@@ -18,6 +18,13 @@ ingress:
 
 configMapName: "apsviz-thredds-res-scripts"
 
+nfsVolumes:
+  nfs-3:
+    name: "nfs-3"
+    mountPath: "/projects/ees"
+    path: "/projects/ees"
+    server: "isilon.edc.renci.org"
+
 configMaps:
   item-1:
     mountPath: "/content/thredds/"
