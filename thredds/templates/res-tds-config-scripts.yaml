@@ -285,16 +285,56 @@ data:
         </service>
 
         <dataset name="RENCI/EDS Research THREDDS Catalogs">
-            <!--catalogRef xlink:href="Reanalysis.xml"    xlink:title="RENCI Reanalysis"   name=""/-->
             <catalogRef xlink:href="DataLayers.xml" xlink:title="DataLayers" name=""/>
             <catalogRef xlink:href="CHEER.xml" xlink:title="NSF CHEER" name=""/>
-            <!--catalogRef xlink:href="aps2023.xml"       xlink:title="APS2023"            name=""/-->
+            <catalogRef xlink:href="Users.xml" xlink:title="Users" name=""/>
         </dataset>
 
         <!--catalogRef xlink:title="Test Enhanced Catalog" xlink:href="enhancedCatalog.xml" name=""/-->
     </catalog>
 
-  enhancedCatalog.xml: |+
+  Users.xml: |
+      <?xml version="1.0" encoding="UTF-8"?>
+      <catalog name="Misc"
+               xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"
+               xmlns:xlink="http://www.w3.org/1999/xlink">
+
+          <service name="all" base="" serviceType="compound">
+              <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/" />
+              <!--service name="dap4" serviceType="DAP4" base="/thredds/dap4/" /-->
+              <service name="http" serviceType="HTTPServer" base="/thredds/fileServer/" />
+              <!--service name="wcs" serviceType="WCS" base="/thredds/wcs/" /-->
+              <!--service name="wms" serviceType="WMS" base="/thredds/wms/" /-->
+              <!--service name="ncss" serviceType="NetcdfSubset" base="/thredds/ncss/" /-->
+              <!--service name="iso" serviceType="ISO" base="/thredds/iso/" /-->
+              <!--service name="ncml" serviceType="NCML" base="/thredds/ncml/" /-->
+              <!--service name="uddc" serviceType="UDDC" base="/thredds/uddc/" /-->
+          </service>
+
+          <datasetScan
+                  name="Misc"
+                  ID="Misc"
+                  path="misc"
+                  location="/projects/ees/TDS/Users">
+
+              <metadata inherited="true">
+              <serviceName>all</serviceName>
+                  <authority>renci.org</authority>
+                  <dataType>GRID</dataType>
+                  <documentation> User Files </documentation>
+              </metadata>
+
+              <filter>
+                 <!--include wildcard="*"/-->
+                 <exclude wildcard="*.zip"/>
+                 <exclude wildcard="*.sh"/>
+                 <exclude wildcard="*.py"/>
+              </filter>
+
+          </datasetScan>
+      </catalog>
+
+  enhancedCatalog.xml: |
     <?xml version="1.0" encoding="UTF-8"?>
     <catalog xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
              name="Unidata THREDDS-IDD NetCDF-OpenDAP Server" version="1.0.1">

@@ -75,3 +75,7 @@ configMaps:
   item-9:
     mountPath: "/content/thredds/"
     subPath: "wmsConfig.xml"
+
+  item-10:
+    mountPath: "/content/thredds/"
+    subPath: "Users.xml"
