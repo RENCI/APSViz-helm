@@ -13,7 +13,10 @@ metadata:
   labels:
     {{- include "apsviz-thredds.labels" . | nindent 4 }}
 spec:
+  {{ if .Values.isAWS }}
   replicas: {{ .Values.replicaCount }}
+  {{ end }}
+
   selector:
     matchLabels:
       {{- include "apsviz-thredds.selectorLabels" . | nindent 6 }}
