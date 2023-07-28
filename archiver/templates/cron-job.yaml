@@ -33,10 +33,10 @@ spec:
             - name:  {{ .Values.fs_svr_volume.name }}
               mountPath:  {{ .Values.fs_svr_volume.mountPath }}
             - name: rule-script
-              mountPath: "/repo/APSVIZ-Archiver/{{ .Values.rules.fileName }}"
+              mountPath: "/home/nru/APSVIZ-Archiver/{{ .Values.rules.fileName }}"
               subPath: {{ .Values.rules.fileName }}
             resources:
-              {{- toYaml .Values.resources | nindent 12 }}
+              {{- toYaml .Values.resources | nindent 14 }}
             env:
             - name: LOG_LEVEL
               valueFrom:
