@@ -50,6 +50,10 @@ spec:
               value: {{ .Values.admin.username }}
             - name: SFTPGO_DEFAULT_ADMIN_PASSWORD
               value: {{ .Values.admin.password }}
+            - name: SFTPGO_LOG_MAX_SIZE
+              value: {{ .Values.volumes.sftp.maxLogSize | quote }}
+            - name: SFTPGO_LOG_FILE_PATH
+              value: {{ .Values.volumes.sftp.logFilePath | quote }}
           volumeMounts:
             - name: {{ .Values.volumes.sftp.name }}
               mountPath: {{ .Values.volumes.sftp.mountPoint }}

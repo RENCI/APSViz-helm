@@ -47,13 +47,15 @@ service:
   connectPort: 2022
 
 volumes:
-  name: pvc-name
-  claimname: pvc-claim-name
-  storageClass: "sc"
-  size: 1Gi
-  accessMode: "ReadWriteMany"
-  efsHandle: ""
-  mountPoint: /
+  sftp:
+    create: false
+    name: "somename"
+    claimName: "someclaimname"
+    storageClass: "storagecalssc"
+    size: 2Gi
+    mountPoint: "somemountpoint"
+    logFilePath: "somelogfile"
+    maxLogSize: "1000"
 
 ingress:
   enabled: false
