@@ -56,7 +56,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
           - mountPath: {{ .Values.dataMountPath }}
-            name: {{ include "asgs-postgres.fullname" . }}-postgres-data
+            name: {{ .Values.storage.name }}
           {{- if .Values.shmSize }}
           - mountPath: /dev/shm
             name: dshm
@@ -80,15 +80,6 @@ spec:
             medium: Memory
             sizeLimit: {{ .Values.shmSize }}
         {{- end }}
-
-  volumeClaimTemplates:
-    - metadata:
-        name: {{ include "asgs-postgres.fullname" . }}-postgres-data
-      spec:
-        accessModes: [ {{ .Values.accessMode }} ]
-        {{ if .Values.isAWS }}
-        storageClassName: {{ .Values.storage.class }}
-        {{ end }}
-        resources:
-          requests:
-            storage: {{ .Values.storage.size }}
+        - name: {{ .Values.storage.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.claimName }}
