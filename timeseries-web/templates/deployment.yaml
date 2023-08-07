@@ -28,13 +28,12 @@ spec:
         securityContext:
           {{- toYaml .Values.securityContext | nindent 10 }}
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        command: ['/bin/sh', '-c', 'while true; do date; sleep 3600; done']
-{{/*        args:*/}}
-{{/*        - bash*/}}
-{{/*        - -c*/}}
-{{/*        - python manage.py collectstatic --no-input --clear && python manage.py makemigrations*/}}
-{{/*          --noinput && python manage.py migrate --no-input &&  gunicorn apsviz_gauges.wsgi:application*/}}
-{{/*          --bind 0.0.0.0:8000*/}}
+        args:
+        - bash
+        - -c
+        - python manage.py collectstatic --no-input --clear && python manage.py makemigrations
+          --noinput && python manage.py migrate --no-input &&  gunicorn apsviz_gauges.wsgi:application
+          --bind 0.0.0.0:8000
         env:
         - name: DATABASE
           value: {{ .Values.web.database | quote }}
