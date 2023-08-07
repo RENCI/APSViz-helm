@@ -70,9 +70,13 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /data
-              name: {{ include "asgs-rabbitmq.fullname" . }}-rabbitmq-data
-              subPath: data
+            - name: {{ .Values.storage.name }}
+              mountPath: {{ .Values.storage.mountPoint }}
+      volumes:
+        - name: {{ .Values.storage.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.claimName }}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -85,14 +89,3 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-  volumeClaimTemplates:
-    - metadata:
-        name: {{ include "asgs-rabbitmq.fullname" . }}-rabbitmq-data
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        {{ if .Values.isAWS }}
-        storageClassName: {{ .Values.storage.class }}
-        {{ end }}
-        resources:
-          requests:
-            storage: {{ .Values.storage.size }}
