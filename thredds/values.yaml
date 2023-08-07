@@ -45,7 +45,7 @@ serviceAccount:
   name:
 
 podSecurityContext:
-  fsGroup: 1000
+  fsGroup: 30000
 
 securityContext: {}
 
