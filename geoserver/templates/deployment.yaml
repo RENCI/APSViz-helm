@@ -70,7 +70,7 @@ spec:
             {{- end }}
             {{- if .Values.geowebcacheCacheDir }}
             - name: GEOWEBCACHE_CACHE_DIR
-              value: {{ .Values.persistence.geowebcacheCacheDir.mountPath | quote }}
+              value: {{ .Values.persistence.geowebCacheDir.mountPath | quote }}
             {{- end }}
             - name: GEOSERVER_ADMIN_USER
               valueFrom:
@@ -106,10 +106,10 @@ spec:
             - name: geoserver-data-dir
               mountPath: {{ .Values.persistence.geoserverDataDir.mountPath }}
             {{- end }}
-            {{- if .Values.persistence.geowebcacheCacheDir.enabled }}
+            {{- if .Values.persistence.geowebCacheDir.enabled }}
             - name: geowebcache-cache-dir
-              mountPath: {{ .Values.persistence.geowebcacheCacheDir.mountPath }}
-              subPath: {{ .Values.persistence.geowebcacheCacheDir.subPath }}
+              mountPath: {{ .Values.persistence.geowebCacheDir.mountPath }}
+              subPath: {{ .Values.persistence.geowebCacheDir.subPath }}
             {{- end }}
             {{- with .Values.extraVolumeMounts }}
             {{- (tpl . $) | nindent 12 }}
@@ -148,18 +148,18 @@ spec:
           emptyDir: {}
 {{- end }}
 
-{{- if and .Values.persistence.geowebcacheCacheDir.enabled .Values.persistence.geowebcacheCacheDir.existingClaim }}
+{{- if and .Values.persistence.geowebCacheDir.enabled .Values.persistence.geowebCacheDir.existingClaim }}
         - name: geowebcache-cache-dir
           persistentVolumeClaim:
-{{- with .Values.persistence.geowebcacheCacheDir.existingClaim }}
+{{- with .Values.persistence.geowebCacheDir.existingClaim }}
             claimName: {{ tpl . $ }}
 
 {{- end }}
-{{- else if .Values.persistence.geowebcacheCacheDir.enabled }}
+{{- else if .Values.persistence.geowebCacheDir.enabled }}
         - name: geowebcache-cache-dir
           persistentVolumeClaim:
             claimName: {{ template "geoserver.fullname" . }}-cache-dir
-{{- else if not .Values.persistence.geowebcacheCacheDir.enabled }}
+{{- else if not .Values.persistence.geowebCacheDir.enabled }}
         - name: geowebcache-cache-dir
           emptyDir: {}
 {{- end }}

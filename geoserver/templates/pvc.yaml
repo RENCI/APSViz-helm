@@ -48,13 +48,13 @@ spec:
       storage: {{ .Values.persistence.geoserverDataDir.size | quote }}
 
 {{- end }}
-{{- if and .Values.persistence.geowebcacheCacheDir.enabled (not .Values.persistence.geowebcacheCacheDir.existingClaim) }}
+{{- if and .Values.persistence.geowebCacheDir.enabled (not .Values.persistence.geowebCacheDir.existingClaim) }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ template "geoserver.fullname" . }}-cache-dir
-{{- with .Values.persistence.geowebcacheCacheDir.annotations }}
+{{- with .Values.persistence.geowebCacheDir.annotations }}
   annotations:
   {{- range $key, $value := . }}
     {{ $key }}: {{ $value }}
@@ -62,13 +62,34 @@ metadata:
 {{- end }}
 spec:
   accessModes:
-  {{- range .Values.persistence.geowebcacheCacheDir.accessModes }}
+  {{- range .Values.persistence.geowebCacheDir.accessModes }}
     - {{ . | quote }}
   {{- end }}
   {{ if .Values.isAWS }}
-  storageClassName: "eds-sc"
+  storageClassName: "eds-efs-sc"
   {{ end }}
   resources:
     requests:
-      storage: {{ .Values.persistence.geowebcacheCacheDir.size | quote }}
+      storage: {{ .Values.persistence.geowebCacheDir.size | quote }}
+
+{{ if .Values.isAWS }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: apsviz-geoserver-cache-pv
+spec:
+  capacity:
+    storage: {{ .Values.persistence.geowebCacheDir.size }}
+  volumeMode: Filesystem
+  accessModes:
+  {{- range .Values.persistence.geowebCacheDir.accessModes }}
+    - {{ . | quote }}
+  {{- end }}
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ .Values.persistence.geowebCacheDir.storageClass }}
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: {{ .Values.persistence.geowebCacheDir.efsHandle }}
+{{- end }}
 {{- end }}

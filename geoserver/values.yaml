@@ -131,7 +131,7 @@ persistence:
       - ReadWriteOnce
     annotations:
       helm.sh/resource-policy: keep
-  geowebcacheCacheDir:
+  geowebCacheDir:
     enabled: true
     existingClaim: false
     mountPath: /some/data_dir/gwc
