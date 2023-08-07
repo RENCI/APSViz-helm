@@ -11,7 +11,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: static-volume-pv
+  name: apsviz-timeseries-web-static-volume-pv
 spec:
   capacity:
     storage: {{ .Values.volumes.size }}
@@ -22,13 +22,13 @@ spec:
   storageClassName: {{ .Values.volumes.storageClass }}
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: {{ .Values.volumes.efsHandle }}
+    volumeHandle: {{ .Values.volumes.efsHandleStatic }}
 
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: media-volume-pv
+  name: apsviz-timeseries-web-media-volume-pv
 spec:
   capacity:
     storage: {{ .Values.volumes.size }}
@@ -39,7 +39,7 @@ spec:
   storageClassName: {{ .Values.volumes.storageClass }}
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: {{ .Values.volumes.efsHandle }}
+    volumeHandle: {{ .Values.volumes.efsHandleMedia }}
 {{ end }}
 
 ---

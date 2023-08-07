@@ -23,3 +23,22 @@ spec:
     requests:
       storage: {{ .Values.volumes.sftp.size }}
 {{ end }}
+
+{{ if .Values.isAWS }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.volumes.sftp.name }}
+spec:
+  capacity:
+    storage: {{ .Values.volumes.sftp.size }}
+  volumeMode: Filesystem
+  accessModes:
+    - {{ .Values.volumes.sftp.accessMode }}
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: {{ .Values.volumes.sftp.storageClass }}
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: {{ .Values.volumes.sftp.efsHandle }}
+{{ end }}
