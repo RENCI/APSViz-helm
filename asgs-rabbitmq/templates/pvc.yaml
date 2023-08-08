@@ -16,7 +16,9 @@ metadata:
 spec:
   accessModes:
   - {{ .Values.storage.accessMode }}
+{{ if .Values.isAWS }}
   storageClassName: {{ .Values.storage.storageClass }}
+{{ end }}
   resources:
     requests:
       storage: {{ .Values.storage.size }}
