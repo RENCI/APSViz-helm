@@ -13,13 +13,14 @@ metadata:
 data:
   config.json: |-
     {
-      "initializationUrls": ["{{ .Values.data.URL }}"],
+      "initializationUrls": ["{{ .Values.data.base }}{{ .Values.data.URL }}"],
       "parameters": {
         "bingMapsKey": "AonD5sr-4zO6vqCNY-RMerq7qOLMOFDd1BsYZbGdZLE9zP3lbGLsX-BVwH8dTqxh",
         "googleUrlShortenerKey": null,
         "googleAnalyticsKey": null,
         "googleAnalyticsOptions": null,
 
+        "dataFilterURL": "{{ .Values.data.base }}{{ .Values.data.endPoint }}{{ .Values.data.projectCode }}",
 
         "logToConsole": true,
 
