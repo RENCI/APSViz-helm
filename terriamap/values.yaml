@@ -33,6 +33,14 @@ dataReload:
   enable: false
   crontab: "0 5 * * *"
 
+data:
+  base: "somebaseurl"
+  URL: "/someendpoint?file_name=apsviz2.json"
+  endPoint: "/someendpoint?"
+  projectCode: ""
+  fileLocation: /app/wwwroot
+  fileName: config.json
+
 podSecurityContext: {}
   # fsGroup: 2000
 
