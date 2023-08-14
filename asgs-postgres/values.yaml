@@ -58,7 +58,7 @@ storage:
   efsHandle: ""
   mountPoint: /somedir
 
-podSecurityContext: {}
+backupSecurityContext: {}
 
 securityContext: {}
 

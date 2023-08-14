@@ -20,12 +20,8 @@ spec:
       ttlSecondsAfterFinished: 3
       template:
         spec:
-          securityContext:
-            {{- toYaml .Values.podBackupSecurityContext | nindent 12 }}
           containers:
           - name: {{ .Chart.Name }}-backup-job
-            securityContext:
-              {{- toYaml .Values.securityContext | nindent 16 }}
             image: "{{ .Values.backupImage.repository }}:{{ .Values.backupImage.tag }}"
             imagePullPolicy: {{ .Values.backupImage.pullPolicy }}
             volumeMounts:
@@ -35,7 +31,6 @@ spec:
               name: "backup-script"
               subPath: "dumpDatabase.sh"
             command: ['bash', './dumpDatabase.sh']
-
             env:
             - name: LOG_PATH
               valueFrom:
@@ -65,4 +60,6 @@ spec:
               configMap:
                 name: "{{- include "asgs-postgres.fullname" . }}-scripts"
                 defaultMode: 0777
+          securityContext:
+            {{- toYaml .Values.backupSecurityContext | nindent 12 }}
   {{ end }}
