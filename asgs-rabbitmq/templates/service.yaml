@@ -18,7 +18,7 @@ spec:
     - port: {{ .Values.service.http }}
       targetPort: {{ .Values.service.target_port }}
       protocol: TCP
-      name: rbtmq-http-prt
+      name: http
     - port: {{ .Values.service.https }}
       targetPort: {{ .Values.service.target_port }}
       protocol: TCP
