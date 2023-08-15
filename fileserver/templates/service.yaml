@@ -17,7 +17,11 @@ spec:
   ports:
     - port: {{ .Values.service.http }}
       targetPort: {{ .Values.service.target_port }}
-      name: http
       protocol: TCP
+      name: http
+    - port: {{ .Values.service.https }}
+      targetPort: {{ .Values.service.target_port }}
+      protocol: TCP
+      name: https
   selector:
     {{- include "apsviz-fileserver.selectorLabels" . | nindent 4 }}
