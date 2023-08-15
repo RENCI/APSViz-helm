@@ -40,6 +40,7 @@ data:
   projectCode: ""
   fileLocation: /app/wwwroot
   fileName: config.json
+  helpEmail: "someemailaddr"
 
 podSecurityContext: {}
   # fsGroup: 2000

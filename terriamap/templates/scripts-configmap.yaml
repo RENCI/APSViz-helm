@@ -45,7 +45,7 @@ data:
           ""
         ],
 
-        "supportEmail": "help@example.com",
+        "supportEmail": "{{ .Values.data.helpEmail }}",
 
         "proj4ServiceBaseUrl": "proj4def/",
 
