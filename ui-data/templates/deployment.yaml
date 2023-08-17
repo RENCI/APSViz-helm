@@ -124,8 +124,6 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: log-level
-          - name: LOG_BACKUP_PATH
-            value: {{ .Values.log_backup_path }}
 
           - name: SYSTEM
             value: {{ .Values.system }}
