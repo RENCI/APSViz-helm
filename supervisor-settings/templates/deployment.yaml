@@ -55,6 +55,7 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: asgs-password
+
           - name: LOG_PATH
             valueFrom:
               secretKeyRef:
@@ -65,6 +66,8 @@ spec:
               secretKeyRef:
                 name: eds-keys
                 key: log-level
+          - name: LOG_BACKUP_PATH
+            value: {{ .Values.log_backup_path }}
 
           - name: SYSTEM
             value: {{ .Values.system }}
@@ -75,6 +78,7 @@ spec:
             value: {{ .Values.jwtSecurity.bearerName }}
           - name: BEARER_SECRET
             value: {{ .Values.jwtSecurity.bearerSecret }}
+
           - name: JWT_ALGORITHM
             value: {{ .Values.jwtSecurity.jwtAlgorithm }}
           - name: JWT_SECRET
