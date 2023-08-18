@@ -37,6 +37,9 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}-postgres
+{{/*          command: ['/bin/sh', '-c', 'while true; do date; sleep 3600; done']*/}}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
@@ -54,7 +57,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
           - mountPath: {{ .Values.dataMountPath }}
-            name: {{ include "apsviz-timeseries-postgres.name" . }}
+            name: {{ .Values.storage.name }}
           - mountPath: /docker-entrypoint-initdb.d/002-init-apsviz.sh
             name: "init-apsviz-script"
             subPath: "init-apsviz.sh"
@@ -73,7 +76,6 @@ spec:
           - mountPath: /docker-entrypoint-initdb.d/get-forecast-timeseries-station-data.sql
             name: "get-forecast-timeseries-station-script"
             subPath: "get-forecast-timeseries-station-data.sql"
-
           {{- if .Values.shmSize }}
           - mountPath: /dev/shm
             name: dshm
@@ -115,22 +117,12 @@ spec:
           configMap:
             name: "{{- include "apsviz-timeseries-postgres.fullname" . }}-scripts"
             defaultMode: 0777
-
         {{- if .Values.shmSize }}
         - name: dshm
           emptyDir:
             medium: Memory
             sizeLimit: {{ .Values.shmSize }}
         {{- end }}
-
-  volumeClaimTemplates:
-    - metadata:
-        name: {{ include "apsviz-timeseries-postgres.name" . }}
-      spec:
-        accessModes: [ {{ .Values.accessMode }} ]
-        {{ if .Values.isAWS }}
-        storageClassName: {{ .Values.storage.class }}
-        {{ end }}
-        resources:
-          requests:
-            storage: {{ .Values.storage.size }}
+        - name: {{ .Values.storage.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.claimName }}
