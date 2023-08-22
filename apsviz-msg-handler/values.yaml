@@ -69,6 +69,13 @@ env:
   system: "Unknown"
   sleepTimeSeconds: 5
 
+queues:
+  ecflow_rt: "queue-name"
+  ecflow_rp: "queue-name"
+  asgs_queue: "queue-name"
+  asgs_props: "queue-name"
+  hecras_rp: "queue-name"
+
 ingress:
   enabled: false
   annotations: {}

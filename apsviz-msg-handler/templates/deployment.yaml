@@ -98,6 +98,17 @@ spec:
                   name: eds-keys
                   key: slack-issues-channel
 
+            - name: ECFLOW_RT_QUEUE_NAME
+              value: "{{ .Values.queues.ecflow_rt }}"
+            - name: ECFLOW_RP_QUEUE_NAME
+              value: "{{ .Values.queues.ecflow_rp }}"
+            - name: ASGS_RT_QUEUE_NAME
+              value: "{{ .Values.queues.asgs_queue }}"
+            - name: ASGS_RP_QUEUE_NAME
+              value: "{{ .Values.queues.asgs_props }}"
+            - name: HECRAS_RP_QUEUE_NAME
+              value: "{{ .Values.queues.hecras_rp }}"
+
           command: [ "/bin/bash", "-c"]
           args: ["/repo/message/startup.sh {{ .Values.env.sleepTimeSeconds }}"]
           ports:
