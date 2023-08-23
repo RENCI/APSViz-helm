@@ -17,7 +17,7 @@ spec:
     kind: Deployment
     name: {{ include "apsviz-thredds.fullname" . }}
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: {{ .Values.maxReplicas }}
   metrics:
   - type: Resource
     resource:
