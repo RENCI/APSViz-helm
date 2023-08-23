@@ -55,18 +55,18 @@ spec:
               mountPath: {{ .Values.tomcatCatalinaHome }}/conf/tomcat-users.xml
               subPath: "tomcat-users.xml"
 
-            {{- if ne .Values.configMapName "none" -}}
+            {{- if ne .Values.configMapType.configMapName "none" -}}
               {{ $catalina_home := .Values.tomcatCatalinaHome -}}
-              {{ $config_map := .Values.configMapName -}}
+              {{ $config_map := .Values.configMapType.configMapName -}}
 
-              {{- range $key, $value := .Values.configMaps }}
+              {{- range $key, $value := .Values.configMapFiles }}
             - name: tds-config-script
               mountPath: {{ $catalina_home }}{{ $value.mountPath }}{{ $value.subPath }}
               subPath: {{ $value.subPath | quote }}
               {{- end }}
             {{- end }}
 
-            {{- if not .Values.nfsVolumes }}
+            {{- if eq .Values.nfsVolumeEnable false }}
             - name: {{ .Values.dataVolumes.claimName }}
               mountPath: {{ .Values.dataVolumes.mountPoint }}
             {{- else }}
@@ -82,14 +82,14 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "apsviz-thredds.fullname" . }}-logs-pvc
 
-        {{- if ne .Values.configMapName "none" }}
+        {{- if ne .Values.configMapType.configMapName "none" }}
         - name: tds-config-script
           configMap:
-            name: {{ .Values.configMapName }}
+            name: {{ .Values.configMapType.configMapName }}
             defaultMode: 0777
         {{ end }}
 
-        {{- if not .Values.nfsVolumes }}
+        {{- if eq .Values.nfsVolumeEnable false }}
         - name: {{ .Values.dataVolumes.claimName }}
           persistentVolumeClaim:
             claimName: {{ include "apsviz-thredds.fullname" . }}-data-pvc

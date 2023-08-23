@@ -34,8 +34,6 @@ resources:
   limits:
     ephemeral-storage: 512Mi
 
-configMapName: "apsviz-thredds-res-scripts"
-
 nfsVolumes:
   nfs-3:
     name: "nfs-3"
@@ -43,7 +41,11 @@ nfsVolumes:
     path: "/projects/ees"
     server: "isilon.edc.renci.org"
 
-configMaps:
+configMapType:
+  configMapName: "apsviz-thredds-res-scripts"
+  resScripts: true
+
+configMapFiles:
   item-1:
     mountPath: "/content/thredds/"
     subPath: "CHEER.xml"

@@ -6,7 +6,7 @@
 # SPDX-License-Identifier: MIT
 
 ---
-{{ if eq .Values.configMapName "apsviz-thredds-res-scripts" }}
+{{ if eq .Values.configMapType.resScripts true }}
 
 apiVersion: v1
 kind: ConfigMap

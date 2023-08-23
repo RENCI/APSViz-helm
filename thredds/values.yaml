@@ -74,8 +74,17 @@ dataVolumes:
   efsHandle: "fs"
   mountPoint: /thredds-data
 
-nfsVolumes: false
-configMapName: "none"
+nfsVolumeEnable: true
+nfsVolumes: {}
+
+configMapType:
+  configMapName: "none"
+  resScripts: false
+  prodScripts: false
+  devScripts: false
+  awsScripts: false
+
+configMapFiles: {}
 
 ingress:
   enabled: false

@@ -8,9 +8,11 @@
 # Default values for apsviz thredds.
 # This is a YAML-formatted file.
 
-configMapName: "apsviz-thredds-prod-scripts"
+configMapType:
+  configMapName: "apsviz-thredds-prod-scripts"
+  prodScripts: true
 
-configMaps:
+configMapFiles:
   item-1:
     mountPath: "/content/thredds/"
     subPath: "aps2023.xml"
