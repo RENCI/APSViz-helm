@@ -74,7 +74,7 @@ dataVolumes:
   efsHandle: "fs"
   mountPoint: /thredds-data
 
-nfsVolumeEnable: true
+nfsVolumeEnable: false
 nfsVolumes: {}
 
 configMapType:
