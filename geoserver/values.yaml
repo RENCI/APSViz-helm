@@ -30,7 +30,7 @@ database:
 
 resources:
   limits:
-    ephemeral-storage: 256Mi
+    ephemeral-storage: 512Mi
     memory: 16Gi
   requests:
     cpu: 1000m
