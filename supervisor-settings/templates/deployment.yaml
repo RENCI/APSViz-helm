@@ -84,6 +84,13 @@ spec:
           - name: JWT_SECRET
             value: {{ .Values.jwtSecurity.jwtSecret }}
 
+          - name: AWS_SETTINGS_URL
+            value: {{ .Values.urls.aws }}
+          - name: PRD_SETTINGS_URL
+            value: {{ .Values.urls.prd }}
+          - name: DEV_SETTINGS_URL
+            value: {{ .Values.urls.dev }}
+
           volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: {{ .Values.volumes.mountPath }}
