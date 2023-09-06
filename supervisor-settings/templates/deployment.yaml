@@ -91,6 +91,14 @@ spec:
           - name: DEV_SETTINGS_URL
             value: {{ .Values.urls.dev }}
 
+          - name: AWS_BEARER_TOKEN
+            value: {{ .Values.bearerTokens.aws }}
+          - name: PRD_BEARER_TOKEN
+            value: {{ .Values.bearerTokens.prd }}
+          - name: DEV_BEARER_TOKEN
+            value: {{ .Values.bearerTokens.dev }}
+
+
           volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: {{ .Values.volumes.mountPath }}
