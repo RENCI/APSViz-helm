@@ -98,7 +98,6 @@ spec:
           - name: DEV_BEARER_TOKEN
             value: {{ .Values.bearerTokens.dev }}
 
-
           volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: {{ .Values.volumes.mountPath }}
