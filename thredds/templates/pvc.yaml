@@ -59,7 +59,8 @@ spec:
     driver: efs.csi.aws.com
     volumeHandle: {{ .Values.logVolumes.efsHandle }}
 {{ end }}
-{{- if eq .Values.nfsVolumeEnable true}}
+
+{{- if eq .Values.nfsVolumeEnable false }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
