@@ -14,7 +14,7 @@ image:
   tag: someversion
   pullPolicy: Always
 
-maxReplicas: 2
+maxReplicas: 1
 
 tomcatCatalinaHome: "/somedir/path"
 
@@ -34,6 +34,10 @@ nameOverride: ""
 fullnameOverride: ""
 
 isAWS: false
+
+run:
+  crontab: "0 */6 * * *"
+  daysBefore: -1
 
 serviceAccount:
   # Specifies whether a service account should be created
