@@ -15,7 +15,7 @@ metadata:
 data:
   CHEER.xml: |
     <?xml version="1.0" encoding="UTF-8"?>
-    <catalog name="NSF CHEER" xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+    <catalog name="NSF CHEER" xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
 
         <service name="all" base="" serviceType="compound">
             <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
@@ -62,7 +62,7 @@ data:
   DataLayers.xml: |
     <?xml version="1.0" encoding="UTF-8"?>
     <catalog name="DataLayersTEST"
-             xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+             xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
 
         <service name="all" base="" serviceType="compound">
             <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
@@ -101,7 +101,7 @@ data:
   Reanalysis.xml: |
     <?xml version="1.0" encoding="UTF-8"?>
     <catalog name="Coastal Reanalysis"
-             xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+             xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
         <!--
           <contributor role="data manager">John Smith</contributor>
           <keyword>Atmospheric Chemistry</keyword>
@@ -197,7 +197,7 @@ data:
   Taylor.xml: |
     <?xml version="1.0" encoding="UTF-8"?>
     <catalog name="TaylorsStuff"
-             xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+             xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
 
         <service name="all" base="" serviceType="compound">
             <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
@@ -236,7 +236,7 @@ data:
   aps2023.xml: |
     <?xml version="1.0" encoding="UTF-8"?>
     <catalog name="APS/NCFS/RENCI"
-             xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+             xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
 
         <service name="all" base="" serviceType="compound">
             <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
@@ -265,10 +265,10 @@ data:
   catalog.xml: |
     <?xml version="1.0" encoding="UTF-8"?>
     <catalog name="RENCI/EDS Research THREDDS Data Server"
-             xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"
+             xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"
              xmlns:xlink="http://www.w3.org/1999/xlink"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
+             xsi:schemaLocation="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0">
 
         <service name="all" base="" serviceType="compound">
             <service name="odap" serviceType="OpenDAP" base="/thredds/dodsC/"/>
@@ -336,7 +336,7 @@ data:
 
   enhancedCatalog.xml: |
     <?xml version="1.0" encoding="UTF-8"?>
-    <catalog xmlns="https://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
+    <catalog xmlns="http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0" xmlns:xlink="http://www.w3.org/1999/xlink"
              name="Unidata THREDDS-IDD NetCDF-OpenDAP Server" version="1.0.1">
 
         <dataset name="NCEP Model Data">
@@ -690,9 +690,9 @@ data:
       See the License for the specific language governing permissions and
       limitations under the License.
     -->
-    <tomcat-users xmlns="https://tomcat.apache.org/xml"
+    <tomcat-users xmlns="http://tomcat.apache.org/xml"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xsi:schemaLocation="https://tomcat.apache.org/xml"
+                  xsi:schemaLocation="http://tomcat.apache.org/xml"
                   version="1.0">
         <!--
           By default, no user is included in the "manager-gui" role required
