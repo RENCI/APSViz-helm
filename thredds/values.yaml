@@ -14,7 +14,7 @@ image:
   tag: someversion
   pullPolicy: Always
 
-maxReplicas: 1
+maxReplicas: 5
 
 tomcatCatalinaHome: "/somedir/path"
 
@@ -38,6 +38,16 @@ isAWS: false
 run:
   crontab: "0 */6 * * *"
   daysBefore: -1
+
+recycle:
+  enable: false
+  namespace: "namespace"
+  obsPodName: "obs pod"
+  tdsPodName: "tds pod"
+  crontab: "0 3 * * *"
+  betweenDeletesSleep: "1s"
+  betweenObsDone: "1s"
+  serviceAccount: "someaccount"
 
 serviceAccount:
   # Specifies whether a service account should be created

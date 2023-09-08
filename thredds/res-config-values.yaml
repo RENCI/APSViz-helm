@@ -9,6 +9,8 @@
 # This is a YAML-formatted file.
 
 # replicaCount: 1
+recycle:
+  enable: false
 
 ingress:
   annotations:
