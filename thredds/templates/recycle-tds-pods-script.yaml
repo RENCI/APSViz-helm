@@ -1,0 +1,90 @@
+{{ if .Values.recycle.enable }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "recycle-tds-pods-script"
+data:
+  recycle-tds-pods.sh: |-
+    #!/bin/bash
+    #########
+    # Script to delete TDS pods so they recycle.
+    # this is done because TDS ends up in a corrupted state after some period of use.
+    #########
+    while true ; do
+      # get the OBS/MOD pods
+      OBSMODPODS=$(kubectl -n {{ .Values.recycle.namespace }} get pods -o name --field-selector=status.phase=Running | grep {{ .Values.recycle.obsPodName }})
+    
+      # if there no OBS/MOD pods running 
+      if [ "${OBSMODPODS}" == "" ]; then
+        # get the TDS pods
+        TDSPODS=$(kubectl -n {{ .Values.recycle.namespace }} get pods -l=app.kubernetes.io/name='{{ .Values.recycle.tdsPodName }}' -o name --field-selector=status.phase=Running)
+        
+        # for each pod
+        for POD in $TDSPODS; do
+          # create the delete command
+          DELCMD=$(echo "kubectl -n eds delete ${POD}" | sed -e 's/\// /g')
+        
+          # execute the delete command
+          echo "About to run: ${DELCMD}"
+          eval ${DELCMD}
+
+          echo "Waiting {{ .Values.recycle.betweenDeletesSleep }} before next pod restart."
+
+          # sleep a while for a new pod to be created
+          sleep {{ .Values.recycle.betweenDeletesSleep }}
+        done
+    
+        # get out of do loop
+        break
+      else 
+        echo "Waiting {{ .Values.recycle.betweenObsDone }} for OBS/MOD pod to complete"
+
+        # wait a while before checking again
+        sleep {{ .Values.recycle.betweenObsDone }}
+      fi 
+    done
+    
+    echo "Recycle complete."
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "apsviz-thredds.fullname" . }}-recycle-tds-job
+  labels:
+    app: {{- include "apsviz-thredds.labels" . | nindent 4 }}
+spec:
+  schedule: "{{ .Values.recycle.crontab }}"
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3
+      template:
+        spec:
+          serviceAccountName: {{ .Values.recycle.serviceAccount }}
+          containers:
+          - name: {{ include "apsviz-thredds.fullname" . }}-recycle-tds-job
+            image: bitnami/kubectl:latest
+            imagePullPolicy: Always
+            command: ['/bin/bash']
+            args: ['recycle-tds-pods.sh']
+            resources:
+              limits:
+                cpu: 110m
+                ephemeral-storage: 128Mi
+                memory: 70Mi
+              requests:
+                cpu: 100m
+                ephemeral-storage: 64Mi
+                memory: 64Mi
+            volumeMounts:
+            - name: "recycle-tds-pods-script"
+              mountPath: recycle-tds-pods.sh
+              subPath: "recycle-tds-pods.sh"
+          restartPolicy: Never
+          volumes:
+            - name: recycle-tds-pods-script
+              configMap:
+                name: "recycle-tds-pods-script"
+                defaultMode: 0777
+{{ end }}
