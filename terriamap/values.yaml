@@ -14,6 +14,9 @@ image:
   tag: someversion
   pullPolicy: Always
 
+hpa:
+  maxReplicas: 3
+
 isAWS: false
 
 imagePullSecrets: []
