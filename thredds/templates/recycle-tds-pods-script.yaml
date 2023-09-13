@@ -13,21 +13,22 @@ data:
     #########
     while true ; do
       # get the OBS/MOD pods
-      OBSMODPODS=$(kubectl -n {{ .Values.recycle.namespace }} get pods -o name --field-selector=status.phase=Running | grep {{ .Values.recycle.obsPodName }})
-    
+      OBSMOD_PODS=$(kubectl -n {{ .Values.recycle.namespace }} get pods -o name --field-selector=status.phase=Running | grep {{ .Values.recycle.obsPodName }})
+      STAGING_PODS=$(kubectl -n {{ .Values.recycle.namespace }} get pods -o name --field-selector=status.phase=Running | grep {{ .Values.recycle.stagingPodName }})
+
       # if there no OBS/MOD pods running 
-      if [ "${OBSMODPODS}" == "" ]; then
+      if [ "${OBSMOD_PODS}" == "" ] && [ "${STAGING_PODS}" == "" ]; then
         # get the TDS pods
-        TDSPODS=$(kubectl -n {{ .Values.recycle.namespace }} get pods -l=app.kubernetes.io/name='{{ .Values.recycle.tdsPodName }}' -o name --field-selector=status.phase=Running)
+        TDS_PODS=$(kubectl -n {{ .Values.recycle.namespace }} get pods -l=app.kubernetes.io/name='{{ .Values.recycle.tdsPodName }}' -o name --field-selector=status.phase=Running)
         
         # for each pod
-        for POD in $TDSPODS; do
+        for POD in $TDS_PODS; do
           # create the delete command
-          DELCMD=$(echo "kubectl -n eds delete ${POD}" | sed -e 's/\// /g')
+          DELETE_CMD=$(echo "kubectl -n eds delete ${POD}" | sed -e 's/\// /g')
         
           # execute the delete command
-          echo "About to run: ${DELCMD}"
-          eval ${DELCMD}
+          echo "About to run: ${DELETE_CMD}"
+          eval ${DELETE_CMD}
 
           echo "Waiting {{ .Values.recycle.betweenDeletesSleep }} before next pod restart."
 

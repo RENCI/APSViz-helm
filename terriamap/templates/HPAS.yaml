@@ -16,7 +16,7 @@ spec:
     kind: Deployment
     name: {{ include "apsviz-terriamap.fullname" . }}
   minReplicas: 1
-  maxReplicas: 3
+  maxReplicas: {{ .Values.hpa.maxReplicas }}
   metrics:
   - type: Resource
     resource:
