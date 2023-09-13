@@ -62,28 +62,24 @@ configMapFiles:
 
   item-4:
     mountPath: "/content/thredds/"
-    subPath: "Taylor.xml"
+    subPath: "aps2023.xml"
 
   item-5:
     mountPath: "/content/thredds/"
-    subPath: "aps2023.xml"
+    subPath: "catalog.xml"
 
   item-6:
     mountPath: "/content/thredds/"
-    subPath: "catalog.xml"
+    subPath: "enhancedCatalog.xml"
 
   item-7:
     mountPath: "/content/thredds/"
-    subPath: "enhancedCatalog.xml"
+    subPath: "threddsConfig.xml"
 
   item-8:
     mountPath: "/content/thredds/"
-    subPath: "threddsConfig.xml"
-
-  item-9:
-    mountPath: "/content/thredds/"
     subPath: "wmsConfig.xml"
 
-  item-10:
+  item-9:
     mountPath: "/content/thredds/"
     subPath: "Users.xml"
