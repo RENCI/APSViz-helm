@@ -18,7 +18,9 @@ data:
       "parameters": {
         "plugins": {
           "dataFilterURL": "{{ .Values.data.base }}{{ .Values.data.endPoint }}{{ .Values.data.projectCode }}",
-          "hurricaneIconsURL": "{{ .Values.data.hurricaneIconsURL }}"
+          "hurricaneIconsURL": "{{ .Values.data.hurricaneIconsURL }}",
+          "bannerImages": [{{ .Values.bannerImages }}],
+          "attributionImages": ["images/renci-logo-dark.png", "images/terria_logo.png", "images/crc-logo.png"]
           },
 
         "bingMapsKey": "AonD5sr-4zO6vqCNY-RMerq7qOLMOFDd1BsYZbGdZLE9zP3lbGLsX-BVwH8dTqxh",
