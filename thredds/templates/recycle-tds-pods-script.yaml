@@ -24,7 +24,7 @@ data:
         # for each pod
         for POD in $TDS_PODS; do
           # create the delete command
-          DELETE_CMD=$(echo "kubectl -n eds delete ${POD}" | sed -e 's/\// /g')
+          DELETE_CMD=$(echo "kubectl -n {{ .Values.recycle.namespace }} delete ${POD}" | sed -e 's/\// /g')
         
           # execute the delete command
           echo "About to run: ${DELETE_CMD}"
@@ -52,7 +52,7 @@ data:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "apsviz-thredds.fullname" . }}-recycle-tds-job
+  name: recycle-tds-pods-cronjob
   labels:
     app: {{- include "apsviz-thredds.labels" . | nindent 4 }}
 spec:
@@ -64,7 +64,7 @@ spec:
         spec:
           serviceAccountName: {{ .Values.recycle.serviceAccount }}
           containers:
-          - name: {{ include "apsviz-thredds.fullname" . }}-recycle-tds-job
+          - name: recycle-tds-pods
             image: bitnami/kubectl:latest
             imagePullPolicy: Always
             command: ['/bin/bash']
