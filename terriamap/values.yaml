@@ -36,7 +36,7 @@ dataReload:
   enable: false
   crontab: "0 5 * * *"
 
-bannerImages: "images/aps-logo.png"
+bannerImages: "\"images/aps-logo.png\""
 
 data:
   base: "somebaseurl"
