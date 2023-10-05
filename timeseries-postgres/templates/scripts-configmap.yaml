@@ -56,10 +56,10 @@ data:
     psql -v ON_ERROR_STOP=1 -d "apsviz_gauges" --username "{{ .Values.adminUser }}" -f /docker-entrypoint-initdb.d/get-forecast-timeseries-station-data.sql
 
   get-obs-timeseries-station-data.sql : |-
-    CREATE OR REPLACE FUNCTION get_obs_timeseries_station_data(_station_name character varying, _start_date character varying, _end_date character varying, _nowcast_source character varying)
-      RETURNS json
-      LANGUAGE plpgsql
-    AS $function$
+    create function get_obs_timeseries_station_data(_station_name character varying, _start_date character varying, _end_date character varying, _nowcast_source character varying) returns json
+        language plpgsql
+    as
+    $$
        DECLARE _output json;
        DECLARE pivot_sql text =
            'SELECT JSON_AGG(ct)
@@ -70,6 +70,7 @@ data:
                         CAST(d.time AS TEXT) AS id,
                         s.data_source AS category,
                         COALESCE(d.water_level,
+                        d.stream_elevation,
                         d.wave_height,
                         d.wind_speed,
                         d.air_pressure,
@@ -91,6 +92,7 @@ data:
                                                       (''''tidal_predictions''''),
                                                       (''''coastal_gauge''''),
                                                       (''''river_gauge''''),
+                                                      (''''stream_gauge''''),
                                                       (''''wind_anemometer'''')) b(data_source)''
                     ) AS (
                      time_stamp TEXT,
@@ -101,6 +103,7 @@ data:
                      "tidal_predictions" double precision,
                      "coastal_gauge_water_level" double precision,
                      "river_gauge_water_level" double precision,
+                     "stream_gauge_stream_elevation" double precision,
                      "wind_anemometer" double precision
                     )) AS ct';
     BEGIN
@@ -110,9 +113,9 @@ data:
         -- return the data to the caller
         return _output;
     END
-    $function$;
-    ALTER FUNCTION public.get_obs_timeseries_station_data(character varying, character varying, character varying, character varying) OWNER TO postgres;
-    GRANT EXECUTE ON FUNCTION public.get_obs_timeseries_station_data(character varying, character varying, character varying, character varying) TO apsviz_ingester;
+    $$;
+    alter function get_obs_timeseries_station_data(varchar, varchar, varchar, varchar) owner to postgres;
+    grant execute on function get_obs_timeseries_station_data(varchar, varchar, varchar, varchar) to apsviz_ingester;
 
 
   get-forecast-timeseries-station-data.sql : |-
