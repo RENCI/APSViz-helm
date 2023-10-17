@@ -97,10 +97,10 @@ spec:
           {{- end }}
           volumeMounts:
             - mountPath: /usr/local/tomcat/conf/context.xml
-              name: "web-context-script"
+              name: web-context-script
               subPath: "context.xml"
             - mountPath: /usr/local/tomcat/webapps/geoserver/WEB-INF/web.xml
-              name: "web-config-script"
+              name: web-config-script
               subPath: "web.xml"
             {{- if .Values.persistence.geoserverDataDir.enabled }}
             - name: geoserver-data-dir
@@ -124,11 +124,11 @@ spec:
       volumes:
         - name: web-context-script
           configMap:
-            name: "web-context-script"
+            name: {{ template "geoserver.fullname" . }}-web-context-script
             defaultMode: 0777
         - name: web-config-script
           configMap:
-            name: "web-config-script"
+            name: {{ template "geoserver.fullname" . }}-web-config-script
             defaultMode: 0777
         {{- with .Values.extraVolume }}
         {{- (tpl . $) | nindent 8 }}
