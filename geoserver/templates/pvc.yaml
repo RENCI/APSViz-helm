@@ -30,7 +30,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: apsviz-geoserver-pvc
+  name: {{ .Values.deployPrefix }}apsviz-geoserver-pvc
 {{- with .Values.persistence.geoserverDataDir.annotations }}
   annotations:
   {{- range $key, $value := . }}

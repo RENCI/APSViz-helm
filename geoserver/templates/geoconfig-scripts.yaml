@@ -9,7 +9,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "geoserver.fullname" . }}-web-context-script
+  name: {{ .Values.deployPrefix }}web-context-script
 data:
   context.xml: |
     <?xml version="1.0" encoding="UTF-8"?>
@@ -68,7 +68,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "geoserver.fullname" . }}-web-config-script
+  name: {{ .Values.deployPrefix }}web-config-script
 data:
   web.xml: |
     <?xml version="1.0" encoding="UTF-8"?>

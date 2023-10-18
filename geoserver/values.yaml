@@ -21,6 +21,8 @@ geoserverPassword: somepassword
 
 isAWS: false
 
+deployPrefix: ""
+
 database:
   db_name: somedb
   db_host: somehost

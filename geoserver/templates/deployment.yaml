@@ -124,11 +124,11 @@ spec:
       volumes:
         - name: web-context-script
           configMap:
-            name: {{ template "geoserver.fullname" . }}-web-context-script
+            name: {{ .Values.deployPrefix }}web-context-script
             defaultMode: 0777
         - name: web-config-script
           configMap:
-            name: {{ template "geoserver.fullname" . }}-web-config-script
+            name: {{ .Values.deployPrefix }}web-config-script
             defaultMode: 0777
         {{- with .Values.extraVolume }}
         {{- (tpl . $) | nindent 8 }}
@@ -142,7 +142,7 @@ spec:
 {{- else if .Values.persistence.geoserverDataDir.enabled }}
         - name: geoserver-data-dir
           persistentVolumeClaim:
-            claimName: apsviz-geoserver-pvc
+            claimName: {{ .Values.deployPrefix }}apsviz-geoserver-pvc
 {{- else if not .Values.persistence.geoserverDataDir.enabled }}
         - name: geoserver-data-dir
           emptyDir: {}
