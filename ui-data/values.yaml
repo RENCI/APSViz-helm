@@ -96,10 +96,10 @@ volumes:
 
 resources:
   limits:
-    memory: 200Mi
+    memory: 1Gi
   requests:
     cpu: 1000m
-    memory: 128Mi
+    memory: 512Mi
 
 nodeSelector: {}
 
