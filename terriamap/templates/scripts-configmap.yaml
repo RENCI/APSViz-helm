@@ -13,7 +13,7 @@ metadata:
 data:
   config.json: |-
     {
-      "initializationUrls": ["{{ .Values.data.base }}{{ .Values.data.URL }}"],
+      "initializationUrls": ["{{ .Values.data.base }}{{ .Values.data.URL }}{{ .Values.data.useNewWorkbench }}{{ .Values.ampersand }}{{ .Values.data.projectCode }}{{ .Values.ampersand }}{{ .Values.data.apsvizFileName }}"],
 
       "parameters": {
         "plugins": {
