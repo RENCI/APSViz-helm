@@ -37,12 +37,15 @@ dataReload:
   crontab: "0 5 * * *"
 
 bannerImages: "\"images/aps-logo.png\""
+ampersand: ""
 
 data:
   base: "somebaseurl"
   URL: "/someendpoint?file_name=apsviz2.json"
   endPoint: "/someendpoint?"
   projectCode: ""
+  apsvizFileName: ""
+  useNewWorkbench: ""
   fileLocation: /app/wwwroot
   fileName: config.json
   helpEmail: "someemailaddr"
