@@ -13,6 +13,7 @@ configMapType:
   devScripts: true
 
 configMapFiles:
+
   item-1:
     mountPath: "/content/thredds/"
     subPath: "aps2023.xml"
@@ -32,3 +33,7 @@ configMapFiles:
   item-5:
     mountPath: "/content/thredds/"
     subPath: "threddsConfig.xml"
+
+  item-6:
+    mountPath: "/content/thredds/"
+    subPath: "aps2024.xml"

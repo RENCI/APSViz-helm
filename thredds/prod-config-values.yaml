@@ -36,3 +36,7 @@ configMapFiles:
   item-6:
     mountPath: "/content/thredds/"
     subPath: "threddsConfig.xml"
+
+  item-6:
+    mountPath: "/content/thredds/"
+    subPath: "aps2024.xml"
