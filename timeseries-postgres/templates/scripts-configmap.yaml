@@ -56,6 +56,9 @@ data:
     # run the create script for forcast data
     psql -v ON_ERROR_STOP=1 -d "apsviz_gauges" --username "{{ .Values.adminUser }}" -f /docker-entrypoint-initdb.d/get-forecast-timeseries-station-data.sql
 
+    # run the create script for forcast data
+    psql -v ON_ERROR_STOP=1 -d "apsviz_gauges" --username "{{ .Values.adminUser }}" -f /docker-entrypoint-initdb.d/get_nowcast_timeseries_station_data.sql
+
   get-obs-timeseries-station-data.sql : |-
     create function get_obs_timeseries_station_data(_station_name character varying, _start_date character varying, _end_date character varying) returns json
         language plpgsql
