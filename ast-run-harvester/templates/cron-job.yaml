@@ -22,7 +22,11 @@ spec:
         spec:
           securityContext:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          {{- if .Values.enableIngest }}
           initContainers:
+          {{- else}}
+          containers:
+          {{- end }}
           - name: ast-harvester-cronjob
             image: "{{ .Values.harvesterImage.repository }}:{{ .Values.harvesterImage.tag }}"
             imagePullPolicy: {{ .Values.harvesterImage.pullPolicy }}
@@ -64,6 +68,7 @@ spec:
                 secretKeyRef:
                   name: eds-keys
                   key: http-proxy-url
+          {{ if .Values.enableIngest }}
           containers:
           - name: apsviz-timeseriesdb-ingest-cronjob
             image: "{{ .Values.ingesterImage.repository }}:{{ .Values.ingesterImage.tag }}"
@@ -137,6 +142,7 @@ spec:
                 value: /data/ast-run-harvester
             resources:
               {{- toYaml .Values.resources | nindent 14 }}
+          {{ end }}
           restartPolicy: Never
           volumes:
             - name: {{ .Values.volumes.name }}

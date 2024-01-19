@@ -21,6 +21,8 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+enableIngest: false
+
 podSecurityContext:
   runAsUser: 1000
   fsGroup: 1000
