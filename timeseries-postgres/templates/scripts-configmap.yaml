@@ -19,13 +19,13 @@ data:
     # Check to see if the apsviz_gauge DB and user exist. if not create them
     psql -v ON_ERROR_STOP=1 --username "{{ .Values.adminUser }}" <<-EOSQL
             CREATE DATABASE "{{ .Values.timeseriesDBName }}" WITH OWNER = postgres TABLESPACE = pg_default CONNECTION LIMIT = -1 IS_TEMPLATE = False;
-            CREATE ROLE "{{ .Values.timeseriesUserName }}" WITH LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT NOREPLICATION CONNECTION LIMIT -1 PASSWORD '{{ .Values.timeseriesUserPW }}';
+            CREATE ROLE "{{ .Values.timeseriesUserName }}" WITH LOGIN SUPERUSER NOCREATEDB NOCREATEROLE INHERIT NOREPLICATION CONNECTION LIMIT -1 PASSWORD '{{ .Values.timeseriesUserPW }}';
             CREATE ROLE "{{ .Values.timeseriesDBName }}"  WITH LOGIN SUPERUSER NOCREATEDB NOCREATEROLE INHERIT NOREPLICATION CONNECTION LIMIT -1 PASSWORD '{{ .Values.timeseriesUserPW }}';
             GRANT ALL PRIVILEGES ON DATABASE "{{ .Values.timeseriesDBName }}" TO "{{ .Values.timeseriesUserName }}";
             GRANT ALL PRIVILEGES ON DATABASE "{{ .Values.timeseriesDBName }}" TO "{{ .Values.timeseriesDBName }}";
-            GRANT ALL PRIVILEGES ON DATABASE "public" TO "{{ .Values.timeseriesUserName }}";
-            GRANT ALL PRIVILEGES ON DATABASE "public" TO "{{ .Values.timeseriesDBName }}";
     EOSQL
+    #        GRANT ALL PRIVILEGES ON DATABASE "public" TO "{{ .Values.timeseriesUserName }}";
+    #        GRANT ALL PRIVILEGES ON DATABASE "public" TO "{{ .Values.timeseriesDBName }}";
     
   create-extensions.sh: |-
     #!/bin/sh
