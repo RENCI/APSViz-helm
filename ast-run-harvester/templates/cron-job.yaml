@@ -73,7 +73,7 @@ spec:
           - name: apsviz-timeseriesdb-ingest-cronjob
             image: "{{ .Values.ingesterImage.repository }}:{{ .Values.ingesterImage.tag }}"
             imagePullPolicy: {{ .Values.ingesterImage.pullPolicy }}
-            command: ['python', 'runIngest.py', '--harvestDir', '/data/ast-run-harvester/', '--ingestDir', '/data/ast-run-ingester/', '--dataType', 'obs', '--inputTask', 'SequenceIngest']
+            command: ['python', 'runObsIngest.py', '--harvestDir', '/data/ast-run-harvester/', '--ingestDir', '/data/ast-run-ingester/', '--inputTask', 'SequenceIngest']
             volumeMounts:
             - name: {{ .Values.volumes.name }}
               mountPath: "/data"
@@ -94,10 +94,7 @@ spec:
                     name: eds-keys
                     key: apsviz-gauges-engine
               - name: APSVIZ_GAUGES_DB_HOST
-                valueFrom:
-                  secretKeyRef:
-                    name: eds-keys
-                    key: apsviz-gauges-host
+                value: apsviz-timeseries-postgres-v2-dev
               - name: APSVIZ_GAUGES_DB_PASSWORD
                 valueFrom:
                   secretKeyRef:
