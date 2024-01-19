@@ -75,7 +75,7 @@ spec:
       volumes:
       - name: static-volume
         persistentVolumeClaim:
-          claimName: {{ include "apsviz-timeseries-web.name" . }}-static-volume
+          claimName: {{ include "apsviz-timeseries-web.fullname" . }}-static-volume
       - name: media-volume
         persistentVolumeClaim:
-          claimName: {{ include "apsviz-timeseries-web.name" . }}-media-volume
+          claimName: {{ include "apsviz-timeseries-web.fullname" . }}-media-volume

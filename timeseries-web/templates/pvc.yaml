@@ -12,7 +12,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: apsviz-timeseries-web-static-volume-pv
+  name: {{ include "apsviz-timeseries-web.name" . }}-static-volume-pv
 spec:
   capacity:
     storage: {{ .Values.volumes.size }}
@@ -29,7 +29,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: apsviz-timeseries-web-media-volume-pv
+  name: {{ include "apsviz-timeseries-web.fullname" . }}-media-volume-pv
 spec:
   capacity:
     storage: {{ .Values.volumes.size }}
@@ -47,7 +47,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "apsviz-timeseries-web.name" . }}-static-volume
+  name: {{ include "apsviz-timeseries-web.fullname" . }}-static-volume
 spec:
   accessModes:
   - {{ .Values.volumes.accessMode }}
@@ -62,7 +62,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "apsviz-timeseries-web.name" . }}-media-volume
+  name: {{ include "apsviz-timeseries-web.fullname" . }}-media-volume
 spec:
   accessModes:
   - {{ .Values.volumes.accessMode }}
