@@ -43,21 +43,6 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-service:
-  type: ClusterIP
-  port: 80
-  containerPort: 8000
-
-ingress:
-  enabled: true
-  class: "nginx"
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "256m"
-  host: somehost
-  pathType: "ImplementationSpecific"
-  tls:
-    enabled: false
-
 database:
 
 volumes:
