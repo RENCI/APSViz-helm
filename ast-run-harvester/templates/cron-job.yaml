@@ -94,7 +94,7 @@ spec:
                     name: eds-keys
                     key: apsviz-gauges-engine
               - name: APSVIZ_GAUGES_DB_HOST
-                value: apsviz-timeseries-postgres-v2-dev
+                value: apsviz-timeseries-postgres-v2
               - name: APSVIZ_GAUGES_DB_PASSWORD
                 valueFrom:
                   secretKeyRef:
