@@ -24,7 +24,6 @@ data:
     BCKP_FILE_2=$DUMPS_DIR/{{ .Values.sqlFile2 }}
     BCKP_FILE_3=$DUMPS_DIR/{{ .Values.sqlFile3 }}
     BCKP_FILE_4=$DUMPS_DIR/{{ .Values.sqlFile4 }}
-    BCKP_FILE_5=$DUMPS_DIR/{{ .Values.sqlFile5 }}
 
     until pg_isready ; do
         echo "postgres not ready";
@@ -38,7 +37,6 @@ data:
     pg_restore -d postgres --clean --create $BCKP_FILE_2
     pg_restore -d postgres --clean --create $BCKP_FILE_3
     pg_restore -d postgres --clean --create $BCKP_FILE_4
-    pg_restore -d postgres --clean --create $BCKP_FILE_5
 
     # this is truly a hack. pg_restore returns a count of warnings,
     # in this case a warning stating that the "public schema already exists".
@@ -62,7 +60,7 @@ data:
     date >> $LOG_PATH/export.log
 
     # increment the dump file version numbers
-    for i in `psql -h $ASGS_DB_HOST -c "SELECT datname FROM pg_database where datname in ('apsviz', 'adcirc_obs', 'asgs_dashboard', 'apsviz_cog_mosaic')" | head -n -2 | tail -n +3`; do
+    for i in `psql -h $ASGS_DB_HOST -c "SELECT datname FROM pg_database where datname in ('apsviz', 'adcirc_obs', 'asgs_dashboard')" | head -n -2 | tail -n +3`; do
         for j in {8..1}; do
             DUMP_FILE=$DUMPS_DIR/$i.dump.$j
             NEW_DUMP_FILE=$DUMPS_DIR/$i.dump.$(( j + 1 ))
@@ -76,7 +74,7 @@ data:
     done
 
     # perform the dumps
-    for i in `psql -h $ASGS_DB_HOST -c "SELECT datname FROM pg_database where datname in ('apsviz', 'adcirc_obs', 'asgs_dashboard', 'apsviz_cog_mosaic')" | head -n -2 | tail -n +3`; do
+    for i in `psql -h $ASGS_DB_HOST -c "SELECT datname FROM pg_database where datname in ('apsviz', 'adcirc_obs', 'asgs_dashboard')" | head -n -2 | tail -n +3`; do
         # remove the last globals file version if it exists
         if [ -e $DUMPS_DIR/$i.dump.8 ]; then
             echo "removing $DUMPS_DIR/$i.dump.8" >> $LOG_PATH/export.log
