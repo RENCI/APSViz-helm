@@ -31,32 +31,6 @@ spec:
           image: "{{ .Values.image.repository }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-          - name: ASGS_DB_HOST
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: asgs-host
-          - name: ASGS_DB_PORT
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: asgs-port
-          - name: ASGS_DB_DATABASE
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: asgs-database
-          - name: ASGS_DB_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: asgs-username
-          - name: ASGS_DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: eds-keys
-                key: asgs-password
-
           - name: APSVIZ_DB_HOST
             valueFrom:
               secretKeyRef:
