@@ -13,6 +13,8 @@
 recycle:
   enable: false
 
+maxReplicas: 3
+
 ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt
@@ -35,7 +37,7 @@ ingress:
 
 resources:
   limits:
-    ephemeral-storage: 512Mi
+    ephemeral-storage: 1Gi
 
 nfsVolumes:
   nfs-3:
