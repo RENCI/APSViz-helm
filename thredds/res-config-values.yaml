@@ -13,7 +13,7 @@
 recycle:
   enable: false
 
-maxReplicas: 3
+maxReplicas: 2
 
 ingress:
   annotations:
@@ -37,7 +37,7 @@ ingress:
 
 resources:
   limits:
-    ephemeral-storage: 1Gi
+    ephemeral-storage: 1500Mi
 
 nfsVolumes:
   nfs-3:

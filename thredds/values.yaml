@@ -15,7 +15,7 @@ image:
   tag: someversion
   pullPolicy: Always
 
-maxReplicas: 5
+maxReplicas: 3
 
 tomcatCatalinaHome: "/somedir/path"
 
