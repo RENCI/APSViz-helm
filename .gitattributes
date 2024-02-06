@@ -14,6 +14,6 @@ test*.yaml filter=git-crypt diff=git-crypt
 std*.yaml filter=git-crypt diff=git-crypt
 exp*.yaml filter=git-crypt diff=git-crypt
 *.xml filter=git-crypt diff=git-crypt
-rules-config-map.yaml filter=git-crypt diff=git-crypt
-dev-tds-*.yaml filter=git-crypt diff=git-crypt
-prod-tds-*.yaml filter=git-crypt diff=git-crypt
+rules*.yaml filter=git-crypt diff=git-crypt
+dev*.yaml filter=git-crypt diff=git-crypt
+prod*.yaml filter=git-crypt diff=git-crypt
