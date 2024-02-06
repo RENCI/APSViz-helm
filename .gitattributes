@@ -17,3 +17,4 @@ exp*.yaml filter=git-crypt diff=git-crypt
 rules*.yaml filter=git-crypt diff=git-crypt
 dev*.yaml filter=git-crypt diff=git-crypt
 prod*.yaml filter=git-crypt diff=git-crypt
+res*.yaml filter=git-crypt diff=git-crypt
