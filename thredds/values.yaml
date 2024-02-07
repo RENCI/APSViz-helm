@@ -30,6 +30,8 @@ tomcatUsers:
     password: "somepw2"
     roles: "role2,role3"
 
+ipDeny: "3\\.224\\.220\\.101,52\\.70\\.240\\.171,23\\.22\\.35\\.162,207\\.46\\.13\\.125"
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

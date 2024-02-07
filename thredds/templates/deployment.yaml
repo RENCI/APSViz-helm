@@ -56,6 +56,10 @@ spec:
               mountPath: {{ .Values.tomcatCatalinaHome }}/conf/tomcat-users.xml
               subPath: "tomcat-users.xml"
 
+            - name: tds-config-script
+              mountPath: {{ .Values.tomcatCatalinaHome }}/conf/server.xml
+              subPath: "server.xml"
+
             {{- if ne .Values.configMapType.configMapName "none" -}}
               {{ $catalina_home := .Values.tomcatCatalinaHome -}}
               {{ $config_map := .Values.configMapType.configMapName -}}
