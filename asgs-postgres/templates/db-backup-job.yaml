@@ -48,6 +48,16 @@ spec:
                 secretKeyRef:
                   name: eds-keys
                   key: asgs-port
+            - name: APSVIZ_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: apsviz-host
+            - name: APSVIZ_DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: apsviz-port
             - name: PGUSER
               value: {{ .Values.adminUser }}
             - name: PGPASSWORD
