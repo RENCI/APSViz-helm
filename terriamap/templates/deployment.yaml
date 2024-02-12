@@ -38,8 +38,6 @@ spec:
           volumeMounts:
             - name: apsviz-fileserver-vol
               mountPath: /fileserver
-            - name:  {{ .Values.volumes.buildVolName }}
-              mountPath: {{ .Values.volumes.buildMountPoint }}
             - name: "config-script"
               mountPath: {{ .Values.data.fileLocation }}/{{ .Values.data.fileName }}
               subPath: "{{ .Values.data.fileName }}"
@@ -60,9 +58,6 @@ spec:
         - name: apsviz-fileserver-vol
           persistentVolumeClaim:
             claimName: {{ .Values.volumes.fileserverPvc }}
-        - name: {{ .Values.volumes.buildVolName }}
-          persistentVolumeClaim:
-            claimName: {{ .Values.volumes.buildClaimName }}
         - name: config-script
           configMap:
             name: "{{- include "apsviz-terriamap.fullname" . }}-scripts"
