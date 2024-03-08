@@ -181,6 +181,17 @@ spec:
                 secretKeyRef:
                   name: eds-keys
                   key: file-server-obs-path
+            - name: TDS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: tds-url
+            - name: TDS_BASE_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: eds-keys
+                  key: tds-base-path
+
           restartPolicy: Never
           volumes:
             - name: {{ .Values.sv_volume.name }}
