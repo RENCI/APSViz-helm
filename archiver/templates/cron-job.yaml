@@ -166,6 +166,9 @@ spec:
                 secretKeyRef:
                   name: eds-keys
                   key: geo-host
+
+{{/*            - name: GEOSERVER_WORKSPACE*/}}
+{{/*              value: "ADCIRC_2023"*/}}
             - name: GEOSERVER_WORKSPACE
               valueFrom:
                 secretKeyRef:
@@ -176,21 +179,23 @@ spec:
                 secretKeyRef:
                   name: eds-keys
                   key: geo-proj-path
+
             - name: FILESERVER_OBS_PATH
               valueFrom:
                 secretKeyRef:
                   name: eds-keys
                   key: file-server-obs-path
-            - name: TDS_URL
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: tds-url
-            - name: TDS_BASE_PATH
-              valueFrom:
-                secretKeyRef:
-                  name: eds-keys
-                  key: tds-base-path
+
+{{/*            - name: TDS_URL*/}}
+{{/*              valueFrom:*/}}
+{{/*                secretKeyRef:*/}}
+{{/*                  name: eds-keys*/}}
+{{/*                  key: tds-url*/}}
+{{/*            - name: TDS_BASE_PATH*/}}
+{{/*              valueFrom:*/}}
+{{/*                secretKeyRef:*/}}
+{{/*                  name: eds-keys*/}}
+{{/*                  key: tds-base-path*/}}
 
           restartPolicy: Never
           volumes:
