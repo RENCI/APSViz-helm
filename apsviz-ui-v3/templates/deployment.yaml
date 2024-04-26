@@ -36,7 +36,7 @@ spec:
             value: {{ .Values.system }}
           - name: REACT_APP_BASE_DATA_URL
             value: {{ .Values.env.dataURL }}
-          - name: APP_UI_DATA_TOKEN
+          - name: REACT_APP_UI_DATA_TOKEN
             value: {{ .Values.env.token }}
 
           ports:
