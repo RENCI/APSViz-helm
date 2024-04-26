@@ -1,0 +1,78 @@
+# BSD 3-Clause All rights reserved.
+#
+# SPDX-License-Identifier: BSD 3-Clause
+
+# Default values for apsviz-ui-v3.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: containers.renci.org/eds/apsviz-ui-v3:latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+env:
+  dataURL: 'http://someurl'
+  token: 'someToken'
+  timeout: "10000"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext:
+  runAsUser: 1000
+  fsGroup: 999
+  runAsGroup: 999
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  http: 80
+  https: 443
+  target_port: 8080
+
+ingress:
+  enabled: true
+  host: somehost
+  pathType: "ImplementationSpecific"
+  class: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
+    nginx.ingress.kubernetes.io/connection-proxy-header: "keep-alive"
+    nginx.ingress.kubernetes.io/send-timeout: "86400"
+    nginx.ingress.kubernetes.io/service-upstream: 'true'
+    nginx.ingress.kubernetes.io/upstream-keepalive-timeout: "86400"
+    nginx.ingress.kubernetes.io/proxy-body-size: "256m"
+  endpoints:
+    - /
+  tls:
+    enabled: false
+
+resources:
+  limits:
+    ephemeral-storage: 128Mi
+    cpu: 1000m
+    memory: 512Mi
+  requests:
+    ephemeral-storage: 50Mi
+    cpu: 512m
+    memory: 64Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

@@ -1,0 +1,24 @@
+# BSD 3-Clause All rights reserved.
+#
+# SPDX-License-Identifier: BSD 3-Clause
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "apsviz-ui-v3.fullname" . }}
+  labels:
+    {{- include "apsviz-ui-v3.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.http }}
+      targetPort: {{ .Values.service.target_port }}
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service.https }}
+      targetPort: {{ .Values.service.target_port }}
+      protocol: TCP
+      name: https
+  selector:
+    {{- include "apsviz-ui-v3.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,61 @@
+# BSD 3-Clause All rights reserved.
+#
+# SPDX-License-Identifier: BSD 3-Clause
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "apsviz-ui-v3.fullname" . }}
+  labels:
+    {{- include "apsviz-ui-v3.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "apsviz-ui-v3.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "apsviz-ui-v3.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          #command: [ "npm", "run", "start"]
+          env:
+          - name: SYSTEM
+            value: {{ .Values.system }}
+          - name: REACT_APP_BASE_DATA_URL
+            value: {{ .Values.env.dataURL }}
+          - name: REACT_APP_WATCH_REFRESH_TIMEOUT
+            value: {{ .Values.env.timeout | quote }}
+          - name: REACT_APP_SETTINGS_DATA_TOKEN
+            value: {{ .Values.env.token }}
+
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.target_port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+    {{- with .Values.nodeSelector}}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
