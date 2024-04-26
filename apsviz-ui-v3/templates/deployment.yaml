@@ -36,9 +36,7 @@ spec:
             value: {{ .Values.system }}
           - name: REACT_APP_BASE_DATA_URL
             value: {{ .Values.env.dataURL }}
-          - name: REACT_APP_WATCH_REFRESH_TIMEOUT
-            value: {{ .Values.env.timeout | quote }}
-          - name: REACT_APP_SETTINGS_DATA_TOKEN
+          - name: APP_UI_DATA_TOKEN
             value: {{ .Values.env.token }}
 
           ports:
