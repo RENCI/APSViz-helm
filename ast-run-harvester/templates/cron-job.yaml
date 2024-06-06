@@ -148,5 +148,3 @@ spec:
             - name: {{ .Values.volumes.name }}
               persistentVolumeClaim:
                 claimName: {{ .Values.volumes.claimName }}
-
-
