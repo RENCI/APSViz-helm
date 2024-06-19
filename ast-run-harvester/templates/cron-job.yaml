@@ -33,7 +33,7 @@ spec:
             volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: "/data"
-            # command: ['/bin/sh', '-c', 'sleep 30']
+            #command: ['/bin/sh', '-c', 'sleep infinity']
             command: ['bash', './execute_run_harvest.sh', '/data/ast-run-harvester']
             resources:
               {{- toYaml .Values.resources | nindent 14 }}
