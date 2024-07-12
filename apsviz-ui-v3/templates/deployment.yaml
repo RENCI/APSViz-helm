@@ -34,10 +34,6 @@ spec:
           env:
           - name: SYSTEM
             value: {{ .Values.system }}
-          - name: REACT_APP_BASE_DATA_URL
-            value: {{ .Values.env.dataURL }}
-          - name: REACT_APP_UI_DATA_TOKEN
-            value: {{ .Values.env.token }}
 
           ports:
             - name: http
