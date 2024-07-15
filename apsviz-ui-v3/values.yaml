@@ -16,6 +16,11 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+hpa:
+  maxReplicas: 1
+
+isAWS: false
+
 env:
   dataURL: 'http://someurl'
   token: 'someToken'
@@ -39,9 +44,6 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  http: 80
-  https: 443
-  target_port: 8080
 
 ingress:
   enabled: true
