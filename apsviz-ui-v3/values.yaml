@@ -44,6 +44,9 @@ securityContext: {}
 
 service:
   type: ClusterIP
+  http: 80
+  https: 443
+  target_port: 8080
 
 ingress:
   enabled: true
