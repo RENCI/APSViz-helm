@@ -110,4 +110,9 @@ data:
     pg_dumpall -h $APSVIZ_DB_HOST --globals-only | grep -v 'ROLE postgres' > $DUMPS_DIR/dbglobals.sql.1
     date >> $LOG_PATH/export.log
 
+    echo "Vacuum and analyze the DB..." >> $LOG_PATH/export.log
+    date >> $LOG_PATH/export.log
+    psql -h $DB_HOST -d apsviz -c "VACUUM(ANALYZE);"
+    date >> $LOG_PATH/export.log
+
     exit 0
