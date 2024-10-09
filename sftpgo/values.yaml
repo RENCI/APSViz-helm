@@ -11,6 +11,7 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
+maxReplicas: 3
 
 image:
   repository: drakkan/sftpgo:v2.2.3
@@ -20,11 +21,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-nfsVolumes: false
-
 isAWS: false
-
-maxReplicas: 6
 
 serviceAccount:
   # Specifies whether a service account should be created
