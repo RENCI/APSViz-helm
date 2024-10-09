@@ -24,7 +24,7 @@ nfsVolumes: false
 
 isAWS: false
 
-maxReplicas: 4
+maxReplicas: 6
 
 serviceAccount:
   # Specifies whether a service account should be created

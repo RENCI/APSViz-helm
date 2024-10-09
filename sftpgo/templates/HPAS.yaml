@@ -15,7 +15,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ include "sftpgo.fullname" . }}
-  minReplicas: 2
+  minReplicas: {{ .Values.replicaCount }}
   maxReplicas: {{ .Values.maxReplicas }}
   metrics:
   - type: Resource
@@ -23,4 +23,4 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 50
+        averageUtilization: 75
