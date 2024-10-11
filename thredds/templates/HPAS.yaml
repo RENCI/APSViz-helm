@@ -17,7 +17,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ include "apsviz-thredds.fullname" . }}
-  minReplicas: 2
+  minReplicas: {{ .Values.replicaCount }}
   maxReplicas: {{ .Values.maxReplicas }}
   metrics:
   - type: Resource
