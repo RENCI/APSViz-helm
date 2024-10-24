@@ -116,6 +116,9 @@ spec:
 
           - name: TEMP_FILE_PATH
             value: {{ .Values.volumes.temp_dir }}
+
+          - name: INSTANCE_NAME_FILE_PATH
+            value: {{ .Values.volumes.instance_name_file_path }}
           volumeMounts:
             - name:  {{ .Values.volumes.name }}
               mountPath: {{ .Values.volumes.mount_dir }}
