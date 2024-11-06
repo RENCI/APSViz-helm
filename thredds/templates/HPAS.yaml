@@ -6,7 +6,7 @@
 # SPDX-License-Identifier: LicenseRef-RENCI
 # SPDX-License-Identifier: MIT
 
-{{ if not .Values.isAWS }}
+{{/*{{ if not .Values.isAWS }}*/}}
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -26,4 +26,4 @@ spec:
       target:
         type: Utilization
         averageUtilization: 75
-{{ end }}
+{{/*{{ end }}*/}}
