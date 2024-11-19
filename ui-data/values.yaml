@@ -97,7 +97,7 @@ volumes:
 
 resources:
   limits:
-    memory: 5Gi
+    memory: 8Gi
     ephemeral-storage: 512Mi
   requests:
     memory: 256Mi
