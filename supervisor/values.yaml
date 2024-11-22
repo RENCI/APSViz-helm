@@ -76,7 +76,7 @@ base_config:
   job_timeout: "7200"
   job_limit_multiplier: ".1"
   job_backoff_limit: "1"
-  sv_inactivity: "8"
+  sv_inactivity: "24"
   poll_short_sleep: "10"
   poll_long_sleep: "60"
   max_no_activity_count: "60"
