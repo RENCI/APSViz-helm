@@ -46,7 +46,10 @@ spec:
               value: {{ .Values.THREDDS.THREDDS_XMS_SIZE | quote}}
           ports:
             - name: http
-              containerPort: {{ .Values.service.target_port }}
+              containerPort: {{ .Values.service.http_target }}
+              protocol: TCP
+            - name: https
+              containerPort: {{ .Values.service.https_target }}
               protocol: TCP
           volumeMounts:
             - name: {{ .Values.logVolumes.claimName }}

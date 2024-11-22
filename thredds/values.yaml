@@ -71,8 +71,9 @@ securityContext: {}
 service:
   type: ClusterIP
   http: 80
+  http_target: 8080
   https: 443
-  target_port: 8080
+  https_target: 8443
 
 logVolumes:
   name: pvc-log-name
