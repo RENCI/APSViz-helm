@@ -41,6 +41,11 @@ volumes:
   storageClass: "someclass"
   size: 1Gi
 
+nfsVolumes:
+  server: ''
+  path: ''
+  mount: ''
+
 podSecurityContext: {}
 
 securityContext: {}
